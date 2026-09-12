@@ -1,0 +1,203 @@
+import React, { useState, useEffect } from 'react';
+import Navbar from './components/common/Navbar';
+import Footer from './components/common/Footer';
+import SpeciesModal from './components/species/SpeciesModal';
+
+import HomePage from './pages/HomePage';
+import RegionExplorerPage from './pages/RegionExplorerPage';
+import SpeciesDatabasePage from './pages/SpeciesDatabasePage';
+import ClimateDashboardPage from './pages/ClimateDashboardPage';
+import SatelliteViewerPage from './pages/SatelliteViewerPage';
+import AdminAlertsPage from './pages/AdminAlertsPage';
+import AboutPage from './pages/AboutPage';
+
+import { api } from './services/api';
+
+export default function App() {
+  const [activeTab, setActiveTab] = useState('home');
+  const [regions, setRegions] = useState([]);
+  const [species, setSpecies] = useState([]);
+  const [climateData, setClimateData] = useState(null);
+  const [alerts, setAlerts] = useState([]);
+  const [sightings, setSightings] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  // Deep dive selection states
+  const [selectedRegion, setSelectedRegion] = useState(null);
+  const [selectedSpecies, setSelectedSpecies] = useState(null);
+  const [isSpeciesModalOpen, setIsSpeciesModalOpen] = useState(false);
+
+  // Fetch initial data
+  useEffect(() => {
+    async function loadData() {
+      try {
+        setLoading(true);
+        const [regRes, spRes, climRes, alrRes, sgtRes] = await Promise.all([
+          api.getRegions(),
+          api.getSpecies(),
+          api.getClimate(),
+          api.getAlerts(),
+          api.getSightings(),
+        ]);
+
+        setRegions(regRes || []);
+        setSpecies(spRes || []);
+        setClimateData(climRes || null);
+        setAlerts(alrRes || []);
+        setSightings(sgtRes || []);
+
+        if (regRes && regRes.length > 0) {
+          setSelectedRegion(regRes[0]);
+        }
+      } catch (err) {
+        console.error('Failed to load initial data:', err);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    loadData();
+  }, []);
+
+  // Update alert status handler
+  const handleUpdateAlertStatus = async (alertId, newStatus) => {
+    try {
+      const updated = await api.updateAlertStatus(alertId, newStatus);
+      setAlerts((prev) =>
+        prev.map((a) => (a.id === alertId ? { ...a, status: newStatus } : a))
+      );
+      return updated;
+    } catch (e) {
+      console.error('Alert update failed:', e);
+      throw e;
+    }
+  };
+
+  // Submit citizen sighting handler
+  const handleSubmitSighting = async (sightingPayload) => {
+    try {
+      const res = await api.submitSighting(sightingPayload);
+      const newEntry = res.data || res;
+      setSightings((prev) => [newEntry, ...prev]);
+      return res;
+    } catch (e) {
+      console.error('Sighting submit error:', e);
+      throw e;
+    }
+  };
+
+  const handleOpenSpeciesModal = (sp) => {
+    setSelectedSpecies(sp);
+    setIsSpeciesModalOpen(true);
+  };
+
+  const handleSelectRegionFromSpecies = (reg) => {
+    setSelectedRegion(reg);
+    setActiveTab('regions');
+  };
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-slate-900 flex flex-col items-center justify-center text-white font-mono space-y-4">
+        <div className="w-12 h-12 rounded-2xl bg-emerald-500/20 border border-emerald-500 flex items-center justify-center animate-pulse">
+          <span className="text-2xl">🌿</span>
+        </div>
+        <div className="text-sm tracking-wider text-emerald-400">
+          INITIALIZING PUNE BIOWATCH OBSERVATORY...
+        </div>
+        <div className="text-xs text-slate-500">
+          Loading Western Ghats ecological datasets & microclimates
+        </div>
+      </div>
+    );
+  }
+
+  const activeAlertCount = alerts.filter((a) => a.status === 'Pending').length;
+
+  return (
+    <div className="min-h-screen flex flex-col bg-slate-100 font-sans selection:bg-emerald-500 selection:text-white">
+      {/* Official Government / Agency Header */}
+      <Navbar
+        activeTab={activeTab}
+        setActiveTab={setActiveTab}
+        alertCount={activeAlertCount}
+      />
+
+      {/* Main Content Area */}
+      <main className="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-16">
+        {activeTab === 'home' && (
+          <HomePage
+            regions={regions}
+            species={species}
+            alerts={alerts}
+            sightings={sightings}
+            climateData={climateData}
+            setActiveTab={setActiveTab}
+            onSelectRegion={(reg) => {
+              setSelectedRegion(reg);
+              setActiveTab('regions');
+            }}
+            onSelectSpecies={handleOpenSpeciesModal}
+          />
+        )}
+
+        {activeTab === 'regions' && (
+          <RegionExplorerPage
+            regions={regions}
+            species={species}
+            alerts={alerts}
+            selectedRegion={selectedRegion}
+            setSelectedRegion={setSelectedRegion}
+            onSelectSpecies={handleOpenSpeciesModal}
+            setActiveTab={setActiveTab}
+          />
+        )}
+
+        {activeTab === 'species' && (
+          <SpeciesDatabasePage
+            species={species}
+            regions={regions}
+            onSelectSpecies={handleOpenSpeciesModal}
+            onSelectRegion={handleSelectRegionFromSpecies}
+            setActiveTab={setActiveTab}
+          />
+        )}
+
+        {activeTab === 'climate' && (
+          <ClimateDashboardPage climateData={climateData} />
+        )}
+
+        {activeTab === 'satellite' && <SatelliteViewerPage />}
+
+        {activeTab === 'alerts' && (
+          <AdminAlertsPage
+            alerts={alerts}
+            onUpdateStatus={handleUpdateAlertStatus}
+            regions={regions}
+          />
+        )}
+
+        {activeTab === 'about' && (
+          <AboutPage
+            regions={regions}
+            species={species}
+            sightings={sightings}
+            onSubmitSighting={handleSubmitSighting}
+          />
+        )}
+      </main>
+
+      {/* Global Species Detail Modal */}
+      <SpeciesModal
+        species={selectedSpecies}
+        isOpen={isSpeciesModalOpen}
+        onClose={() => setIsSpeciesModalOpen(false)}
+        regions={regions}
+        onSelectRegion={handleSelectRegionFromSpecies}
+      />
+
+      {/* Official Agency & Academic Disclaimer Footer */}
+      <Footer setActiveTab={setActiveTab} />
+    </div>
+  );
+}

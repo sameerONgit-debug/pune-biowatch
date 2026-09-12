@@ -1,0 +1,380 @@
+[
+  {
+    "id": "sinhagad-bush-frog",
+    "commonName": "Ghate's Bush Frog / Sinhagad Shrub Frog",
+    "scientificName": "Raorchestes ghatei",
+    "marathiName": "घाटे यांचा झाडी बेडूक",
+    "category": "Amphibians",
+    "iucnStatus": "Endangered",
+    "climateSeverity": "Critical",
+    "severityScore": 94,
+    "regions": ["sinhagad-hills", "mulshi-catchment"],
+    "habitat": "High-altitude moist leaf litter, rock crevasses, and montane shrubs above 900m",
+    "climateThreatFactors": {
+      "temperatureSensitivity": "Critical",
+      "rainfallVariabilityImpact": "Critical",
+      "habitatFragmentation": "High",
+      "urbanHeatIslandEffect": "Moderate"
+    },
+    "description": "Named in honor of Pune herpetologist Dr. H.V. Ghate, this tiny micro-endemic shrub frog reproduces via direct development without a free-swimming tadpole stage. Because its gelatinous eggs depend on saturated ambient humidity within moist mossy ledges, pre-monsoon heatwaves and extended rain-break desiccations destroy entire clutches.",
+    "keyThreatIndicators": "Egg clutch mortality exceeding 65% during dry spells; contraction of breeding season by 3.5 weeks.",
+    "recommendedAction": "Establish micro-refugium mist corridors, restrict summit vehicular exhaust in Sinhagad, and conserve natural seepage ravines."
+  },
+  {
+    "id": "indian-flying-fox",
+    "commonName": "Indian Flying Fox",
+    "scientificName": "Pteropus medius",
+    "marathiName": "मोठे वटवाघूळ",
+    "category": "Mammals",
+    "iucnStatus": "Least Concern",
+    "climateSeverity": "Critical",
+    "severityScore": 91,
+    "regions": ["urban-green-corridors", "mula-mutha-basin", "vetal-tekdi"],
+    "habitat": "Old-growth heritage tree canopies (Ficus, Tamarindus, Eucalyptus) in urban parks and botanical institutes",
+    "climateThreatFactors": {
+      "temperatureSensitivity": "Critical",
+      "rainfallVariabilityImpact": "Moderate",
+      "habitatFragmentation": "High",
+      "urbanHeatIslandEffect": "Critical"
+    },
+    "description": "As keystone seed dispersers and pollinators across Pune district, these large fruit bats maintain massive daytime colonial roosts at SPPU and Empress Garden. When ambient city temperatures exceed 42°C in May/June, thermal heat prostration sets in, resulting in hundreds of pups and adults dropping dead to the asphalt.",
+    "keyThreatIndicators": "Thermal mass mortality events during May heat spikes (>42°C); loss of historic canopy roosting boughs.",
+    "recommendedAction": "Deploy municipal misting lines around protected roost trees during heat advisory alerts; preserve continuous crown clusters."
+  },
+  {
+    "id": "malabar-giant-squirrel",
+    "commonName": "Malabar Giant Squirrel (Shekru)",
+    "scientificName": "Ratufa indica elphinstonei",
+    "marathiName": "शेकरू (महाराष्ट्राचा राज्य प्राणी)",
+    "category": "Mammals",
+    "iucnStatus": "Least Concern",
+    "climateSeverity": "High",
+    "severityScore": 79,
+    "regions": ["bhimashankar-buffer", "mulshi-catchment"],
+    "habitat": "Upper canopy of dense, continuous semi-evergreen and moist deciduous forests",
+    "climateThreatFactors": {
+      "temperatureSensitivity": "Moderate",
+      "rainfallVariabilityImpact": "High",
+      "habitatFragmentation": "Critical",
+      "urbanHeatIslandEffect": "Low"
+    },
+    "description": "The State Animal of Maharashtra, this canopy-dwelling giant rodent strictly relies on intertwined upper tree branches to construct leafy drey nests and forage wild fig and wild mango fruits. Unpredictable monsoon shifts have disrupted tree flowering schedules, forcing individuals to descend to roadsides where vehicular collisions surge.",
+    "keyThreatIndicators": "Canopy fragmentation gaps exceeding 25 meters; delayed mast fruiting of Syzygium and Ficus species.",
+    "recommendedAction": "Construct artificial rope canopy bridges across rural highway cuts; prohibit tree felling in the Bhimashankar-Ahupe buffer zone."
+  },
+  {
+    "id": "bar-headed-goose",
+    "commonName": "Bar-headed Goose",
+    "scientificName": "Anser indicus",
+    "marathiName": "पट्टेरी हंस",
+    "category": "Birds",
+    "iucnStatus": "Least Concern",
+    "climateSeverity": "High",
+    "severityScore": 84,
+    "regions": ["pashan-lake", "panshet-reservoir"],
+    "habitat": "Open freshwater wetlands, riparian shallows, and nutrient-rich silt mudflats",
+    "climateThreatFactors": {
+      "temperatureSensitivity": "High",
+      "rainfallVariabilityImpact": "High",
+      "habitatFragmentation": "High",
+      "urbanHeatIslandEffect": "Moderate"
+    },
+    "description": "Famed for crossing the high Himalayas on winter migrations from Tibetan plateaus, this iconic goose lands in Pashan Lake and Panshet wetlands between November and February. Water warming, invasive water hyacinth mats choking grazing shallows, and high urban noise push the flocks toward degraded irrigation tanks.",
+    "keyThreatIndicators": "60% decline in wintering flock counts at Pashan Lake over 10 years; departure dates advanced by 18 days.",
+    "recommendedAction": "Mechanically clear water hyacinth from northern foraging bays; enforce quiet buffer zones around Pashan water edge."
+  },
+  {
+    "id": "leopard",
+    "commonName": "Indian Leopard",
+    "scientificName": "Panthera pardus fusca",
+    "marathiName": "बिबट्या",
+    "category": "Mammals",
+    "iucnStatus": "Vulnerable",
+    "climateSeverity": "High",
+    "severityScore": 81,
+    "regions": ["sinhagad-hills", "mulshi-catchment", "panshet-reservoir"],
+    "habitat": "Scrub ravines, hilly foothills, and agricultural sugarcane fringes adjoining Western Ghats",
+    "climateThreatFactors": {
+      "temperatureSensitivity": "Moderate",
+      "rainfallVariabilityImpact": "High",
+      "habitatFragmentation": "Critical",
+      "urbanHeatIslandEffect": "Moderate"
+    },
+    "description": "Apex nocturnal predator of the Deccan foothills. Severe summer drying of natural hill springs drives leopards and their ungulate prey into village water tanks and suburban fringe settlements around Sinhagad, Khadakwasla, and Pirangut, elevating human-wildlife encounters.",
+    "keyThreatIndicators": "Water scarcity-induced corridor displacement; 35% increase in dry-season peri-urban rescue calls.",
+    "recommendedAction": "Maintain solar-powered wildlife water watering holes in Sinhagad-Panshet reserve forests during April-June."
+  },
+  {
+    "id": "caralluma-adscendens",
+    "commonName": "Slender Caralluma / Makad-singi",
+    "scientificName": "Caralluma adscendens",
+    "marathiName": "माकड शिंगी",
+    "category": "Plants",
+    "iucnStatus": "Vulnerable",
+    "climateSeverity": "High",
+    "severityScore": 77,
+    "regions": ["vetal-tekdi", "sinhagad-hills"],
+    "habitat": "Dry lateritic plateaus, exposed basalt rock clefts, and shallow stony soils",
+    "climateThreatFactors": {
+      "temperatureSensitivity": "Moderate",
+      "rainfallVariabilityImpact": "Critical",
+      "habitatFragmentation": "Critical",
+      "urbanHeatIslandEffect": "High"
+    },
+    "description": "A succulent endemic asclepiad with deep cultural and medicinal significance in Maharashtra. Although adapted to drought, unseasonal cloudbursts cause root fungal rots, while invasive exotic fast-growing weeds like Gliricidia and Lantana cast dense shade that starves these sun-loving succulents.",
+    "keyThreatIndicators": "Encroachment by alien tree canopy reducing laterite plateau sunlight exposure; habitat loss to road works.",
+    "recommendedAction": "Designate Vetal Tekdi plateau tops as strict native grassland preserves; clear invasive Gliricidia saplings."
+  },
+  {
+    "id": "atlas-moth",
+    "commonName": "Atlas Moth",
+    "scientificName": "Attacus atlas",
+    "marathiName": "अॅटलास पतंग",
+    "category": "Insects",
+    "iucnStatus": "Near Threatened",
+    "climateSeverity": "High",
+    "severityScore": 78,
+    "regions": ["mulshi-catchment", "bhimashankar-buffer"],
+    "habitat": "Dense wet subtropical mixed forests and moist secondary foothill scrub",
+    "climateThreatFactors": {
+      "temperatureSensitivity": "High",
+      "rainfallVariabilityImpact": "Critical",
+      "habitatFragmentation": "High",
+      "urbanHeatIslandEffect": "Low"
+    },
+    "description": "One of the largest lepidopterans in the world with a wingspan exceeding 25 cm. The emergence of adult moths from tough silk cocoons is synchronized to high ambient monsoon humidity. Erratic monsoon onset delays emergence, leading to pupal desiccation and mismatched breeding cycles.",
+    "keyThreatIndicators": "Delayed emergence synchrony by 15-20 days; pupal mortality from unseasonal dry spells during pupation.",
+    "recommendedAction": "Protect larval host plant groves (Cinnamomum and Glochidion) in Mulshi valley buffer zones from forest clearing."
+  },
+  {
+    "id": "northern-pintail",
+    "commonName": "Northern Pintail",
+    "scientificName": "Anas acuta",
+    "marathiName": "तलवार बदक",
+    "category": "Birds",
+    "iucnStatus": "Least Concern",
+    "climateSeverity": "Medium",
+    "severityScore": 67,
+    "regions": ["pashan-lake", "panshet-reservoir"],
+    "habitat": "Open wetlands, shallow marshy edges, and submerged weed beds",
+    "climateThreatFactors": {
+      "temperatureSensitivity": "High",
+      "rainfallVariabilityImpact": "High",
+      "habitatFragmentation": "Moderate",
+      "urbanHeatIslandEffect": "High"
+    },
+    "description": "A graceful winter migratory dabbling duck that journeys thousands of miles from Siberian tundra wetlands. Siltation and sewage inflow at Pashan Lake have buried the native submerged macrophytes (Hydrilla and Vallisneria) that form their primary diet.",
+    "keyThreatIndicators": "Migration arrival pushed later by 3 weeks; significant shift to rural farm ponds further west.",
+    "recommendedAction": "Dredge silt accumulation in southern inlets and restore native submerged aquatic vegetation beds in Pashan."
+  },
+  {
+    "id": "indian-star-tortoise",
+    "commonName": "Indian Star Tortoise",
+    "scientificName": "Geochelone elegans",
+    "marathiName": "चांदणी कासव",
+    "category": "Reptiles",
+    "iucnStatus": "Vulnerable",
+    "climateSeverity": "High",
+    "severityScore": 82,
+    "regions": ["vetal-tekdi", "sinhagad-hills"],
+    "habitat": "Semi-arid thorn scrub, stony grassland plateaus, and dry deciduous foothills",
+    "climateThreatFactors": {
+      "temperatureSensitivity": "Critical",
+      "rainfallVariabilityImpact": "High",
+      "habitatFragmentation": "Critical",
+      "urbanHeatIslandEffect": "Moderate"
+    },
+    "description": "A charismatic terrestrial chelonian whose incubation sex determination depends on nest temperature. Rising soil temperatures in Pune scrub plateaus bias hatchling sex ratios heavily toward females, destabilizing reproductive demographics. Urban roads form lethal barriers.",
+    "keyThreatIndicators": "Severe skew in hatchling sex ratios (>85% female at nest temps >31.5°C); road mortality on ghat roads.",
+    "recommendedAction": "Monitor natural nest shade cover on Vetal and Taljai slopes; create wildlife underpasses on access roads."
+  },
+  {
+    "id": "blue-mormon-butterfly",
+    "commonName": "Blue Mormon",
+    "scientificName": "Papilio polymnestor",
+    "marathiName": "ब्लू मॉर्मॉन (राज्य फुलपाखरू)",
+    "category": "Insects",
+    "iucnStatus": "Least Concern",
+    "climateSeverity": "Medium",
+    "severityScore": 64,
+    "regions": ["sinhagad-hills", "mulshi-catchment", "urban-green-corridors"],
+    "habitat": "Heavy rainfall hill slopes, riparian corridors, and moist shaded urban gardens",
+    "climateThreatFactors": {
+      "temperatureSensitivity": "Moderate",
+      "rainfallVariabilityImpact": "High",
+      "habitatFragmentation": "Moderate",
+      "urbanHeatIslandEffect": "Moderate"
+    },
+    "description": "The official State Butterfly of Maharashtra. Its caterpillars feed predominantly on wild Rutaceae plants (such as Atalantia and Citrus). While reasonably widespread, prolonged hot, dry pre-monsoon spells cause rapid wilting of tender host foliage, collapsing early caterpillar cohorts.",
+    "keyThreatIndicators": "Caterpillar desiccation during hot dry spells; downward elevation shift along shaded river valleys.",
+    "recommendedAction": "Plant native wild lime and Atalantia bushes in Pune urban butterfly parks and Sinhagad buffer gardens."
+  },
+  {
+    "id": "karvi-shrub",
+    "commonName": "Karvi / Western Ghats Strobilanthes",
+    "scientificName": "Strobilanthes callosa",
+    "marathiName": "कारवी",
+    "category": "Plants",
+    "iucnStatus": "Least Concern",
+    "climateSeverity": "High",
+    "severityScore": 75,
+    "regions": ["sinhagad-hills", "mulshi-catchment", "bhimashankar-buffer"],
+    "habitat": "Steep slopes and understory of Western Ghats moist deciduous and semi-evergreen forests",
+    "climateThreatFactors": {
+      "temperatureSensitivity": "High",
+      "rainfallVariabilityImpact": "Critical",
+      "habitatFragmentation": "Moderate",
+      "urbanHeatIslandEffect": "Low"
+    },
+    "description": "Famous for its mass synchronized masting bloom once every eight years, covering Sahyadri hillsides in brilliant purple swathes. Because its long multi-year vegetative cycle depends on predictable seasonal moisture rhythms, abnormal monsoon gaps weaken root systems and trigger premature patch die-offs.",
+    "keyThreatIndicators": "Erratic out-of-cycle flowering patches; slope soil erosion following die-back of synchronous stands.",
+    "recommendedAction": "Protect major Karvi hill slopes on Sinhagad-Khadakwasla ridge from construction debris dumping and slope terracing."
+  },
+  {
+    "id": "rusty-spotted-cat",
+    "commonName": "Rusty-spotted Cat",
+    "scientificName": "Prionailurus rubiginosus",
+    "marathiName": "तांबड्या ठिपक्यांची मांजर",
+    "category": "Mammals",
+    "iucnStatus": "Near Threatened",
+    "climateSeverity": "High",
+    "severityScore": 76,
+    "regions": ["sinhagad-hills", "vetal-tekdi", "panshet-reservoir"],
+    "habitat": "Dry scrub, rocky hillsides, and secondary deciduous woodlands with dense ground cover",
+    "climateThreatFactors": {
+      "temperatureSensitivity": "Moderate",
+      "rainfallVariabilityImpact": "High",
+      "habitatFragmentation": "Critical",
+      "urbanHeatIslandEffect": "High"
+    },
+    "description": "One of the world's smallest wild felids, weighing barely 1.5 kg. Highly secretive and nocturnal, it hunts rodents and lizards in the scrub underbrush. Frequent summer scrub fires stoked by high temperatures destroy its prey base and ground cover.",
+    "keyThreatIndicators": "Post-fire displacement into suburban fringes; rodenticide poisoning from nearby farmlands.",
+    "recommendedAction": "Implement controlled firebreak management on Sinhagad and Vetal slopes; ban open-air rodenticide traps."
+  },
+  {
+    "id": "deccan-mahseer",
+    "commonName": "Deccan / Blue-finned Mahseer",
+    "scientificName": "Tor khudree",
+    "marathiName": "दख्खन महाशीर मासा",
+    "category": "Amphibians",
+    "iucnStatus": "Endangered",
+    "climateSeverity": "Critical",
+    "severityScore": 92,
+    "regions": ["mulshi-catchment", "panshet-reservoir", "mula-mutha-basin"],
+    "habitat": "Fast-flowing, rocky, oxygen-rich upland rivers and clean reservoir headwaters",
+    "climateThreatFactors": {
+      "temperatureSensitivity": "Critical",
+      "rainfallVariabilityImpact": "Critical",
+      "habitatFragmentation": "Critical",
+      "urbanHeatIslandEffect": "High"
+    },
+    "description": "The king of Deccan rivers, this magnificent game fish requires well-oxygenated, gravelly upstream torrents for monsoon spawning. River temperature spikes, dam releases, and untreated industrial sewage have eliminated it from downstream Mula-Mutha reaches.",
+    "keyThreatIndicators": "Spawning run failure due to altered water release cycles and river temperatures exceeding 28°C.",
+    "recommendedAction": "Enforce minimum ecological stream flow (e-flow) from Mulshi and Panshet dams during July-August spawning windows."
+  },
+  {
+    "id": "indian-peafowl",
+    "commonName": "Indian Peafowl",
+    "scientificName": "Pavo cristatus",
+    "marathiName": "मोर",
+    "category": "Birds",
+    "iucnStatus": "Least Concern",
+    "climateSeverity": "Low",
+    "severityScore": 38,
+    "regions": ["vetal-tekdi", "urban-green-corridors", "sinhagad-hills"],
+    "habitat": "Dry deciduous scrub, cultivated field margins, and university forest campuses",
+    "climateThreatFactors": {
+      "temperatureSensitivity": "Low",
+      "rainfallVariabilityImpact": "Moderate",
+      "habitatFragmentation": "Moderate",
+      "urbanHeatIslandEffect": "Low"
+    },
+    "description": "India's national bird is highly adaptable and thrives across Pune's hillocks and green campuses like SPPU. While resilient to high temperatures, chicks suffer dehydration during harsh May droughts when water troughs dry up.",
+    "keyThreatIndicators": "Chick mortality during May heat spikes; feeding conflicts at peri-urban garden edges.",
+    "recommendedAction": "Maintain earthen watering pans in Vetal Tekdi and campus woods throughout peak summer months."
+  },
+  {
+    "id": "western-ghats-tree-fern",
+    "commonName": "Ghats Tree Fern",
+    "scientificName": "Cyathea nilgirensis",
+    "marathiName": "पश्चिम घाट वृक्ष फर्न",
+    "category": "Plants",
+    "iucnStatus": "Vulnerable",
+    "climateSeverity": "Critical",
+    "severityScore": 89,
+    "regions": ["mulshi-catchment", "bhimashankar-buffer"],
+    "habitat": "Shaded, perennial stream banks, mist-laden ravines, and cloud-forest gorges",
+    "climateThreatFactors": {
+      "temperatureSensitivity": "Critical",
+      "rainfallVariabilityImpact": "Critical",
+      "habitatFragmentation": "High",
+      "urbanHeatIslandEffect": "Low"
+    },
+    "description": "A majestic living fossil representing ancient Gondwanan flora. These tall ferns require continuous high humidity and perennial stream flow. As summer temperatures climb and ravine streams run dry earlier each spring, fronds suffer scorching and spore germination rates drop steeply.",
+    "keyThreatIndicators": "Severe frond desiccation in early spring; loss of stream canopy shade.",
+    "recommendedAction": "Demarcate perennial stream valleys in Mulshi as sacred grove micro-sanctuaries with zero timber extraction."
+  },
+  {
+    "id": "common-castor-butterfly",
+    "commonName": "Common Castor",
+    "scientificName": "Ariadne merione",
+    "marathiName": "एरंडी फुलपाखरू",
+    "category": "Insects",
+    "iucnStatus": "Least Concern",
+    "climateSeverity": "Low",
+    "severityScore": 42,
+    "regions": ["urban-green-corridors", "mula-mutha-basin", "pashan-lake"],
+    "habitat": "Ruderal vegetation, wasteland edges, and riverbanks with wild castor plants (Ricinus communis)",
+    "climateThreatFactors": {
+      "temperatureSensitivity": "Low",
+      "rainfallVariabilityImpact": "Low",
+      "habitatFragmentation": "Low",
+      "urbanHeatIslandEffect": "Moderate"
+    },
+    "description": "An abundant urban butterfly whose caterpillars feed on hardy castor plants. Demonstrates high resilience to urban heat, making it a valuable baseline indicator for comparative climate stress studies.",
+    "keyThreatIndicators": "Population surges post-monsoon; minimal thermal distress observed below 40°C.",
+    "recommendedAction": "Utilize as an urban climate resilience benchmark species in long-term citizen science surveys."
+  },
+  {
+    "id": "saw-scaled-viper",
+    "commonName": "Saw-scaled Viper (Phoorsa)",
+    "scientificName": "Echis carinatus",
+    "marathiName": "फुरसे",
+    "category": "Reptiles",
+    "iucnStatus": "Least Concern",
+    "climateSeverity": "Medium",
+    "severityScore": 58,
+    "regions": ["sinhagad-hills", "vetal-tekdi"],
+    "habitat": "Laterite scree, dry rocky scrub, and xerophytic thorn bushes",
+    "climateThreatFactors": {
+      "temperatureSensitivity": "Moderate",
+      "rainfallVariabilityImpact": "Moderate",
+      "habitatFragmentation": "High",
+      "urbanHeatIslandEffect": "Moderate"
+    },
+    "description": "Small, venomous pit-less viper perfectly camouflaged against rocky Deccan laterite. Rising night temperatures extend its nocturnal activity periods later into the cool evening hours, increasing incidental interactions with night hikers on popular trails.",
+    "keyThreatIndicators": "Activity shift from twilight to deep night; increased reports on recreational jogging tracks.",
+    "recommendedAction": "Install educational signage at Vetal Tekdi entry gates; carry snake tongs and torches for trail security."
+  },
+  {
+    "id": "oriental-darter",
+    "commonName": "Oriental Darter (Snakebird)",
+    "scientificName": "Anhinga melanogaster",
+    "marathiName": "सर्पपक्षी / पाणकावळा",
+    "category": "Birds",
+    "iucnStatus": "Near Threatened",
+    "climateSeverity": "High",
+    "severityScore": 83,
+    "regions": ["pashan-lake", "mula-mutha-basin"],
+    "habitat": "Shallow freshwater reservoirs, backwaters, and oxbow bends with emergent dead snags for sunning",
+    "climateThreatFactors": {
+      "temperatureSensitivity": "High",
+      "rainfallVariabilityImpact": "High",
+      "habitatFragmentation": "High",
+      "urbanHeatIslandEffect": "High"
+    },
+    "description": "Specialized piscivorous wetland bird that hunts underwater with spear-like bill and perches on emergent logs to dry its wettable feathers. Severe eutrophication at Pashan Lake has increased water turbidity, preventing clear visual sighting of fish prey.",
+    "keyThreatIndicators": "Breeding colony displacement; nesting attempts abandoned when water levels drop abruptly.",
+    "recommendedAction": "Install floating artificial nesting platforms and solar aerators in Pashan Lake's central basin."
+  }
+]

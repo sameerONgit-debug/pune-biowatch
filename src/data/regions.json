@@ -1,0 +1,266 @@
+[
+  {
+    "id": "sinhagad-hills",
+    "name": "Sinhagad Hills & Ridge",
+    "localName": "सिंहगड डोंगर रांग",
+    "coordinates": {
+      "lat": 18.3663,
+      "lng": 73.7558
+    },
+    "bounds": [
+      [18.33, 73.72],
+      [18.40, 73.79]
+    ],
+    "areaKm2": 42.5,
+    "elevationMeters": 1312,
+    "habitatType": "Dry Deciduous & Moist Western Ghats Scrub",
+    "satelliteImageKey": "sinhagad",
+    "climateSummary": {
+      "avgSummerTemp": "34.2°C (historical: 31.8°C)",
+      "annualRainfall": "1,420 mm",
+      "rainfallAnomaly": "-16% monsoon deficit over 5 yrs",
+      "humidityRange": "45% - 92%",
+      "microclimate": "High-altitude ridge with rapid moisture evaporative loss during dry breaks",
+      "primaryThreats": ["Pre-monsoon soil desiccations", "Invasive weed encroachment (Lantana camara)", "Fringe tourism vehicular heat & road expansion"]
+    },
+    "metrics": {
+      "vulnerabilityScore": 82,
+      "speciesCount": 11,
+      "activeAlertCount": 3,
+      "treeCanopyLossPercent": 8.4,
+      "temperatureRise10Yr": "+1.3°C"
+    },
+    "description": "Rising to over 1,300 meters southwest of Pune city, the Sinhagad spur serves as an essential ecological stepping stone connecting the Sahyadri crest to the interior Deccan plateau. Its moist ravines harbor endangered micro-endemic amphibians and raptor nesting ledges that face acute desiccating stress from prolonged post-monsoon heat spells."
+  },
+  {
+    "id": "pashan-lake",
+    "name": "Pashan Lake & Riparian Wetland",
+    "localName": "पाषाण तलाव आणि पाणथळ जागा",
+    "coordinates": {
+      "lat": 18.5342,
+      "lng": 73.7845
+    },
+    "bounds": [
+      [18.52, 73.77],
+      [18.55, 73.80]
+    ],
+    "areaKm2": 1.4,
+    "elevationMeters": 560,
+    "habitatType": "Freshwater Lacustrine Wetland & Silt Mudflats",
+    "satelliteImageKey": "pashan",
+    "climateSummary": {
+      "avgSummerTemp": "37.5°C (historical: 35.1°C)",
+      "annualRainfall": "740 mm",
+      "rainfallAnomaly": "+22% flash runoff intensity with longer dry intervals",
+      "humidityRange": "38% - 88%",
+      "microclimate": "Shallow urban wetland experiencing eutrophic surface warming & dissolved oxygen crashes",
+      "primaryThreats": ["Rapid water hyacinth blooming during heat spikes", "Siltation from upstream catchment real-estate construction", "Nighttime urban glare affecting migratory waterfowl"]
+    },
+    "metrics": {
+      "vulnerabilityScore": 88,
+      "speciesCount": 14,
+      "activeAlertCount": 4,
+      "treeCanopyLossPercent": 14.1,
+      "temperatureRise10Yr": "+1.7°C"
+    },
+    "description": "Constructed in the British era on Ramnadi to supply water to the Kirkee cantonment, Pashan Lake has served for decades as a vital wintering stopover for Central Asian Flyway waterfowl. Rising water surface temperatures and urban runoff storm surges have exacerbated catastrophic dissolved oxygen depletion, decimating benthic food webs."
+  },
+  {
+    "id": "mulshi-catchment",
+    "name": "Mulshi Catchment & Sahyadri Rim",
+    "localName": "मुळशी पाणलोट क्षेत्र",
+    "coordinates": {
+      "lat": 18.5032,
+      "lng": 73.5134
+    },
+    "bounds": [
+      [18.44, 73.45],
+      [18.56, 73.58]
+    ],
+    "areaKm2": 115.0,
+    "elevationMeters": 680,
+    "habitatType": "Subtropical Wet Evergreen & Moist Mixed Deciduous",
+    "satelliteImageKey": "mulshi",
+    "climateSummary": {
+      "avgSummerTemp": "32.1°C (historical: 30.2°C)",
+      "annualRainfall": "3,180 mm",
+      "rainfallAnomaly": "+34% erratic cloudburst frequency followed by sudden rain lulls",
+      "humidityRange": "60% - 98%",
+      "microclimate": "Orographic precipitation belt on Western Ghats crest with sensitive moist evergreen pockets",
+      "primaryThreats": ["Flash landslides stripping steep topsoil", "Resort developments severing contiguous tree canopy", "Dry winter humidity drops affecting epiphytic orchids and lichens"]
+    },
+    "metrics": {
+      "vulnerabilityScore": 76,
+      "speciesCount": 16,
+      "activeAlertCount": 2,
+      "treeCanopyLossPercent": 6.8,
+      "temperatureRise10Yr": "+0.9°C"
+    },
+    "description": "Positioned along the heavy orographic rainfall edge of the northern Western Ghats, Mulshi harbors high floral and insect endemism. While overall monsoon totals remain high, extreme torrential episodes interspersed with extended dry breaks prevent stable sapling recruitment in native semi-evergreen climax species."
+  },
+  {
+    "id": "vetal-tekdi",
+    "name": "Vetal & Taljai Tekdi Complex",
+    "localName": "वेताळ आणि तळजाई टेकडी",
+    "coordinates": {
+      "lat": 18.5208,
+      "lng": 73.8211
+    },
+    "bounds": [
+      [18.50, 73.80],
+      [18.54, 73.84]
+    ],
+    "areaKm2": 10.5,
+    "elevationMeters": 795,
+    "habitatType": "Deciduous Thorn Scrub & Lateritic Grassland Plateau",
+    "satelliteImageKey": "tekdi",
+    "climateSummary": {
+      "avgSummerTemp": "38.6°C (historical: 36.2°C)",
+      "annualRainfall": "680 mm",
+      "rainfallAnomaly": "-18% ground percolation efficiency due to compacted urban periphery",
+      "humidityRange": "30% - 82%",
+      "microclimate": "Elevated urban ridge acting as Pune city's major ecological lung and thermal buffer",
+      "primaryThreats": ["Summer wild grass fires stoked by high wind and thermal spikes", "Exotic monoculture plantation (Gliricidia sepium) choking native flora", "Habitat dissection by urban road proposals"]
+    },
+    "metrics": {
+      "vulnerabilityScore": 71,
+      "speciesCount": 12,
+      "activeAlertCount": 2,
+      "treeCanopyLossPercent": 5.2,
+      "temperatureRise10Yr": "+1.5°C"
+    },
+    "description": "The prominent hillock complex standing in western central Pune is the city's green heart. The rocky laterite plateaus and thorn scrub patches support specialized xeric plants, rare ground-nesting birds, and endemic succulents that are vulnerable to early seasonal drying and invasive weed propagation."
+  },
+  {
+    "id": "bhimashankar-buffer",
+    "name": "Bhimashankar Corridor Buffer Zone",
+    "localName": "भीमाशंकर कॉरिडॉर बफर क्षेत्र",
+    "coordinates": {
+      "lat": 19.0721,
+      "lng": 73.5358
+    },
+    "bounds": [
+      [19.00, 73.48],
+      [19.14, 73.60]
+    ],
+    "areaKm2": 130.8,
+    "elevationMeters": 980,
+    "habitatType": "Northern Western Ghats Moist Semi-Evergreen Sanctuary",
+    "satelliteImageKey": "bhimashankar",
+    "climateSummary": {
+      "avgSummerTemp": "29.8°C (historical: 28.0°C)",
+      "annualRainfall": "2,840 mm",
+      "rainfallAnomaly": "-12% total monsoon cloud cover duration",
+      "humidityRange": "65% - 99%",
+      "microclimate": "Perpetual cloud-forest moisture zone during monsoon, vulnerable to spring heat pulses",
+      "primaryThreats": ["Canopy disconnectivity affecting arboreal species", "Fruiting phenology shift in native ficus and myristica trees", "High seasonal forest fire risks on periphery"]
+    },
+    "metrics": {
+      "vulnerabilityScore": 79,
+      "speciesCount": 15,
+      "activeAlertCount": 3,
+      "treeCanopyLossPercent": 4.1,
+      "temperatureRise10Yr": "+1.1°C"
+    },
+    "description": "Northern tip of the Pune forest division, this buffer zone safeguards the iconic Maharashtra state animal, the Malabar Giant Squirrel. Climate-induced alterations in fruiting schedules of canopy trees are forcing arboreal mammals closer to ground levels, heightening predation and roadkill risks."
+  },
+  {
+    "id": "panshet-reservoir",
+    "name": "Panshet & Varasgaon Valleys",
+    "localName": "पानशेत आणि वरसगाव खोरे",
+    "coordinates": {
+      "lat": 18.3754,
+      "lng": 73.6148
+    },
+    "bounds": [
+      [18.30, 73.55],
+      [18.43, 73.68]
+    ],
+    "areaKm2": 88.2,
+    "elevationMeters": 640,
+    "habitatType": "River Valley Riparian Zone & High-Gradient Catchment",
+    "satelliteImageKey": "panshet",
+    "climateSummary": {
+      "avgSummerTemp": "33.8°C (historical: 31.9°C)",
+      "annualRainfall": "2,150 mm",
+      "rainfallAnomaly": "+19% seasonal precipitation variance",
+      "humidityRange": "48% - 94%",
+      "microclimate": "Interlocking reservoir hill slopes subject to heavy seasonal shoreline expansion and retreat",
+      "primaryThreats": ["Shoreline erosion exposing breeding burrows", "Rapid drawdown of reservoir waters during extended heat spells", "Submersion and displacement of riparian scrub"]
+    },
+    "metrics": {
+      "vulnerabilityScore": 68,
+      "speciesCount": 10,
+      "activeAlertCount": 1,
+      "treeCanopyLossPercent": 7.3,
+      "temperatureRise10Yr": "+1.0°C"
+    },
+    "description": "Supplying municipal water to millions in Pune, the Panshet and Varasgaon dam valleys are flanked by secondary moist deciduous growth. Sharp swings between erratic reservoir high-water marks and prolonged dry drawdowns severely disrupt reptile nesting and riparian amphibian lifecycles."
+  },
+  {
+    "id": "mula-mutha-basin",
+    "name": "Mula-Mutha River Basin",
+    "localName": "मुळा-मुठा नदी पात्र",
+    "coordinates": {
+      "lat": 18.5362,
+      "lng": 73.9142
+    },
+    "bounds": [
+      [18.50, 73.86],
+      [18.57, 73.96]
+    ],
+    "areaKm2": 28.0,
+    "elevationMeters": 545,
+    "habitatType": "Urban Riparian Floodplain & Degraded Alluvial Riverbanks",
+    "satelliteImageKey": "mula-mutha",
+    "climateSummary": {
+      "avgSummerTemp": "39.1°C (historical: 36.8°C)",
+      "annualRainfall": "710 mm",
+      "rainfallAnomaly": "+40% instantaneous peak discharge during cloudburst events",
+      "humidityRange": "35% - 85%",
+      "microclimate": "Severely degraded urban hydrological corridor with extreme water temperatures in summer",
+      "primaryThreats": ["Combined sewage discharge causing anoxic conditions", "Loss of natural riverbank sand bars and reed beds", "Thermal pollution killing native fish and aquatic insect fry"]
+    },
+    "metrics": {
+      "vulnerabilityScore": 91,
+      "speciesCount": 9,
+      "activeAlertCount": 4,
+      "treeCanopyLossPercent": 18.6,
+      "temperatureRise10Yr": "+1.9°C"
+    },
+    "description": "Flowing through the belly of metropolitan Pune, the confluence of the Mula and Mutha rivers represents the region's most stressed freshwater ecosystem. Rapid channelization, combined with urban heat surges and flood pulses, has wiped out over 60% of indigenous Deccan freshwater fish species."
+  },
+  {
+    "id": "urban-green-corridors",
+    "name": "Urban Pune Green Corridors",
+    "localName": "पुणे नागरी हरित पट्टे",
+    "coordinates": {
+      "lat": 18.5529,
+      "lng": 73.8248
+    },
+    "bounds": [
+      [18.53, 73.80],
+      [18.58, 73.85]
+    ],
+    "areaKm2": 14.8,
+    "elevationMeters": 570,
+    "habitatType": "Historic Heritage Botanical Gardens & Canopy Tree Roosts",
+    "satelliteImageKey": "urban-pune",
+    "climateSummary": {
+      "avgSummerTemp": "40.4°C (historical: 37.5°C)",
+      "annualRainfall": "690 mm",
+      "rainfallAnomaly": "+4.2°C Urban Heat Island (UHI) temperature differential over surrounding rural zones",
+      "humidityRange": "28% - 78%",
+      "microclimate": "Pronounced urban heat dome with reduced nocturnal cooling and high thermal radiation",
+      "primaryThreats": ["Mass mortality of large fruit bats during heatwaves exceeding 42°C", "Asphalt radiation preventing ground nesting of beneficial urban insects", "Old-growth heritage tree felling for road widening"]
+    },
+    "metrics": {
+      "vulnerabilityScore": 85,
+      "speciesCount": 13,
+      "activeAlertCount": 3,
+      "treeCanopyLossPercent": 16.2,
+      "temperatureRise10Yr": "+2.1°C"
+    },
+    "description": "Comprising the expansive campuses of Savitribai Phule Pune University, Empress Botanical Garden, and the Agriculture College, these remnant old-growth groves host critical colonial roosts of fruit bats and urban raptors now routinely threatened by searing pre-monsoon heatwaves."
+  }
+]

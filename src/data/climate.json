@@ -1,0 +1,201 @@
+{
+  "districtOverview": {
+    "district": "Pune District, Maharashtra",
+    "baselinePeriod": "1981-2010 Normal Baseline",
+    "historicalAnnualMeanTemp": 25.1,
+    "historicalAnnualRainfall": 722.0,
+    "decadeAvgTempRise": "+1.42°C",
+    "monsoonOnsetShiftDays": "+8 to +14 days delayed",
+    "monsoonDrySpellAverageDays": 17.5
+  },
+  "annualTrends": [
+    {
+      "year": 2015,
+      "avgTemperature": 25.3,
+      "tempAnomaly": 0.2,
+      "annualRainfall": 524,
+      "rainfallAnomaly": -27.4,
+      "extremeHeatDays": 14,
+      "monsoonDrySpells": 22,
+      "speciesStressIndex": 58
+    },
+    {
+      "year": 2016,
+      "avgTemperature": 25.6,
+      "tempAnomaly": 0.5,
+      "annualRainfall": 790,
+      "rainfallAnomaly": 9.4,
+      "extremeHeatDays": 19,
+      "monsoonDrySpells": 15,
+      "speciesStressIndex": 61
+    },
+    {
+      "year": 2017,
+      "avgTemperature": 25.5,
+      "tempAnomaly": 0.4,
+      "annualRainfall": 845,
+      "rainfallAnomaly": 17.0,
+      "extremeHeatDays": 16,
+      "monsoonDrySpells": 14,
+      "speciesStressIndex": 59
+    },
+    {
+      "year": 2018,
+      "avgTemperature": 25.8,
+      "tempAnomaly": 0.7,
+      "annualRainfall": 590,
+      "rainfallAnomaly": -18.3,
+      "extremeHeatDays": 23,
+      "monsoonDrySpells": 24,
+      "speciesStressIndex": 69
+    },
+    {
+      "year": 2019,
+      "avgTemperature": 25.9,
+      "tempAnomaly": 0.8,
+      "annualRainfall": 1180,
+      "rainfallAnomaly": 63.4,
+      "extremeHeatDays": 21,
+      "monsoonDrySpells": 12,
+      "speciesStressIndex": 72
+    },
+    {
+      "year": 2020,
+      "avgTemperature": 25.7,
+      "tempAnomaly": 0.6,
+      "annualRainfall": 980,
+      "rainfallAnomaly": 35.7,
+      "extremeHeatDays": 18,
+      "monsoonDrySpells": 16,
+      "speciesStressIndex": 64
+    },
+    {
+      "year": 2021,
+      "avgTemperature": 26.0,
+      "tempAnomaly": 0.9,
+      "annualRainfall": 890,
+      "rainfallAnomaly": 23.3,
+      "extremeHeatDays": 24,
+      "monsoonDrySpells": 19,
+      "speciesStressIndex": 74
+    },
+    {
+      "year": 2022,
+      "avgTemperature": 26.2,
+      "tempAnomaly": 1.1,
+      "annualRainfall": 1040,
+      "rainfallAnomaly": 44.0,
+      "extremeHeatDays": 28,
+      "monsoonDrySpells": 21,
+      "speciesStressIndex": 81
+    },
+    {
+      "year": 2023,
+      "avgTemperature": 26.5,
+      "tempAnomaly": 1.4,
+      "annualRainfall": 612,
+      "rainfallAnomaly": -15.2,
+      "extremeHeatDays": 33,
+      "monsoonDrySpells": 29,
+      "speciesStressIndex": 88
+    },
+    {
+      "year": 2024,
+      "avgTemperature": 26.8,
+      "tempAnomaly": 1.7,
+      "annualRainfall": 910,
+      "rainfallAnomaly": 26.0,
+      "extremeHeatDays": 37,
+      "monsoonDrySpells": 26,
+      "speciesStressIndex": 92
+    }
+  ],
+  "monthlyClimatology": [
+    {"month": "Jan", "normalTemp": 20.5, "currentTemp": 21.8, "normalRain": 2.0, "currentRain": 0.5, "humidity": 52},
+    {"month": "Feb", "normalTemp": 22.8, "currentTemp": 24.2, "normalRain": 1.5, "currentRain": 0.0, "humidity": 44},
+    {"month": "Mar", "normalTemp": 26.4, "currentTemp": 28.5, "normalRain": 5.0, "currentRain": 14.0, "humidity": 39},
+    {"month": "Apr", "normalTemp": 29.8, "currentTemp": 32.4, "normalRain": 16.0, "currentRain": 8.0, "humidity": 42},
+    {"month": "May", "normalTemp": 30.6, "currentTemp": 33.7, "normalRain": 31.0, "currentRain": 62.0, "humidity": 56},
+    {"month": "Jun", "normalTemp": 27.2, "currentTemp": 28.8, "normalRain": 156.0, "currentRain": 134.0, "humidity": 78},
+    {"month": "Jul", "normalTemp": 25.1, "currentTemp": 25.9, "normalRain": 188.0, "currentRain": 242.0, "humidity": 86},
+    {"month": "Aug", "normalTemp": 24.7, "currentTemp": 25.6, "normalRain": 139.0, "currentRain": 195.0, "humidity": 87},
+    {"month": "Sep", "normalTemp": 25.2, "currentTemp": 26.1, "normalRain": 120.0, "currentRain": 160.0, "humidity": 82},
+    {"month": "Oct", "normalTemp": 25.3, "currentTemp": 26.8, "normalRain": 51.0, "currentRain": 68.0, "humidity": 69},
+    {"month": "Nov", "normalTemp": 22.7, "currentTemp": 23.9, "normalRain": 10.0, "currentRain": 5.0, "humidity": 58},
+    {"month": "Dec", "normalTemp": 20.3, "currentTemp": 21.6, "normalRain": 2.5, "currentRain": 0.0, "humidity": 55}
+  ],
+  "regionalComparisons": [
+    {
+      "regionId": "sinhagad-hills",
+      "regionName": "Sinhagad Hills",
+      "maxSummerTemp": 35.8,
+      "monsoonRainfall": 1480,
+      "uhiOffset": -2.4,
+      "stressRating": 82,
+      "dominantStress": "Desiccation of montane ravines & dry spell seedling mortality"
+    },
+    {
+      "regionId": "pashan-lake",
+      "regionName": "Pashan Lake",
+      "maxSummerTemp": 38.6,
+      "monsoonRainfall": 760,
+      "uhiOffset": 1.2,
+      "stressRating": 88,
+      "dominantStress": "Eutrophication, hyperthermic water stratification & oxygen collapse"
+    },
+    {
+      "regionId": "mulshi-catchment",
+      "regionName": "Mulshi Catchment",
+      "maxSummerTemp": 33.4,
+      "monsoonRainfall": 3290,
+      "uhiOffset": -3.8,
+      "stressRating": 76,
+      "dominantStress": "Severe torrential cloudbursts causing landslide canopy cuts"
+    },
+    {
+      "regionId": "vetal-tekdi",
+      "regionName": "Vetal Tekdi",
+      "maxSummerTemp": 39.4,
+      "monsoonRainfall": 710,
+      "uhiOffset": 1.8,
+      "stressRating": 71,
+      "dominantStress": "Grassland wildfire risks & alien tree canopy drying"
+    },
+    {
+      "regionId": "bhimashankar-buffer",
+      "regionName": "Bhimashankar Buffer",
+      "maxSummerTemp": 31.0,
+      "monsoonRainfall": 2920,
+      "uhiOffset": -4.2,
+      "stressRating": 79,
+      "dominantStress": "Phenological fruiting mismatch for canopy mammals"
+    },
+    {
+      "regionId": "panshet-reservoir",
+      "regionName": "Panshet Reservoir",
+      "maxSummerTemp": 34.8,
+      "monsoonRainfall": 2210,
+      "uhiOffset": -1.9,
+      "stressRating": 68,
+      "dominantStress": "Reservoir rim level fluctuations displacing shoreline reptiles"
+    },
+    {
+      "regionId": "mula-mutha-basin",
+      "regionName": "Mula-Mutha Basin",
+      "maxSummerTemp": 40.8,
+      "monsoonRainfall": 730,
+      "uhiOffset": 2.6,
+      "stressRating": 91,
+      "dominantStress": "Thermal aquatic stress combined with hypoxic organic discharge"
+    },
+    {
+      "regionId": "urban-green-corridors",
+      "regionName": "Urban Green Corridors",
+      "maxSummerTemp": 42.1,
+      "monsoonRainfall": 715,
+      "uhiOffset": 3.9,
+      "stressRating": 85,
+      "dominantStress": "Deadly heat prostration in colonial flying fox roosts"
+    }
+  ]
+}
