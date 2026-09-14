@@ -2,57 +2,37 @@ import React from 'react';
 
 export function IUCNBadge({ status }) {
   const styles = {
-    'Critically Endangered': 'bg-red-100 text-red-800 border-red-300',
-    Endangered: 'bg-orange-100 text-orange-800 border-orange-300',
-    Vulnerable: 'bg-amber-100 text-amber-800 border-amber-300',
-    'Near Threatened': 'bg-yellow-100 text-yellow-800 border-yellow-300',
-    'Least Concern': 'bg-emerald-100 text-emerald-800 border-emerald-300',
+    'Critically Endangered': 'bg-[#351f20] text-[#ff9d8a] border-[#743e39]',
+    Endangered: 'bg-[#332b1d] text-[#ffd184] border-[#6b552e]',
+    Vulnerable: 'bg-[#332b1d] text-[#ffd184] border-[#6b552e]',
+    'Near Threatened': 'bg-[#26301e] text-[#d9f99d] border-[#536b35]',
+    'Least Concern': 'bg-[#102d22] text-[#9ee7b8] border-[#285442]',
   };
-
-  const style = styles[status] || 'bg-slate-100 text-slate-800 border-slate-300';
-
-  return (
-    <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold border ${style}`}>
-      <span className="w-1.5 h-1.5 rounded-full mr-1.5 bg-current opacity-70"></span>
-      {status}
-    </span>
-  );
+  const style = styles[status] || 'bg-[#0e281f] text-[#9db5a8] border-[#1b3a2e]';
+  return <span className={`inline-flex items-center rounded-full border px-2 py-1 text-[9px] font-bold leading-none ${style}`}><span className="mr-1.5 h-1.5 w-1.5 rounded-full bg-current opacity-70" />{status}</span>;
 }
 
 export function SeverityBadge({ severity }) {
   const styles = {
-    Critical: 'bg-red-50 text-red-700 border-red-200 ring-1 ring-red-400/20',
-    High: 'bg-orange-50 text-orange-700 border-orange-200 ring-1 ring-orange-400/20',
-    Moderate: 'bg-amber-50 text-amber-700 border-amber-200 ring-1 ring-amber-400/20',
-    Medium: 'bg-amber-50 text-amber-700 border-amber-200 ring-1 ring-amber-400/20',
-    Low: 'bg-emerald-50 text-emerald-700 border-emerald-200 ring-1 ring-emerald-400/20',
-    Advisory: 'bg-blue-50 text-blue-700 border-blue-200 ring-1 ring-blue-400/20',
+    Critical: 'bg-[#351f20] text-[#ff9d8a] border-[#743e39]',
+    High: 'bg-[#332b1d] text-[#ffd184] border-[#6b552e]',
+    Moderate: 'bg-[#26301e] text-[#d9f99d] border-[#536b35]',
+    Medium: 'bg-[#26301e] text-[#d9f99d] border-[#536b35]',
+    Low: 'bg-[#102d22] text-[#9ee7b8] border-[#285442]',
+    Advisory: 'bg-[#102c34] text-[#73e5cf] border-[#245969]',
   };
-
-  const style = styles[severity] || 'bg-slate-50 text-slate-700 border-slate-200';
-
-  return (
-    <span className={`inline-flex items-center px-2 py-0.5 rounded-md text-xs font-semibold uppercase tracking-wider border ${style}`}>
-      {severity}
-    </span>
-  );
+  const style = styles[severity] || 'bg-[#0e281f] text-[#9db5a8] border-[#1b3a2e]';
+  return <span className={`inline-flex items-center rounded-full border px-2 py-1 text-[9px] font-extrabold uppercase tracking-[0.08em] leading-none ${style}`}>{severity}</span>;
 }
 
 export function StatusBadge({ status }) {
   const styles = {
-    Pending: 'bg-rose-100 text-rose-800 border-rose-200',
-    Reviewed: 'bg-amber-100 text-amber-800 border-amber-200',
-    'Action Taken': 'bg-emerald-100 text-emerald-800 border-emerald-200',
-    Verified: 'bg-emerald-100 text-emerald-800 border-emerald-200',
-    'Community Submitted': 'bg-sky-100 text-sky-800 border-sky-200',
+    Pending: 'bg-[#351f20] text-[#ff9d8a] border-[#743e39]',
+    Reviewed: 'bg-[#332b1d] text-[#ffd184] border-[#6b552e]',
+    'Action Taken': 'bg-[#102d22] text-[#9ee7b8] border-[#285442]',
+    Verified: 'bg-[#102d22] text-[#9ee7b8] border-[#285442]',
+    'Community Submitted': 'bg-[#102c34] text-[#73e5cf] border-[#245969]',
   };
-
-  const style = styles[status] || 'bg-slate-100 text-slate-800 border-slate-200';
-
-  return (
-    <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium border ${style}`}>
-      <span className="w-1.5 h-1.5 rounded-full mr-1.5 bg-current"></span>
-      {status}
-    </span>
-  );
+  const style = styles[status] || 'bg-[#0e281f] text-[#9db5a8] border-[#1b3a2e]';
+  return <span className={`inline-flex items-center rounded-full border px-2.5 py-1 text-[9px] font-bold leading-none ${style}`}><span className="mr-1.5 h-1.5 w-1.5 rounded-full bg-current" />{status}</span>;
 }

@@ -7,7 +7,7 @@
 [![Leaflet](https://img.shields.io/badge/Leaflet-1.9-199900?logo=leaflet)](https://leafletjs.com)
 [![License](https://img.shields.io/badge/License-Academic%20Use-blue)](#)
 
-A professional, data-driven web application and community engagement platform built for **Pune District, Maharashtra, India**. The platform monitors and models how rising temperatures, changing monsoon precipitation patterns, habitat fragmentation, and urban heat island effects impact local flora and fauna across key Pune ecological zones.
+A professional, data-driven web application and community engagement platform built for **Pune District, Maharashtra, India**. The platform combines public live providers (Open-Meteo weather/archive, GBIF biodiversity occurrences, and NASA Worldview/GIBS imagery) with clearly labelled curated regional profiles and offline-safe bundled data.
 
 ---
 
@@ -47,6 +47,14 @@ The application will launch with:
 
 *(Vite automatically proxies all `/api/*` requests to the Express backend on port 5001).*
 
+To force the documented offline path during development, run the backend with:
+
+```bash
+BIOWATCH_DATA_MODE=offline npm run dev:server
+```
+
+Without that flag, the backend attempts the public Open-Meteo, GBIF, and NASA scene integrations and returns source/mode metadata when it falls back.
+
 ---
 
 ## 🛠 Tech Stack
@@ -56,7 +64,7 @@ The application will launch with:
 - **Data Visualizations:** Recharts (composed charts, dual y-axes, area gradients, microclimate comparisons)
 - **Maps:** Leaflet.js with CartoDB Voyager tiles centered on Pune (18.5204° N, 73.8567° E) with interactive vulnerability-coded markers
 - **Backend:** Node.js + Express REST API reading and persisting JSON datasets
-- **Satellite Remote Sensing:** Multi-temporal calibrated false-color and thermal satellite imagery (`/src/assets/satellite/`) with interactive before/after drag comparison slider.
+- **Satellite Remote Sensing:** Keyless NASA Worldview Snapshot API requests for dated MODIS Terra Corrected Reflectance scenes, with explicitly labelled bundled illustrative fallbacks and an interactive before/after drag comparison slider.
 
 ---
 
@@ -67,8 +75,10 @@ The application will launch with:
 | `GET` | `/api/regions` | Returns all 8 Pune sub-regions with coordinates, elevation, and climate summaries |
 | `GET` | `/api/regions/:id` | Returns single region profile with local Marathi nomenclature |
 | `GET` | `/api/species` | Returns 18+ species with filters (`?category=`, `?region=`, `?severity=`, `?search=`) |
-| `GET` | `/api/species/:id` | Returns detailed species climate sensitivity matrix and recommended interventions |
-| `GET` | `/api/climate` | Returns decadal climate anomalies (2015-2024), monthly normal baseline, and microclimate records |
+| `GET` | `/api/species/:id` | Returns detailed curated species climate sensitivity profile and recommended interventions |
+| `GET` | `/api/species/observations` | Returns GBIF occurrence counts for the tracked taxa inside the transparent Pune monitoring bounding box |
+| `GET` | `/api/climate` | Returns Open-Meteo historical/current weather-derived climate series, provenance metadata, and bundled fallback data |
+| `GET` | `/api/satellite` | Returns dated NASA Worldview/GIBS MODIS Terra scene URLs and provenance metadata |
 | `GET` | `/api/alerts` | Returns active administrative directives with filters (`?severity=`, `?status=`, `?regionId=`) |
 | `PATCH`| `/api/alerts/:id` | Updates alert operational status (`Pending` → `Reviewed` → `Action Taken`) |
 | `GET` | `/api/sightings` | Returns citizen science biodiversity field observations |
@@ -81,14 +91,14 @@ The application will launch with:
 
 1. **Home / Landing Page:**
    - Hero banner emphasizing regional conservation mission
-   - Live metrics summary banner (Species tracked, sub-regions monitored, active alerts, 10-yr temp rise)
+   - Source-labelled summary banner (tracked species, sub-regions, active curated directives, and live/fallback climate delta)
    - Interactive spatial mini-map of Pune district with click-to-explore
    - High-priority urgent alerts ticker & featured indicator species
 
 2. **Region Explorer:**
    - Full interactive Leaflet map of Pune district
-   - Sub-region microclimate metrics (Summer temp, rainfall anomaly, humidity, elevation, area)
-   - Satellite preview thumbnail
+   - Curated sub-region climate profiles (summer temp, rainfall anomaly, humidity, elevation, area), with live weather surfaced in the climate dashboard
+   - NASA scene preview thumbnail when the public imagery source is available
    - List of affected resident species and active directives for the selected zone
 
 3. **Species Impact Database:**
@@ -97,22 +107,23 @@ The application will launch with:
    - Deep-dive modal with climate sensitivity matrix (Temperature, Rainfall, Fragmentation, Urban Heat Island) and official conservation guidelines
 
 4. **Climate Data Dashboard:**
-   - Decadal mean temperature anomaly trend vs 1981-2010 baseline
-   - Rainfall variability and extreme heat days (>40°C) correlation
-   - Climate Stress Index vs species reproductive impairment
-   - Sub-region microclimate comparison toggle
+   - Historical temperature, rainfall, humidity and extreme heat-day series from Open-Meteo archive data when available
+   - Transparent climate-pressure proxy derived from weather observations; explicitly not a measured species-stress index
+   - Current Pune weather reading and retrieval/source metadata
+   - Curated sub-region profile comparison with live regional weather fields when available
 
 5. **Satellite Imagery Viewer:**
-   - Split-screen before/after comparison slider for 4 Pune hotspots:
-     - **Pashan Lake (2014 vs 2024):** 48.4% open water loss, siltation, and 58.7% water hyacinth mat cover
-     - **Sinhagad Ridge (2014 vs 2024):** 18m road widening cut, parking sprawl, and slope desiccation
-     - **Pune NW Tech Corridor (2010 vs 2024):** 54.3% concrete built-up gain and +8.6°C thermal surface anomaly
-     - **Mulshi Catchment (2014 vs 2024):** Reservoir rim contraction, resort cuts, and landslide scars
+   - Split-screen before/after comparison slider for 4 Pune hotspots using dated NASA Worldview/GIBS MODIS Terra scenes:
+     - **Pashan Lake (2014 vs 2024):** wetland edge and open-water context
+     - **Sinhagad Ridge (2014 vs 2024):** ridge, forest-cover and road-corridor context
+     - **Pune NW Tech Corridor (2010 vs 2024):** urban-form and vegetation context
+     - **Mulshi Catchment (2014 vs 2024):** reservoir edge and forest-buffer context
+   - Curated interpretation notes are separated from the imagery; no static percentage is presented as a live satellite measurement
 
 6. **Administration Alert Desk:**
    - Internal forest department and municipal tool aesthetic
    - Tabular view of directives with trigger conditions and actionable recommendations
-   - Interactive status dropdown (`Pending`, `Reviewed`, `Action Taken`) that updates the mock database via REST API
+   - Interactive status dropdown (`Pending`, `Reviewed`, `Action Taken`) that updates the bundled local alert store via REST API; directives remain curated unless a live alert integration is added
    - CSV export functionality for field teams
 
 7. **About & Community Engagement:**
@@ -125,4 +136,4 @@ The application will launch with:
 
 ## 📜 Academic Disclaimer
 
-This project is created for academic research demonstration, urban environmental modeling, and public community engagement. Datasets and remote sensing composites represent synthesized regional trends derived from verified scientific literature and open meteorological archives.
+This project is created for academic research demonstration, urban environmental modeling, and public community engagement. Open-Meteo, GBIF, and NASA Worldview/GIBS requests are used without API keys where available. If a provider is unavailable, the app falls back to bundled datasets or explicitly labelled illustrative imagery. Curated species, regional, alert, and interpretation profiles must not be read as live sensor measurements or measured species responses.

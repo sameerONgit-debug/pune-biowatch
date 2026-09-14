@@ -6,6 +6,7 @@ import { Search, Filter, LayoutGrid, List, TreePine, Sparkles, MapPin, X } from 
 export default function SpeciesDatabasePage({
   species = [],
   regions = [],
+  observationMeta = {},
   onSelectSpecies,
   onSelectRegion,
   setActiveTab,
@@ -90,51 +91,51 @@ export default function SpeciesDatabasePage({
     selectedIUCN !== 'All';
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-10">
       {/* Header */}
-      <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+      <div className="surface flex flex-col gap-5 p-6 sm:p-8 md:flex-row md:items-center md:justify-between">
         <div>
-          <div className="flex items-center space-x-2 text-xs font-mono uppercase text-emerald-700 font-bold">
-            <TreePine className="w-4 h-4 text-emerald-600" />
-            <span>Taxonomic Impact Directory</span>
-          </div>
-          <h1 className="text-2xl font-extrabold text-slate-900 mt-1">
-            Pune Regional Species Impact Database
-          </h1>
-          <p className="text-xs text-slate-500">
-            Cataloging 18+ indicator and endemic species across Western Ghats fringe zones, urban wetlands, and dry scrub habitats.
+          <div className="eyebrow"><TreePine className="h-3.5 w-3.5" /> Taxonomic impact directory</div>
+          <h1 className="page-title">Pune Regional Species Impact Database</h1>
+          <p className="page-subtitle">
+            Cataloging indicator and endemic species across Western Ghats fringe zones, urban wetlands, and dry scrub habitats.
           </p>
+          <div className={`mt-3 inline-flex items-center gap-2 rounded-full border px-3 py-1.5 text-[10px] font-bold uppercase tracking-[0.1em] ${observationMeta.mode === 'live' ? 'border-[#285442] bg-[#102d22] text-[#9ee7b8]' : 'border-[#6b552e] bg-[#2b2117] text-[#ffd184]'}`} title={observationMeta.note || 'GBIF occurrence counts are requested for a transparent Pune monitoring bounding box.'}>
+            <span className={`h-1.5 w-1.5 rounded-full ${observationMeta.mode === 'live' ? 'bg-[#73e5cf]' : 'bg-[#ffd184]'}`} />
+            {observationMeta.mode === 'live' ? 'GBIF occurrence counts · live source' : observationMeta.mode === 'loading' ? 'Requesting GBIF occurrence counts' : 'GBIF unavailable · curated species profiles remain available'}
+            {observationMeta.sourceUrl && <a href={observationMeta.sourceUrl} target="_blank" rel="noreferrer" className="ml-1 underline decoration-[#73e5cf]/40 hover:text-white">source ↗</a>}
+          </div>
         </div>
 
         {/* View Toggle */}
-        <div className="flex items-center space-x-2 bg-slate-100 p-1 rounded-xl self-start md:self-auto border border-slate-200">
+        <div className="flex items-center self-start rounded-xl border border-[#1b3a2e] bg-[#091a15] p-1 md:self-auto">
           <button
             onClick={() => setViewMode('grid')}
-            className={`p-1.5 rounded-lg text-xs font-semibold flex items-center space-x-1.5 transition-all ${
+            className={`flex items-center gap-1.5 rounded-lg px-2.5 py-2 text-xs font-bold transition-all ${
               viewMode === 'grid'
-                ? 'bg-white text-slate-900 shadow-sm'
-                : 'text-slate-600 hover:text-slate-900'
+                ? 'bg-[#d9f99d] text-[#06110f] shadow-sm'
+                : 'text-[#607369] hover:text-[#0e4d3b]'
             }`}
           >
-            <LayoutGrid className="w-4 h-4" />
+            <LayoutGrid className="h-4 w-4" />
             <span className="hidden sm:inline">Cards</span>
           </button>
           <button
             onClick={() => setViewMode('table')}
-            className={`p-1.5 rounded-lg text-xs font-semibold flex items-center space-x-1.5 transition-all ${
+            className={`flex items-center gap-1.5 rounded-lg px-2.5 py-2 text-xs font-bold transition-all ${
               viewMode === 'table'
-                ? 'bg-white text-slate-900 shadow-sm'
-                : 'text-slate-600 hover:text-slate-900'
+                ? 'bg-[#d9f99d] text-[#06110f] shadow-sm'
+                : 'text-[#607369] hover:text-[#0e4d3b]'
             }`}
           >
-            <List className="w-4 h-4" />
+            <List className="h-4 w-4" />
             <span className="hidden sm:inline">Table</span>
           </button>
         </div>
       </div>
 
       {/* Filter Toolbar */}
-      <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-4">
+      <div className="surface space-y-5 p-5 sm:p-6">
         {/* Search & Main Row */}
         <div className="flex flex-col md:flex-row gap-3">
           <div className="relative flex-1">
@@ -144,7 +145,7 @@ export default function SpeciesDatabasePage({
               placeholder="Search by common name, scientific name, Marathi name or description..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full pl-10 pr-4 py-2.5 text-xs rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-emerald-500 bg-slate-50"
+              className="input-control pl-10 pr-4"
             />
             {searchTerm && (
               <button
@@ -159,7 +160,7 @@ export default function SpeciesDatabasePage({
           {hasActiveFilters && (
             <button
               onClick={clearFilters}
-              className="px-3 py-2 text-xs text-rose-600 hover:text-rose-700 font-semibold border border-rose-200 hover:bg-rose-50 rounded-xl transition-colors flex items-center space-x-1 self-start md:self-auto"
+              className="flex items-center space-x-1 self-start rounded-xl border border-[#743e39] px-3 py-2 text-xs font-bold text-[#ff9d8a] transition-colors hover:bg-[#351f20] md:self-auto"
             >
               <X className="w-3.5 h-3.5" />
               <span>Clear Filters</span>
@@ -177,7 +178,7 @@ export default function SpeciesDatabasePage({
             <select
               value={selectedCategory}
               onChange={(e) => setSelectedCategory(e.target.value)}
-              className="w-full px-3 py-2 rounded-xl border border-slate-300 bg-slate-50 text-slate-700 font-medium focus:outline-none"
+              className="select-control"
             >
               {categories.map((c) => (
                 <option key={c} value={c}>
@@ -195,7 +196,7 @@ export default function SpeciesDatabasePage({
             <select
               value={selectedRegion}
               onChange={(e) => setSelectedRegion(e.target.value)}
-              className="w-full px-3 py-2 rounded-xl border border-slate-300 bg-slate-50 text-slate-700 font-medium focus:outline-none"
+              className="select-control"
             >
               <option value="All">All Pune Sub-Regions</option>
               {regions.map((r) => (
@@ -214,7 +215,7 @@ export default function SpeciesDatabasePage({
             <select
               value={selectedSeverity}
               onChange={(e) => setSelectedSeverity(e.target.value)}
-              className="w-full px-3 py-2 rounded-xl border border-slate-300 bg-slate-50 text-slate-700 font-medium focus:outline-none"
+              className="select-control"
             >
               {severities.map((s) => (
                 <option key={s} value={s}>
@@ -232,7 +233,7 @@ export default function SpeciesDatabasePage({
             <select
               value={selectedIUCN}
               onChange={(e) => setSelectedIUCN(e.target.value)}
-              className="w-full px-3 py-2 rounded-xl border border-slate-300 bg-slate-50 text-slate-700 font-medium focus:outline-none"
+              className="select-control"
             >
               {iucnStatuses.map((i) => (
                 <option key={i} value={i}>
@@ -253,7 +254,7 @@ export default function SpeciesDatabasePage({
       {viewMode === 'grid' && (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {filteredSpecies.length === 0 ? (
-            <div className="col-span-full bg-white p-12 rounded-2xl border border-slate-200 text-center text-slate-500">
+            <div className="surface col-span-full p-12 text-center text-slate-500">
               <TreePine className="w-8 h-8 mx-auto text-slate-300 mb-2" />
               <p className="font-bold text-slate-700">No species match your active filters</p>
               <button
@@ -278,10 +279,10 @@ export default function SpeciesDatabasePage({
 
       {/* Table View */}
       {viewMode === 'table' && (
-        <div className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+        <div className="surface overflow-hidden">
           <div className="overflow-x-auto">
-            <table className="w-full text-left text-xs text-slate-600">
-              <thead className="bg-slate-900 text-slate-300 font-mono uppercase text-[11px] tracking-wider">
+            <table className="data-table w-full text-left text-xs text-slate-600">
+              <thead className="bg-[#103d32] text-emerald-50/75 font-mono uppercase text-[10px] tracking-wider">
                 <tr>
                   <th className="px-4 py-3.5">Taxa / Common Name</th>
                   <th className="px-4 py-3.5">Scientific Name</th>
@@ -326,7 +327,7 @@ export default function SpeciesDatabasePage({
                       <td className="px-4 py-3 text-right">
                         <button
                           onClick={() => onSelectSpecies(sp)}
-                          className="px-3 py-1 bg-slate-900 hover:bg-slate-800 text-white rounded-lg text-xs font-semibold transition-colors"
+                          className="rounded-lg bg-[#0e4d3b] px-3 py-1.5 text-xs font-bold text-white transition-colors hover:bg-[#092f27]"
                         >
                           Dossier
                         </button>

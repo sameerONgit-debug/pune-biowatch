@@ -1,78 +1,28 @@
 import React from 'react';
-import { TreePine, MapPin, AlertTriangle, TrendingUp, Users, Flame } from 'lucide-react';
+import { AlertTriangle, ArrowUpRight, MapPin, TrendingUp, TreePine, Users } from 'lucide-react';
 
-export default function StatsBanner({
-  speciesCount = 18,
-  regionsCount = 8,
-  alertsCount = 10,
-  criticalAlertsCount = 4,
-  sightingsCount = 3,
-  tempRise = '+1.42°C',
-}) {
+export default function StatsBanner({ speciesCount = 18, regionsCount = 8, alertsCount = 10, criticalAlertsCount = 4, sightingsCount = 3, tempRise = '+1.42°C', climateMeta = {}, periodLabel = 'bundled baseline', setActiveTab }) {
+  const sourceLabel = climateMeta.mode === 'live' ? `Open-Meteo archive · ${periodLabel}` : 'Bundled baseline · offline-safe';
   const stats = [
-    {
-      label: 'Endemic & Indicator Species',
-      value: speciesCount,
-      sub: '5 taxonomic classes tracked',
-      icon: TreePine,
-      color: 'text-emerald-600 bg-emerald-50 border-emerald-200',
-    },
-    {
-      label: 'Pune Ecological Sub-Regions',
-      value: regionsCount,
-      sub: 'Sahyadri rim to urban floodplains',
-      icon: MapPin,
-      color: 'text-blue-600 bg-blue-50 border-blue-200',
-    },
-    {
-      label: 'Active Actionable Alerts',
-      value: alertsCount,
-      sub: `${criticalAlertsCount} critical thresholds breached`,
-      icon: AlertTriangle,
-      color: 'text-rose-600 bg-rose-50 border-rose-200',
-    },
-    {
-      label: '10-Year Temp Anomaly',
-      value: tempRise,
-      sub: 'Relative to 1981-2010 baseline',
-      icon: TrendingUp,
-      color: 'text-amber-600 bg-amber-50 border-amber-200',
-    },
-    {
-      label: 'Citizen Science Sightings',
-      value: sightingsCount,
-      sub: 'Community field reports',
-      icon: Users,
-      color: 'text-teal-600 bg-teal-50 border-teal-200',
-    },
+    { label: 'Indicator species', value: speciesCount, sub: 'Across 5 taxonomic classes', icon: TreePine, tone: 'text-[#d9f99d] bg-[#b8e37b]/10 border-[#b8e37b]/20', target: 'species' },
+    { label: 'Monitored habitats', value: regionsCount, sub: 'Ghats edge to city wetlands', icon: MapPin, tone: 'text-[#73e5cf] bg-[#73e5cf]/10 border-[#73e5cf]/20', target: 'regions' },
+    { label: 'Open directives', value: alertsCount, sub: `${criticalAlertsCount} critical thresholds`, icon: AlertTriangle, tone: 'text-[#ff9884] bg-[#ff9884]/10 border-[#ff9884]/20', target: 'alerts' },
+    { label: 'Temperature anomaly', value: tempRise, sub: climateMeta.mode === 'live' ? 'vs historical archive baseline' : 'bundled historical baseline', icon: TrendingUp, tone: 'text-[#ffd184] bg-[#ffd184]/10 border-[#ffd184]/20', target: 'climate' },
+    { label: 'Community reports', value: sightingsCount, sub: 'Field observations submitted', icon: Users, tone: 'text-[#b9b5ff] bg-[#b9b5ff]/10 border-[#b9b5ff]/20', target: 'about' },
   ];
 
   return (
-    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
-      {stats.map((stat, idx) => {
-        const Icon = stat.icon;
-        return (
-          <div
-            key={idx}
-            className="bg-white p-5 rounded-xl border border-slate-200/90 shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between"
-          >
-            <div className="flex items-center justify-between mb-3">
-              <span className="text-xs font-semibold text-slate-500 uppercase tracking-wider font-mono">
-                {stat.label}
-              </span>
-              <div className={`p-2 rounded-lg border ${stat.color}`}>
-                <Icon className="w-4 h-4" />
-              </div>
-            </div>
-            <div>
-              <div className="text-2xl lg:text-3xl font-bold text-slate-900 tracking-tight">
-                {stat.value}
-              </div>
-              <div className="text-xs text-slate-500 mt-1 font-medium">{stat.sub}</div>
-            </div>
-          </div>
-        );
-      })}
-    </div>
+    <section aria-label="Pune BioWatch at a glance">
+      <div className="mb-3 flex items-center justify-between gap-4"><div className="eyebrow"><span className="font-mono">01</span> District telemetry</div><span className="hidden font-mono text-[9px] uppercase tracking-[0.16em] text-[#78988a] sm:block">{sourceLabel}</span></div>
+      <div className="grid grid-cols-2 gap-3 md:grid-cols-3 lg:grid-cols-5">
+        {stats.map((stat) => {
+          const Icon = stat.icon;
+          return <button key={stat.label} type="button" onClick={() => setActiveTab?.(stat.target)} aria-label={`Open ${stat.label}`} className="stat-card group min-h-[142px] w-full">
+            <div className="relative z-[1] flex items-start justify-between gap-2"><span className="max-w-[10rem] text-[10px] font-extrabold uppercase leading-4 tracking-[0.12em] text-[#78968a]">{stat.label}</span><span className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-xl border ${stat.tone}`}><Icon className="h-4 w-4" /></span></div>
+            <div className="relative z-[1] mt-5 flex items-end justify-between gap-2"><div><div className="text-3xl font-extrabold tracking-[-0.06em] text-[#f1faf4]">{stat.value}</div><div className="mt-1 text-[10px] font-medium leading-4 text-[#88a79a]">{stat.sub}</div></div><ArrowUpRight className="mb-1 h-4 w-4 text-[#3b6753] transition-all group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-[#d9f99d]" /></div>
+          </button>;
+        })}
+      </div>
+    </section>
   );
 }

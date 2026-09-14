@@ -1,21 +1,18 @@
 import React from 'react';
 import SatelliteSlider from '../components/satellite/SatelliteSlider';
-import { Layers, Eye, ShieldAlert, CheckCircle, Database } from 'lucide-react';
+import { Database, Layers } from 'lucide-react';
 
 export default function SatelliteViewerPage() {
   return (
-    <div className="space-y-8">
+    <div className="space-y-10">
       {/* Header */}
-      <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
-        <div className="flex items-center space-x-2 text-xs font-mono uppercase text-emerald-700 font-bold mb-1">
-          <Layers className="w-4 h-4 text-emerald-600" />
-          <span>Multispectral Land-Cover Analysis</span>
-        </div>
-        <h1 className="text-2xl font-extrabold text-slate-900">
+      <div className="surface p-6 sm:p-8">
+        <div className="eyebrow"><Layers className="h-3.5 w-3.5" /> Multispectral land-cover analysis</div>
+        <h1 className="page-title">
           Decadal Satellite Earth Observation Viewer
         </h1>
-        <p className="text-xs text-slate-500 mt-1 max-w-3xl">
-          Visualizing 10-year ecological transformations across critical Pune hotspots using calibrated Sentinel-2 and Landsat multispectral composites. Drag the interactive slider to examine wetland loss, urban encroachment, and ridge fragmentation.
+        <p className="page-subtitle max-w-3xl">
+          Compare dated, keyless NASA Worldview MODIS Terra scenes across critical Pune hotspots. Drag the interactive slider to inspect wetland edges, urban form and ridge context; interpretation notes remain separate from automated change measurements.
         </p>
       </div>
 
@@ -23,23 +20,23 @@ export default function SatelliteViewerPage() {
       <SatelliteSlider />
 
       {/* Remote Sensing Methodology Card */}
-      <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-4">
+      <div className="surface space-y-5 p-6 sm:p-7">
         <div className="flex items-center space-x-2 text-xs font-mono uppercase text-slate-400 font-bold">
           <Database className="w-4 h-4 text-slate-600" />
-          <span>Remote Sensing Methodology & Spectral Indices</span>
+          <span>Scene provenance & interpretation limits</span>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-xs text-slate-600">
           <div>
-            <span className="font-bold text-slate-900 block mb-1">NDVI (Vegetation Density):</span>
-            Normalized Difference Vegetation Index calculates the contrast between near-infrared (NIR) and red reflectance to quantify canopy photosynthetic vigour along the Sahyadri crest and Sinhagad slopes.
+            <span className="font-bold text-slate-900 block mb-1">Public scene product:</span>
+            The viewer requests NASA Worldview Snapshot API imagery from the public GIBS archive using MODIS Terra Corrected Reflectance True Color, a keyless, dated scene product.
           </div>
           <div>
-            <span className="font-bold text-slate-900 block mb-1">NDWI (Open Water Contrast):</span>
-            Normalized Difference Water Index delineates lake shoreline boundaries at Pashan Lake and Mulshi Dam, isolating floating aquatic macrophytes from clear open water.
+            <span className="font-bold text-slate-900 block mb-1">Repeatable comparison:</span>
+            Each hotspot uses a fixed geographic bounding box and paired date parameters. The slider is a visual comparison tool; it does not align or classify pixels.
           </div>
           <div>
-            <span className="font-bold text-slate-900 block mb-1">TIRS (Thermal Infrared Band):</span>
-            Thermal Infrared Sensors from Landsat-8/9 quantify surface brightness temperature, mapping the thermal radiance footprint of urban concrete corridors in Hinjawadi and Baner.
+            <span className="font-bold text-slate-900 block mb-1">What is not claimed:</span>
+            NDVI, NDWI, thermal anomalies and percentage change require a dedicated calibrated analysis. The context notes below the viewer are not measurements derived live from the displayed scenes.
           </div>
         </div>
       </div>

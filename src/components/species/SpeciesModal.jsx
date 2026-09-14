@@ -57,21 +57,21 @@ export default function SpeciesModal({ species, isOpen, onClose, onSelectRegion,
       case 'High':
         return 'bg-orange-100 text-orange-800 border-orange-300 font-bold';
       case 'Moderate':
-        return 'bg-amber-100 text-amber-800 border-amber-300';
+        return 'bg-amber-100 text-[#ffd184] border-amber-300';
       default:
-        return 'bg-slate-100 text-slate-700 border-slate-300';
+        return 'bg-[#0f2b21] text-[#b9d5c5] border-[#1e4937]';
     }
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-slate-950/70 backdrop-blur-sm animate-in fade-in duration-200">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-[#092f27]/70 p-4 backdrop-blur-md animate-in fade-in duration-200 sm:p-6">
       <div
-        className="relative w-full max-w-2xl max-h-[90vh] bg-white rounded-2xl shadow-2xl border border-slate-200 overflow-hidden flex flex-col"
+        className="relative flex max-h-[90vh] w-full max-w-2xl flex-col overflow-hidden rounded-3xl border border-[#dfe8df] bg-white shadow-2xl"
         role="dialog"
         aria-modal="true"
       >
         {/* Modal Header */}
-        <div className="bg-slate-900 text-white p-6 pb-5 flex items-start justify-between border-b border-slate-800">
+        <div className="flex items-start justify-between border-b border-[#173f34] bg-gradient-to-br from-[#0b3028] to-[#143d54] p-6 pb-5 text-white">
           <div>
             <div className="flex items-center space-x-2 mb-2">
               <span className="text-xs font-mono font-semibold uppercase bg-emerald-900/80 text-emerald-300 px-2 py-0.5 rounded border border-emerald-700/60">
@@ -153,23 +153,23 @@ export default function SpeciesModal({ species, isOpen, onClose, onSelectRegion,
           </div>
 
           {/* Key Threat Indicators */}
-          <div className="bg-amber-50/70 border border-amber-200/80 rounded-xl p-4">
-            <div className="flex items-center space-x-2 text-amber-800 text-xs font-bold uppercase tracking-wider font-mono mb-1">
-              <AlertCircle className="w-4 h-4 text-amber-600" />
-              <span>Observed Regional Stress Indicators</span>
+          <div className="bg-[#2b2117] border border-[#6b552e] rounded-2xl p-4">
+            <div className="flex items-center space-x-2 text-[#ffd184] text-xs font-bold uppercase tracking-wider font-mono mb-1">
+              <AlertCircle className="w-4 h-4 text-[#ffd184]" />
+              <span>Curated Regional Context</span>
             </div>
-            <p className="text-xs text-amber-900 leading-relaxed font-medium">
+            <p className="text-xs text-[#f1d9a1] leading-relaxed font-medium">
               {species.keyThreatIndicators}
             </p>
           </div>
 
           {/* Recommended Conservation Action */}
-          <div className="bg-emerald-50/70 border border-emerald-200/80 rounded-xl p-4">
-            <div className="flex items-center space-x-2 text-emerald-800 text-xs font-bold uppercase tracking-wider font-mono mb-1">
-              <ShieldCheck className="w-4 h-4 text-emerald-600" />
+          <div className="bg-[#102d22] border border-[#285442] rounded-2xl p-4">
+            <div className="flex items-center space-x-2 text-[#9ee7b8] text-xs font-bold uppercase tracking-wider font-mono mb-1">
+              <ShieldCheck className="w-4 h-4 text-[#73e5cf]" />
               <span>Recommended Administration & Forest Action</span>
             </div>
-            <p className="text-xs text-emerald-950 leading-relaxed">
+            <p className="text-xs text-[#ccebd7] leading-relaxed">
               {species.recommendedAction}
             </p>
           </div>
@@ -177,7 +177,7 @@ export default function SpeciesModal({ species, isOpen, onClose, onSelectRegion,
           {/* Pune Sub-Regions Distribution */}
           <div>
             <h4 className="text-xs font-mono uppercase tracking-wider text-slate-500 font-bold mb-2">
-              Documented Occurrence Across Pune Sub-Regions
+              Configured Habitat Regions · GBIF count shown below when available
             </h4>
             <div className="flex flex-wrap gap-2">
               {species.regions?.map((regId) => {
@@ -192,9 +192,9 @@ export default function SpeciesModal({ species, isOpen, onClose, onSelectRegion,
                         onClose();
                       }
                     }}
-                    className="inline-flex items-center space-x-1 px-3 py-1.5 rounded-lg bg-slate-100 hover:bg-emerald-50 text-slate-700 hover:text-emerald-800 border border-slate-200 text-xs font-medium transition-colors"
+                    className="inline-flex items-center space-x-1 px-3 py-1.5 rounded-lg bg-[#0f2b21] hover:bg-[#153a2b] text-[#b9d5c5] hover:text-[#d9f99d] border border-[#1e4937] text-xs font-medium transition-colors"
                   >
-                    <MapPin className="w-3.5 h-3.5 text-emerald-600" />
+                    <MapPin className="w-3.5 h-3.5 text-[#73e5cf]" />
                     <span>{name}</span>
                     <ExternalLink className="w-3 h-3 opacity-60 ml-0.5" />
                   </button>
@@ -205,13 +205,13 @@ export default function SpeciesModal({ species, isOpen, onClose, onSelectRegion,
         </div>
 
         {/* Modal Footer */}
-        <div className="bg-slate-50 px-6 py-4 border-t border-slate-200 flex justify-between items-center text-xs">
-          <span className="text-slate-400 font-mono">
-            Species ID: {species.id}
+        <div className="flex items-center justify-between border-t border-[#1b3a2e] bg-[#091a15] px-6 py-4 text-xs">
+          <span className="font-mono text-[#78988a]">
+            Species ID: {species.id}{species.gbifObservationCount != null ? ` · ${species.gbifObservationCount.toLocaleString()} GBIF records` : ''}
           </span>
           <button
             onClick={onClose}
-            className="px-4 py-2 bg-slate-800 hover:bg-slate-900 text-white font-semibold rounded-lg transition-colors"
+            className="btn-primary px-4 py-2"
           >
             Close Dossier
           </button>

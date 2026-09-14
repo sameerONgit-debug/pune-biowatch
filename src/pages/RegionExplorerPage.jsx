@@ -1,20 +1,16 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import PuneLeafletMap from '../components/map/PuneLeafletMap';
 import SpeciesCard from '../components/species/SpeciesCard';
-import { SeverityBadge, IUCNBadge } from '../components/common/Badge';
+import { SeverityBadge } from '../components/common/Badge';
 import {
   MapPin,
-  Thermometer,
-  CloudRain,
   Mountain,
   AlertTriangle,
   Layers,
   ArrowRight,
-  ShieldCheck,
   Compass,
-  TreePine,
-  ExternalLink,
 } from 'lucide-react';
+import { api } from '../services/api';
 
 import pashan2024 from '../assets/satellite/pashan-2024.svg';
 import sinhagad2024 from '../assets/satellite/sinhagad-2024.svg';
@@ -31,6 +27,25 @@ export default function RegionExplorerPage({
   setActiveTab,
 }) {
   const currentRegion = selectedRegion || regions[0];
+  const [satelliteScenes, setSatelliteScenes] = useState({});
+  const [satelliteMode, setSatelliteMode] = useState('loading');
+  const [satelliteFailed, setSatelliteFailed] = useState(false);
+
+  useEffect(() => {
+    let cancelled = false;
+    api.getSatelliteScenes().then((payload) => {
+      if (cancelled) return;
+      setSatelliteMode(payload?.mode || 'offline');
+      setSatelliteScenes(Object.fromEntries((payload?.scenes || []).map((scene) => [scene.id, scene])));
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  useEffect(() => {
+    setSatelliteFailed(false);
+  }, [currentRegion?.id]);
 
   const satelliteMap = {
     pashan: pashan2024,
@@ -43,8 +58,11 @@ export default function RegionExplorerPage({
     'mula-mutha': urban2024,
   };
 
-  const currentSatImg =
-    satelliteMap[currentRegion?.satelliteImageKey] || pashan2024;
+  const satelliteSceneKey = currentRegion?.satelliteImageKey === 'urban-pune' ? 'urban' : currentRegion?.satelliteImageKey;
+  const currentScene = satelliteScenes[satelliteSceneKey];
+  const currentSatImg = !satelliteFailed && currentScene?.afterImage
+    ? currentScene.afterImage
+    : satelliteMap[currentRegion?.satelliteImageKey] || pashan2024;
 
   // Species in this region
   const regionSpecies = currentRegion
@@ -57,19 +75,16 @@ export default function RegionExplorerPage({
     : [];
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-10">
       {/* Page Header */}
-      <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+      <div className="surface flex flex-col gap-5 p-6 sm:p-8 md:flex-row md:items-center md:justify-between">
         <div>
-          <div className="flex items-center space-x-2 text-xs font-mono uppercase text-emerald-700 font-bold">
-            <Compass className="w-4 h-4" />
-            <span>Interactive Pune Spatial Explorer</span>
-          </div>
-          <h1 className="text-2xl font-extrabold text-slate-900 mt-1">
+          <div className="eyebrow"><Compass className="h-3.5 w-3.5" /> Interactive spatial explorer</div>
+          <h1 className="page-title">
             Pune District Ecological Zones & Habitats
           </h1>
-          <p className="text-xs text-slate-500">
-            Select any sub-region on the map or the list to view microclimate stress, satellite observation, and resident indicator species.
+          <p className="page-subtitle">
+            Select any sub-region on the map or the list to view its curated habitat profile, a public satellite scene when available, and resident indicator species.
           </p>
         </div>
 
@@ -82,7 +97,7 @@ export default function RegionExplorerPage({
               const target = regions.find((r) => r.id === e.target.value);
               if (target) setSelectedRegion(target);
             }}
-            className="text-xs font-bold px-3.5 py-2 rounded-xl border border-slate-300 bg-slate-50 text-slate-800 shadow-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+            className="select-control max-w-xs"
           >
             {regions.map((r) => (
               <option key={r.id} value={r.id}>
@@ -97,7 +112,7 @@ export default function RegionExplorerPage({
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
         {/* Left Col: Interactive Map & Zone List (5 cols) */}
         <div className="lg:col-span-5 space-y-4">
-          <div className="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm">
+          <div className="surface p-4">
             <PuneLeafletMap
               regions={regions}
               selectedRegionId={currentRegion?.id}
@@ -107,7 +122,7 @@ export default function RegionExplorerPage({
           </div>
 
           {/* Quick Sub-region Switcher Tiles */}
-          <div className="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm space-y-2">
+          <div className="surface space-y-3 p-4">
             <div className="text-[11px] font-mono font-bold text-slate-400 uppercase tracking-wider mb-2">
               All 8 Pune Sub-Regions
             </div>
@@ -120,8 +135,8 @@ export default function RegionExplorerPage({
                     onClick={() => setSelectedRegion(reg)}
                     className={`p-2.5 rounded-xl text-left border text-xs font-medium transition-all ${
                       isSelected
-                        ? 'bg-emerald-800 text-white border-emerald-800 shadow-md scale-[1.02]'
-                        : 'bg-slate-50 text-slate-700 border-slate-200 hover:bg-slate-100'
+                        ? 'bg-[#0e4d3b] text-white border-[#0e4d3b] shadow-md scale-[1.02]'
+                        : 'bg-[#0b2119] text-[#9db5a8] border-[#1c4032] hover:bg-[#102d22] hover:border-[#73e5cf]/40'
                     }`}
                   >
                     <div className="font-bold truncate">{reg.name}</div>
@@ -130,7 +145,7 @@ export default function RegionExplorerPage({
                         isSelected ? 'text-emerald-200' : 'text-slate-400'
                       }`}
                     >
-                      Score: {reg.metrics.vulnerabilityScore}/100
+                      Profile: {reg.metrics.vulnerabilityScore}/100
                     </div>
                   </button>
                 );
@@ -142,15 +157,15 @@ export default function RegionExplorerPage({
         {/* Right Col: Comprehensive Region Dossier (7 cols) */}
         <div className="lg:col-span-7 space-y-6">
           {currentRegion && (
-            <div className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+            <div className="surface overflow-hidden">
               {/* Region Header Banner */}
-              <div className="bg-gradient-to-r from-slate-900 to-slate-800 text-white p-6">
+              <div className="bg-gradient-to-br from-[#0b3028] via-[#104b3d] to-[#143d54] p-6 text-white sm:p-7">
                 <div className="flex flex-wrap items-center justify-between gap-2 mb-2">
                   <span className="text-xs font-mono font-bold uppercase bg-emerald-900 text-emerald-300 px-2.5 py-0.5 rounded border border-emerald-700/60">
                     {currentRegion.habitatType}
                   </span>
                   <div className="flex items-center space-x-2 font-mono text-xs">
-                    <span className="text-slate-400">Vulnerability Score:</span>
+                    <span className="text-slate-400">Curated Profile:</span>
                     <span
                       className={`font-bold px-2 py-0.5 rounded ${
                         currentRegion.metrics.vulnerabilityScore >= 85
@@ -191,7 +206,7 @@ export default function RegionExplorerPage({
               </div>
 
               {/* Region Dossier Body */}
-              <div className="p-6 space-y-6">
+              <div className="space-y-6 p-6 sm:p-7">
                 {/* Description */}
                 <div>
                   <h4 className="text-xs font-mono uppercase tracking-wider text-slate-400 font-bold mb-1.5">
@@ -208,25 +223,25 @@ export default function RegionExplorerPage({
                     Sub-Region Microclimate Profile
                   </h4>
                   <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-                    <div className="bg-slate-50 p-3 rounded-xl border border-slate-200">
+                    <div className="metric-card">
                       <div className="text-[10px] uppercase font-mono text-slate-400">Peak Summer Temp</div>
                       <div className="text-sm font-bold text-slate-900 mt-1">
                         {currentRegion.climateSummary.avgSummerTemp}
                       </div>
                     </div>
-                    <div className="bg-slate-50 p-3 rounded-xl border border-slate-200">
+                    <div className="metric-card">
                       <div className="text-[10px] uppercase font-mono text-slate-400">Annual Rainfall</div>
                       <div className="text-sm font-bold text-blue-700 mt-1">
                         {currentRegion.climateSummary.annualRainfall}
                       </div>
                     </div>
-                    <div className="bg-slate-50 p-3 rounded-xl border border-slate-200">
+                    <div className="metric-card">
                       <div className="text-[10px] uppercase font-mono text-slate-400">Rainfall Variance</div>
                       <div className="text-xs font-bold text-amber-700 mt-1">
                         {currentRegion.climateSummary.rainfallAnomaly}
                       </div>
                     </div>
-                    <div className="bg-slate-50 p-3 rounded-xl border border-slate-200">
+                    <div className="metric-card">
                       <div className="text-[10px] uppercase font-mono text-slate-400">Humidity Range</div>
                       <div className="text-sm font-bold text-slate-800 mt-1">
                         {currentRegion.climateSummary.humidityRange}
@@ -236,12 +251,12 @@ export default function RegionExplorerPage({
                 </div>
 
                 {/* Primary Threats Callout */}
-                <div className="bg-amber-50/70 border border-amber-200 rounded-xl p-4">
-                  <div className="text-xs font-mono uppercase tracking-wider text-amber-800 font-bold mb-2 flex items-center space-x-1.5">
-                    <AlertTriangle className="w-4 h-4 text-amber-600" />
+                <div className="bg-[#2b2117] border border-[#6b552e] rounded-2xl p-4">
+                  <div className="text-xs font-mono uppercase tracking-wider text-[#ffd184] font-bold mb-2 flex items-center space-x-1.5">
+                    <AlertTriangle className="w-4 h-4 text-[#ffd184]" />
                     <span>Key Climatic & Anthropogenic Stress Factors</span>
                   </div>
-                  <ul className="space-y-1 text-xs text-amber-950">
+                  <ul className="space-y-1 text-xs text-[#f1d9a1]">
                     {currentRegion.climateSummary.primaryThreats.map((threat, idx) => (
                       <li key={idx} className="flex items-start space-x-2">
                         <span className="text-amber-500 font-bold">•</span>
@@ -252,12 +267,12 @@ export default function RegionExplorerPage({
                 </div>
 
                 {/* Satellite Preview Card */}
-                <div className="bg-slate-900 rounded-xl overflow-hidden border border-slate-800 p-4 text-white">
+                <div className="overflow-hidden rounded-2xl border border-[#173f34] bg-[#0b3028] p-4 text-white">
                   <div className="flex items-center justify-between mb-3">
                     <div className="flex items-center space-x-2">
                       <Layers className="w-4 h-4 text-cyan-400" />
                       <span className="text-xs font-mono font-bold uppercase">
-                        Satellite Observation (2024 Sentinel-2 Simulation)
+                        {currentScene?.afterImage && satelliteMode === 'live-source' && !satelliteFailed ? 'NASA Worldview scene · MODIS Terra' : 'Illustrative offline scene'}
                       </span>
                     </div>
                     <button
@@ -272,11 +287,12 @@ export default function RegionExplorerPage({
                   <div className="w-full aspect-[16/8] rounded-lg overflow-hidden border border-slate-700 relative">
                     <img
                       src={currentSatImg}
-                      alt={currentRegion.name}
+                      alt={`${currentRegion.name} satellite scene`}
+                      onError={() => setSatelliteFailed(true)}
                       className="w-full h-full object-cover"
                     />
                     <div className="absolute bottom-2 left-2 bg-slate-950/80 px-2 py-1 rounded text-[10px] font-mono text-emerald-300">
-                      Decadal Tree Canopy Loss: {currentRegion.metrics.treeCanopyLossPercent}%
+                      {currentScene?.afterDate ? `NASA scene · ${currentScene.afterDate}` : 'Bundled illustrative fallback · not a live measurement'}
                     </div>
                   </div>
                 </div>
@@ -300,7 +316,7 @@ export default function RegionExplorerPage({
                       <div
                         key={sp.id}
                         onClick={() => onSelectSpecies(sp)}
-                        className="p-3 bg-slate-50 hover:bg-emerald-50/70 rounded-xl border border-slate-200 transition-all cursor-pointer flex items-center justify-between"
+                        className="flex cursor-pointer items-center justify-between rounded-xl border border-[#1b3c2f] bg-[#0b2119] p-3 transition-all hover:border-[#73e5cf]/40 hover:bg-[#102d22]"
                       >
                         <div>
                           <div className="font-bold text-xs text-slate-900">
@@ -328,13 +344,13 @@ export default function RegionExplorerPage({
                 {regionAlerts.length > 0 && (
                   <div className="pt-2 border-t border-slate-200">
                     <div className="flex items-center justify-between mb-2">
-                      <h4 className="text-xs font-mono uppercase tracking-wider text-rose-700 font-bold flex items-center space-x-1">
-                        <AlertTriangle className="w-3.5 h-3.5 text-rose-600" />
+                      <h4 className="text-xs font-mono uppercase tracking-wider text-[#ff9d8a] font-bold flex items-center space-x-1">
+                        <AlertTriangle className="w-3.5 h-3.5 text-[#ff9884]" />
                         <span>Active Administrative Directives ({regionAlerts.length})</span>
                       </h4>
                       <button
                         onClick={() => setActiveTab('alerts')}
-                        className="text-xs text-rose-700 font-semibold hover:underline"
+                        className="text-xs text-[#ff9d8a] font-semibold hover:underline"
                       >
                         Manage in Admin Panel →
                       </button>
@@ -344,10 +360,10 @@ export default function RegionExplorerPage({
                       {regionAlerts.map((alert) => (
                         <div
                           key={alert.id}
-                          className="p-3 bg-rose-50/60 border border-rose-200/80 rounded-xl text-xs flex items-center justify-between"
+                          className="p-3 bg-[#2b1b1c] border border-[#743e39] rounded-2xl text-xs flex items-center justify-between"
                         >
                           <div>
-                            <div className="font-bold text-rose-950">{alert.speciesName}</div>
+                            <div className="font-bold text-[#ffe0da]">{alert.speciesName}</div>
                             <div className="text-[11px] text-slate-600">{alert.recommendedAction}</div>
                           </div>
                           <div className="ml-2 flex-shrink-0">

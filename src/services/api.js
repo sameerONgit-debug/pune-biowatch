@@ -72,6 +72,18 @@ export const api = {
     }
   },
 
+  async getSpeciesObservations() {
+    try {
+      const res = await fetch(`${API_BASE}/species/observations`);
+      if (!res.ok) throw new Error('GBIF observations unavailable');
+      const data = await res.json();
+      return { observations: data.data || [], meta: data.meta || null };
+    } catch (e) {
+      console.warn('Species observations unavailable:', e.message);
+      return { observations: [], meta: { mode: 'fallback' } };
+    }
+  },
+
   async getSpeciesById(id) {
     try {
       const res = await fetch(`${API_BASE}/species/${id}`);
@@ -92,7 +104,29 @@ export const api = {
       return data.data;
     } catch (e) {
       console.warn('Using local fallback for climate:', e.message);
-      return localClimate;
+      return {
+        ...localClimate,
+        dataMeta: {
+          mode: 'fallback',
+          retrievedAt: new Date().toISOString(),
+          sources: ['Bundled regional baseline'],
+          sourceUrls: [],
+          note: `Live sources unavailable: ${e.message}`,
+        },
+      };
+    }
+  },
+
+  // Satellite scenes
+  async getSatelliteScenes() {
+    try {
+      const res = await fetch(`${API_BASE}/satellite`);
+      if (!res.ok) throw new Error('Satellite imagery unavailable');
+      const data = await res.json();
+      return data.data;
+    } catch (e) {
+      console.warn('Using bundled satellite fallback:', e.message);
+      return { mode: 'offline', scenes: [], sourceUrl: 'https://wvs.earthdata.nasa.gov/api/v1/snapshot', note: 'NASA imagery service unavailable.' };
     }
   },
 

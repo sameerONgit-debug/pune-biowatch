@@ -4,20 +4,12 @@ import StatsBanner from '../components/home/StatsBanner';
 import PuneLeafletMap from '../components/map/PuneLeafletMap';
 import SpeciesCard from '../components/species/SpeciesCard';
 import { SeverityBadge } from '../components/common/Badge';
-import { Compass, ShieldAlert, ArrowRight, Layers, CheckCircle, Flame, Droplets, Mountain } from 'lucide-react';
+import { ArrowRight, Compass, Droplets, Flame, MapPin, Radio, ShieldAlert, TreePine } from 'lucide-react';
 
-export default function HomePage({
-  regions = [],
-  species = [],
-  alerts = [],
-  sightings = [],
-  climateData = null,
-  setActiveTab,
-  onSelectRegion,
-  onSelectSpecies,
-}) {
-  const urgentAlert = alerts.find((a) => a.severity === 'Critical') || alerts[0];
-  const criticalAlerts = alerts.filter((a) => a.severity === 'Critical').slice(0, 3);
+export default function HomePage({ regions = [], species = [], alerts = [], sightings = [], climateData = null, setActiveTab, onSelectRegion, onSelectSpecies }) {
+  const activeAlerts = alerts.filter((a) => a.status !== 'Action Taken');
+  const urgentAlert = activeAlerts.find((a) => a.severity === 'Critical') || activeAlerts[0] || alerts[0];
+  const criticalAlerts = activeAlerts.filter((a) => a.severity === 'Critical').slice(0, 3);
   const featuredSpecies = species.filter((s) => s.climateSeverity === 'Critical' || s.severityScore >= 85).slice(0, 3);
 
   const handleMapSelectRegion = (region) => {
@@ -26,169 +18,35 @@ export default function HomePage({
   };
 
   return (
-    <div className="space-y-12">
-      {/* 1. Hero Section */}
-      <HeroSection setActiveTab={setActiveTab} urgentAlert={urgentAlert} />
+    <div className="space-y-14">
+      <HeroSection setActiveTab={setActiveTab} urgentAlert={urgentAlert} activeSignalCount={activeAlerts.length} regionCount={regions.length} />
 
-      {/* 2. Stats Banner */}
-      <StatsBanner
-        speciesCount={species.length}
-        regionsCount={regions.length}
-        alertsCount={alerts.length}
-        criticalAlertsCount={criticalAlerts.length}
-        sightingsCount={sightings.length}
-        tempRise={climateData?.districtOverview?.decadeAvgTempRise || '+1.42°C'}
-      />
+      <StatsBanner speciesCount={species.length} regionsCount={regions.length} alertsCount={activeAlerts.length} criticalAlertsCount={criticalAlerts.length} sightingsCount={sightings.length} tempRise={climateData?.districtOverview?.decadeAvgTempRise || '—'} climateMeta={climateData?.dataMeta || {}} periodLabel={climateData?.periodLabel || 'bundled baseline'} setActiveTab={setActiveTab} />
 
-      {/* 3. Interactive Pune District Map Preview Section */}
-      <section className="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm space-y-6">
-        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-          <div>
-            <div className="flex items-center space-x-2 text-xs font-mono uppercase text-emerald-700 font-bold">
-              <Compass className="w-4 h-4 text-emerald-600" />
-              <span>Spatial Monitoring Grid</span>
-            </div>
-            <h2 className="text-2xl font-bold text-slate-900 mt-1">
-              Pune District Ecological Sub-Regions
-            </h2>
-            <p className="text-xs text-slate-500">
-              Interactive vulnerability mapping centered on Pune (18.5204° N, 73.8567° E). Click any hotspot to explore climate anomalies and affected endemic wildlife.
-            </p>
-          </div>
-          <button
-            onClick={() => setActiveTab('regions')}
-            className="flex items-center space-x-1.5 px-4 py-2 bg-slate-900 hover:bg-slate-800 text-white rounded-xl text-xs font-semibold self-start md:self-auto transition-colors"
-          >
-            <span>Open Region Explorer</span>
-            <ArrowRight className="w-3.5 h-3.5" />
-          </button>
+      <section className="surface p-5 sm:p-7">
+        <div className="flex flex-col justify-between gap-5 border-b border-[#193d2f] pb-6 md:flex-row md:items-end">
+          <div><div className="eyebrow"><span className="font-mono">02</span> Spatial telemetry</div><h2 className="section-title mt-2">The district signal, zone by zone</h2><p className="section-subtitle max-w-2xl">Curated habitat profiles and monitoring context across Pune&apos;s ecological gradient; live weather and occurrence data are shown in their dedicated views.</p></div>
+          <button onClick={() => setActiveTab('regions')} className="btn-secondary self-start md:self-auto">Open full map <ArrowRight className="h-3.5 w-3.5" /></button>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          <div className="lg:col-span-2">
-            <PuneLeafletMap
-              regions={regions}
-              onSelectRegion={handleMapSelectRegion}
-              height="450px"
-            />
-          </div>
+        <div className="mt-6 grid grid-cols-1 gap-6 lg:grid-cols-[1.38fr_0.62fr]">
+          <div className="relative overflow-hidden rounded-2xl border border-[#1d4937] bg-[#071713] shadow-inner"><PuneLeafletMap regions={regions} onSelectRegion={handleMapSelectRegion} height="455px" /><div className="pointer-events-none absolute left-4 top-4 z-20 rounded-xl border border-[#73e5cf]/20 bg-[#071713]/85 px-3 py-2 backdrop-blur-md"><div className="flex items-center gap-2 text-[9px] font-bold uppercase tracking-[0.14em] text-[#73e5cf]"><Radio className="h-3.5 w-3.5" /> Curated habitat profile layer</div><div className="mt-1 text-[10px] text-[#7f9f91]">Click a node to open its dossier</div></div></div>
 
-          {/* Sub-region Quick Jump List */}
-          <div className="space-y-2.5 overflow-y-auto max-h-[450px] pr-1">
-            <div className="text-xs font-mono font-bold text-slate-500 uppercase tracking-wider mb-2">
-              Monitored Sub-Zones ({regions.length})
-            </div>
-            {regions.map((reg) => (
-              <div
-                key={reg.id}
-                onClick={() => handleMapSelectRegion(reg)}
-                className="p-3 bg-slate-50 hover:bg-emerald-50/80 rounded-xl border border-slate-200 hover:border-emerald-300 transition-all cursor-pointer group flex items-center justify-between"
-              >
-                <div>
-                  <div className="font-bold text-xs text-slate-900 group-hover:text-emerald-800 flex items-center space-x-2">
-                    <span>{reg.name}</span>
-                  </div>
-                  <div className="text-[11px] text-slate-500 line-clamp-1">{reg.habitatType}</div>
-                </div>
-                <div className="text-right flex-shrink-0 ml-2">
-                  <span
-                    className={`text-xs font-mono font-bold px-2 py-0.5 rounded ${
-                      reg.metrics.vulnerabilityScore >= 85
-                        ? 'bg-red-100 text-red-700'
-                        : reg.metrics.vulnerabilityScore >= 75
-                        ? 'bg-amber-100 text-amber-700'
-                        : 'bg-emerald-100 text-emerald-700'
-                    }`}
-                  >
-                    {reg.metrics.vulnerabilityScore}
-                  </span>
-                  <div className="text-[10px] text-slate-400 font-mono mt-0.5">Vulnerability</div>
-                </div>
-              </div>
-            ))}
+          <div className="min-h-0"><div className="mb-3 flex items-end justify-between gap-3"><div><div className="font-mono text-[9px] font-bold uppercase tracking-[0.16em] text-[#78988a]">Monitored zones</div><div className="mt-1 text-sm font-bold text-[#eaf8ed]">Select a field area</div></div><span className="rounded-full border border-[#2a6249] bg-[#103426] px-2 py-1 font-mono text-[10px] font-bold text-[#d9f99d]">{regions.length} online</span></div>
+            <div className="max-h-[415px] space-y-2 overflow-y-auto pr-1">{regions.map((reg) => { const score = reg.metrics?.vulnerabilityScore || 0; const scoreClass = score >= 85 ? 'border-[#743e39] bg-[#351f20] text-[#ff9d8a]' : score >= 75 ? 'border-[#6b552e] bg-[#332b1d] text-[#ffd184]' : 'border-[#285442] bg-[#102d22] text-[#9ee7b8]'; return <button key={reg.id} onClick={() => handleMapSelectRegion(reg)} className="group flex w-full items-center justify-between gap-3 rounded-2xl border border-[#1a3c2f] bg-[#0b2119] p-3 text-left transition-all hover:-translate-y-0.5 hover:border-[#73e5cf]/40 hover:bg-[#102d22] hover:shadow-lg"><span className="flex min-w-0 items-center gap-3"><span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-xl border border-[#204b39] bg-[#0d2a20] text-[#73e5cf]"><MapPin className="h-3.5 w-3.5" /></span><span className="min-w-0"><span className="block truncate text-xs font-bold text-[#e6f6eb] group-hover:text-[#d9f99d]">{reg.name}</span><span className="mt-0.5 block truncate text-[10px] text-[#83a396]">{reg.habitatType}</span></span></span><span className="shrink-0 text-right"><span className={`inline-flex rounded-lg border px-2 py-1 text-xs font-extrabold ${scoreClass}`}>{score}</span><span className="mt-1 block font-mono text-[9px] uppercase tracking-wider text-[#78988a]">profile score</span></span></button>; })}</div>
           </div>
         </div>
       </section>
 
-      {/* 4. Critical Active Directives Grid */}
-      <section className="space-y-4">
-        <div className="flex items-center justify-between">
-          <div>
-            <h2 className="text-xl font-bold text-slate-900">
-              High-Priority Administrative Directives
-            </h2>
-            <p className="text-xs text-slate-500">
-              Immediate interventions flagged for Pune Municipal Corporation & Maharashtra Forest Department.
-            </p>
-          </div>
-          <button
-            onClick={() => setActiveTab('alerts')}
-            className="text-xs font-semibold text-emerald-700 hover:text-emerald-900 flex items-center space-x-1"
-          >
-            <span>View All Directives ({alerts.length})</span>
-            <ArrowRight className="w-3.5 h-3.5" />
-          </button>
-        </div>
+      <section className="grid grid-cols-1 gap-8 xl:grid-cols-[1.35fr_0.65fr]">
+        <div className="space-y-5"><div className="flex flex-col justify-between gap-3 sm:flex-row sm:items-end"><div><div className="eyebrow"><span className="font-mono">03</span> Action queue</div><h2 className="section-title mt-2">Signals that need attention</h2><p className="section-subtitle">Prioritized thresholds surfaced for local teams and field partners.</p></div><button onClick={() => setActiveTab('alerts')} className="inline-flex items-center gap-1.5 self-start text-xs font-extrabold text-[#73e5cf] hover:text-[#d9f99d] sm:self-auto">Open alert desk ({alerts.length}) <ArrowRight className="h-3.5 w-3.5" /></button></div><div className="grid grid-cols-1 gap-4 md:grid-cols-3">{criticalAlerts.map((alert) => <button key={alert.id} onClick={() => setActiveTab('alerts')} className="group surface flex flex-col justify-between p-5 text-left transition-all hover:-translate-y-1 hover:border-[#ff9884]/50 hover:shadow-[0_20px_45px_rgba(255,100,80,0.1)]"><span><span className="flex items-center justify-between gap-2"><span className="font-mono text-[10px] font-bold tracking-wider text-[#78988a]">{alert.id}</span><SeverityBadge severity={alert.severity} /></span><span className="mt-4 block text-sm font-extrabold leading-5 text-[#edf9ef]">{alert.speciesName}</span><span className="mt-1 block text-[11px] font-bold text-[#73e5cf]">{alert.regionName}</span><span className="mt-4 flex gap-2 rounded-xl border border-[#4b302b] bg-[#211b19] p-3 text-[11px] leading-5 text-[#c4a29b]"><Flame className="mt-0.5 h-3.5 w-3.5 shrink-0 text-[#ff9884]" /><span className="line-clamp-3">{alert.recommendedAction}</span></span></span><span className="mt-5 flex items-center justify-between border-t border-[#193d2f] pt-3 text-[10px] font-bold uppercase tracking-[0.12em] text-[#78988a]"><span>{alert.dateIssued}</span><span className="text-[#ff9884] transition-transform group-hover:translate-x-1">Review signal →</span></span></button>)}</div></div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          {criticalAlerts.map((alert) => (
-            <div
-              key={alert.id}
-              onClick={() => setActiveTab('alerts')}
-              className="bg-white p-5 rounded-xl border border-slate-200 shadow-sm hover:border-red-300 hover:shadow-md transition-all cursor-pointer flex flex-col justify-between"
-            >
-              <div>
-                <div className="flex items-center justify-between mb-2">
-                  <span className="font-mono text-xs text-slate-400">{alert.id}</span>
-                  <SeverityBadge severity={alert.severity} />
-                </div>
-                <h4 className="font-bold text-sm text-slate-900 mb-1">{alert.speciesName}</h4>
-                <div className="text-xs text-emerald-700 font-medium mb-3">{alert.regionName}</div>
-                <p className="text-xs text-slate-600 bg-slate-50 p-2.5 rounded-lg border border-slate-100 leading-snug line-clamp-3">
-                  {alert.recommendedAction}
-                </p>
-              </div>
-              <div className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-xs font-mono">
-                <span className="text-slate-400">{alert.dateIssued}</span>
-                <span className="text-emerald-600 font-semibold group-hover:underline">
-                  Take Action →
-                </span>
-              </div>
-            </div>
-          ))}
-        </div>
+        <aside className="surface p-5 sm:p-6"><div className="eyebrow"><Radio className="h-3.5 w-3.5" /> Network notes</div><h3 className="mt-3 text-lg font-extrabold tracking-[-0.03em] text-[#edf9ef]">What the observatory is watching</h3><div className="mt-5 space-y-4"><div className="flex gap-3 border-b border-[#193d2f] pb-4"><span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-xl bg-[#73e5cf]/10 text-[#73e5cf]"><Droplets className="h-4 w-4" /></span><div><div className="text-xs font-bold text-[#d9f99d]">Monsoon rhythm</div><p className="mt-1 text-[11px] leading-5 text-[#88a79a]">Delayed onset and longer dry spells are being tracked against sensitive breeding windows.</p></div></div><div className="flex gap-3 border-b border-[#193d2f] pb-4"><span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-xl bg-[#ff9884]/10 text-[#ff9884]"><Flame className="h-4 w-4" /></span><div><div className="text-xs font-bold text-[#ffd184]">Thermal stress</div><p className="mt-1 text-[11px] leading-5 text-[#88a79a]">Urban heat and exposed slopes are pushing species beyond their normal comfort range.</p></div></div><div className="flex gap-3"><span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-xl bg-[#d9f99d]/10 text-[#d9f99d]"><TreePine className="h-4 w-4" /></span><div><div className="text-xs font-bold text-[#a8e6b8]">Habitat continuity</div><p className="mt-1 text-[11px] leading-5 text-[#88a79a]">Forest corridors, riparian edges and wetland buffers are scored as one connected system.</p></div></div></div><button onClick={() => setActiveTab('climate')} className="mt-6 flex w-full items-center justify-between rounded-xl border border-[#244d3b] bg-[#0d2a20] px-3 py-3 text-xs font-bold text-[#73e5cf] transition-colors hover:border-[#73e5cf]/50 hover:bg-[#123526]">Read the climate signal <ArrowRight className="h-4 w-4" /></button></aside>
       </section>
 
-      {/* 5. Featured High-Sensitivity Species */}
-      <section className="space-y-4">
-        <div className="flex items-center justify-between">
-          <div>
-            <h2 className="text-xl font-bold text-slate-900">
-              Indicator Species Facing Severe Climate Strain
-            </h2>
-            <p className="text-xs text-slate-500">
-              Taxa whose breeding cycles, moisture thresholds, or habitats are most acutely impacted in the Pune basin.
-            </p>
-          </div>
-          <button
-            onClick={() => setActiveTab('species')}
-            className="text-xs font-semibold text-emerald-700 hover:text-emerald-900 flex items-center space-x-1"
-          >
-            <span>Browse Full Database ({species.length})</span>
-            <ArrowRight className="w-3.5 h-3.5" />
-          </button>
-        </div>
+      <section className="space-y-5"><div className="flex flex-col justify-between gap-3 sm:flex-row sm:items-end"><div><div className="eyebrow"><span className="font-mono">04</span> Indicator library</div><h2 className="section-title mt-2">Species carrying the clearest signal</h2><p className="section-subtitle">Climate-sensitive taxa turn a changing landscape into an actionable story.</p></div><button onClick={() => setActiveTab('species')} className="inline-flex items-center gap-1.5 self-start text-xs font-extrabold text-[#73e5cf] hover:text-[#d9f99d] sm:self-auto">Browse full library ({species.length}) <ArrowRight className="h-3.5 w-3.5" /></button></div><div className="grid grid-cols-1 gap-5 md:grid-cols-3">{featuredSpecies.map((sp) => <SpeciesCard key={sp.id} species={sp} onSelect={onSelectSpecies} />)}</div></section>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {featuredSpecies.map((sp) => (
-            <SpeciesCard
-              key={sp.id}
-              species={sp}
-              onSelect={(item) => onSelectSpecies(item)}
-            />
-          ))}
-        </div>
-      </section>
+      <section className="surface-dark grid gap-6 overflow-hidden p-6 sm:p-8 md:grid-cols-[1fr_auto] md:items-center"><div><div className="eyebrow !text-[#d9f99d]"><Droplets className="h-3.5 w-3.5" /> Community sensor network</div><h2 className="mt-3 max-w-2xl text-2xl font-extrabold tracking-[-0.04em] text-white sm:text-3xl">Your observation becomes a signal.</h2><p className="mt-2 max-w-2xl text-sm leading-6 text-[#9cb8aa]">Add a sighting from the field and help the observatory understand what is changing next.</p></div><button onClick={() => setActiveTab('about')} className="inline-flex items-center justify-center gap-2 rounded-xl bg-[#d9f99d] px-4 py-3 text-xs font-extrabold text-[#06110f] transition-all hover:-translate-y-0.5 hover:bg-[#efffbd]">Report a sighting <ArrowRight className="h-4 w-4" /></button></section>
     </div>
   );
 }

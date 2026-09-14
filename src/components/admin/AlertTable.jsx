@@ -50,52 +50,52 @@ export default function AlertTable({ alerts = [], onUpdateStatus, regions = [] }
   const actionTakenCount = alerts.filter((a) => a.status === 'Action Taken').length;
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-7">
       {/* Official Status Metrics Summary */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-        <div className="bg-white p-4 rounded-xl border border-slate-200 shadow-sm flex items-center justify-between">
+        <div className="metric-card flex items-center justify-between">
           <div>
             <div className="text-xs font-mono text-slate-500 uppercase">Total Active Directives</div>
             <div className="text-2xl font-bold text-slate-900 mt-1">{alerts.length}</div>
           </div>
-          <div className="p-2 rounded-lg bg-slate-100 text-slate-600">
+          <div className="p-2 rounded-lg bg-[#102d22] text-[#73e5cf]">
             <ShieldAlert className="w-5 h-5" />
           </div>
         </div>
 
-        <div className="bg-white p-4 rounded-xl border border-slate-200 shadow-sm flex items-center justify-between">
+        <div className="metric-card flex items-center justify-between">
           <div>
             <div className="text-xs font-mono text-rose-600 uppercase font-semibold">Critical Thresholds</div>
             <div className="text-2xl font-bold text-rose-600 mt-1">{criticalCount}</div>
           </div>
-          <div className="p-2 rounded-lg bg-rose-50 text-rose-600">
+          <div className="p-2 rounded-lg bg-[#351f20] text-[#ff9d8a]">
             <AlertTriangle className="w-5 h-5" />
           </div>
         </div>
 
-        <div className="bg-white p-4 rounded-xl border border-slate-200 shadow-sm flex items-center justify-between">
+        <div className="metric-card flex items-center justify-between">
           <div>
             <div className="text-xs font-mono text-amber-600 uppercase font-semibold">Pending Review</div>
             <div className="text-2xl font-bold text-amber-600 mt-1">{pendingCount}</div>
           </div>
-          <div className="p-2 rounded-lg bg-amber-50 text-amber-600">
+          <div className="p-2 rounded-lg bg-[#332b1d] text-[#ffd184]">
             <Clock className="w-5 h-5" />
           </div>
         </div>
 
-        <div className="bg-white p-4 rounded-xl border border-slate-200 shadow-sm flex items-center justify-between">
+        <div className="metric-card flex items-center justify-between">
           <div>
             <div className="text-xs font-mono text-emerald-600 uppercase font-semibold">Action Executed</div>
             <div className="text-2xl font-bold text-emerald-600 mt-1">{actionTakenCount}</div>
           </div>
-          <div className="p-2 rounded-lg bg-emerald-50 text-emerald-600">
+          <div className="p-2 rounded-lg bg-[#102d22] text-[#9ee7b8]">
             <CheckCircle2 className="w-5 h-5" />
           </div>
         </div>
       </div>
 
       {/* Internal Tool Header & Filters */}
-      <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-5 space-y-4">
+      <div className="surface space-y-5 p-5 sm:p-6">
         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
           <div>
             <div className="flex items-center space-x-2">
@@ -119,7 +119,7 @@ export default function AlertTable({ alerts = [], onUpdateStatus, regions = [] }
               placeholder="Search alert by keyword..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full px-3.5 py-2 text-xs border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 bg-slate-50"
+              className="input-control"
             />
           </div>
         </div>
@@ -135,7 +135,7 @@ export default function AlertTable({ alerts = [], onUpdateStatus, regions = [] }
           <select
             value={selectedSeverity}
             onChange={(e) => setSelectedSeverity(e.target.value)}
-            className="px-3 py-1.5 rounded-lg border border-slate-200 bg-slate-50 text-slate-700 font-medium focus:outline-none"
+            className="select-control w-auto"
           >
             <option value="All">All Severities</option>
             <option value="Critical">Critical Only</option>
@@ -147,7 +147,7 @@ export default function AlertTable({ alerts = [], onUpdateStatus, regions = [] }
           <select
             value={selectedStatus}
             onChange={(e) => setSelectedStatus(e.target.value)}
-            className="px-3 py-1.5 rounded-lg border border-slate-200 bg-slate-50 text-slate-700 font-medium focus:outline-none"
+            className="select-control w-auto"
           >
             <option value="All">All Statuses</option>
             <option value="Pending">Pending Review</option>
@@ -159,7 +159,7 @@ export default function AlertTable({ alerts = [], onUpdateStatus, regions = [] }
           <select
             value={selectedRegion}
             onChange={(e) => setSelectedRegion(e.target.value)}
-            className="px-3 py-1.5 rounded-lg border border-slate-200 bg-slate-50 text-slate-700 font-medium focus:outline-none"
+            className="select-control w-auto"
           >
             <option value="All">All Pune Sub-Regions</option>
             {regions.map((r) => (
@@ -174,10 +174,26 @@ export default function AlertTable({ alerts = [], onUpdateStatus, regions = [] }
           </span>
         </div>
 
+        <div className="space-y-3 md:hidden">
+          <div className="flex items-center justify-between text-[10px] font-bold uppercase tracking-[0.14em] text-[#78988a]"><span>Mobile action queue</span><span>{filteredAlerts.length} shown</span></div>
+          {filteredAlerts.length === 0 ? (
+            <div className="metric-card text-center text-xs text-[#83a396]">No directives match the selected criteria.</div>
+          ) : filteredAlerts.map((alert) => {
+            const isUpdating = updatingId === alert.id;
+            return (
+              <article key={alert.id} className="surface-subtle space-y-3 p-4">
+                <div className="flex items-start justify-between gap-3"><div><div className="font-mono text-[10px] font-bold text-[#83a396]">{alert.id} · {alert.dateIssued}</div><h3 className="mt-1 text-sm font-extrabold text-[#edf9ef]">{alert.speciesName}</h3><div className="mt-1 text-[11px] font-bold text-[#73e5cf]">{alert.regionName}</div></div><SeverityBadge severity={alert.severity} /></div>
+                <div className="rounded-xl border border-[#1b3a2e] bg-[#091a15] p-3 text-[11px] leading-5 text-[#9db5a8]"><span className="mb-1 block text-[9px] font-bold uppercase tracking-[0.12em] text-[#78988a]">Trigger</span>{alert.thresholdExceeded}</div>
+                <div className="flex items-center justify-between gap-3"><span className="text-[10px] font-bold uppercase tracking-[0.12em] text-[#78988a]">Update status</span><select disabled={isUpdating} value={alert.status} onChange={(e) => handleStatusChange(alert.id, e.target.value)} className={`rounded-lg border px-2.5 py-1.5 text-xs font-bold ${alert.status === 'Action Taken' ? 'border-[#285442] bg-[#102d22] text-[#9ee7b8]' : alert.status === 'Reviewed' ? 'border-[#6b552e] bg-[#332b1d] text-[#ffd184]' : 'border-[#743e39] bg-[#351f20] text-[#ff9d8a]'}`}><option value="Pending">Pending</option><option value="Reviewed">Reviewed</option><option value="Action Taken">Action Taken</option></select></div>
+              </article>
+            );
+          })}
+        </div>
+
         {/* Table View */}
-        <div className="overflow-x-auto rounded-xl border border-slate-200">
-          <table className="w-full text-left text-xs text-slate-600">
-            <thead className="bg-slate-900 text-slate-300 font-mono uppercase text-[11px] tracking-wider">
+        <div className="hidden overflow-x-auto rounded-xl border border-slate-200 md:block">
+          <table className="data-table w-full text-left text-xs text-slate-600">
+            <thead className="bg-[#103d32] text-emerald-50/75 font-mono uppercase text-[10px] tracking-wider">
               <tr>
                 <th className="px-4 py-3.5">Directive ID</th>
                 <th className="px-4 py-3.5">Severity</th>
@@ -200,7 +216,7 @@ export default function AlertTable({ alerts = [], onUpdateStatus, regions = [] }
                   return (
                     <tr
                       key={alert.id}
-                      className="hover:bg-slate-50/80 transition-colors"
+                      className="transition-colors hover:bg-[#102d22]"
                     >
                       {/* ID & Date */}
                       <td className="px-4 py-3.5 whitespace-nowrap font-mono">
@@ -231,7 +247,7 @@ export default function AlertTable({ alerts = [], onUpdateStatus, regions = [] }
 
                       {/* Recommendation */}
                       <td className="px-4 py-3.5 max-w-sm">
-                        <p className="text-slate-800 font-medium leading-snug bg-slate-50 p-2 rounded border border-slate-100">
+                        <p className="text-slate-800 font-medium leading-snug bg-[#091a15] p-2 rounded border border-[#1b3a2e]">
                           {alert.recommendedAction}
                         </p>
                         {alert.adminNotes && (
@@ -243,17 +259,17 @@ export default function AlertTable({ alerts = [], onUpdateStatus, regions = [] }
 
                       {/* Status Dropdown */}
                       <td className="px-4 py-3.5 whitespace-nowrap text-center">
-                        <div className="inline-flex flex-col items-center space-y-1.5">
+                        <div className="inline-flex flex-col items-center gap-1.5">
                           <select
                             disabled={isUpdating}
                             value={alert.status}
                             onChange={(e) => handleStatusChange(alert.id, e.target.value)}
                             className={`px-2.5 py-1 rounded-md text-xs font-bold border transition-colors focus:outline-none cursor-pointer ${
                               alert.status === 'Action Taken'
-                                ? 'bg-emerald-50 text-emerald-800 border-emerald-300'
+                                ? 'bg-[#102d22] text-[#9ee7b8] border-[#285442]'
                                 : alert.status === 'Reviewed'
-                                ? 'bg-amber-50 text-amber-800 border-amber-300'
-                                : 'bg-rose-50 text-rose-800 border-rose-300'
+                                ? 'bg-[#332b1d] text-[#ffd184] border-[#6b552e]'
+                                : 'bg-[#351f20] text-[#ff9d8a] border-[#743e39]'
                             }`}
                           >
                             <option value="Pending">Pending</option>
