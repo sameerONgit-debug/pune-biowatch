@@ -7,12 +7,12 @@ export default function ClimateDashboardPage({ climateData }) {
     <div className="space-y-10">
       {/* Header */}
       <div className="surface p-6 sm:p-8">
-        <div className="eyebrow"><BarChart3 className="h-3.5 w-3.5" /> Meteorological & bio-correlation observatory</div>
+        <div className="eyebrow"><BarChart3 className="h-3.5 w-3.5" /> Meteorological observatory · derived pressure proxy</div>
         <h1 className="page-title">
-          Pune District Climate Trends & Species Stress Analytics
+          Pune District Climate Observations & Pressure Proxy
         </h1>
         <p className="page-subtitle max-w-3xl">
-          Empirical observation of shifting precipitation regimes, extreme pre-monsoon heatwave spikes, and their quantified correlation with biodiversity stress across Pune’s 8 micro-climatic zones.
+          Daily weather observations from Open-Meteo’s public archive are paired with a clearly labelled climate-pressure proxy. The proxy describes weather conditions only; it is not a measured biodiversity-stress or species-response model.
         </p>
       </div>
 
@@ -30,7 +30,7 @@ export default function ClimateDashboardPage({ climateData }) {
             Urban Heat Island & Thermal Prostration
           </h4>
           <p className="text-xs text-slate-600 leading-relaxed">
-            Metropolitan Pune routinely records afternoon temperatures exceeding 41.5°C during April and May. The expanding concrete footprint limits nocturnal radiative cooling, causing acute heat exhaustion in colonial fruit bats and suppressing nocturnal reptile activity.
+            Inspect the observed heat-day series in the chart above for the selected period. Any effect on bats or nocturnal reptiles requires field observations; this dashboard does not infer species response from temperature alone.
           </p>
         </div>
 
@@ -43,7 +43,7 @@ export default function ClimateDashboardPage({ climateData }) {
             Erratic Cloudbursts vs Extended Dry Breaks
           </h4>
           <p className="text-xs text-slate-600 leading-relaxed">
-            While total seasonal rainfall in Western Ghats zones (Mulshi, Tamhini) remains abundant, precipitation is increasingly concentrated in short, violent cloudburst events followed by 15 to 25-day rainless spells that desiccate delicate amphibian egg clutches.
+            The archive-derived monthly and dry-spell series show how rainfall is distributed across the year. The ecological interpretation is a monitoring hypothesis, not a causal finding from this weather feed.
           </p>
         </div>
 
@@ -56,7 +56,7 @@ export default function ClimateDashboardPage({ climateData }) {
             Montane Cloud-Forest Disruption
           </h4>
           <p className="text-xs text-slate-600 leading-relaxed">
-            High-altitude ridges like Sinhagad and Bhimashankar rely on sustained cloud mist cover during the monsoon. Rising cloud base altitudes and warmer wind trajectories reduce mist persistence, jeopardizing epiphyte flora and tree fern groves.
+            Regional habitat descriptions remain curated context from the bundled monitoring profiles. They are shown alongside live weather where available, but are not live cloud-base, mist or forest-canopy measurements.
           </p>
         </div>
       </div>

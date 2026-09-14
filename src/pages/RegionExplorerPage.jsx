@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import PuneLeafletMap from '../components/map/PuneLeafletMap';
 import SpeciesCard from '../components/species/SpeciesCard';
 import { SeverityBadge } from '../components/common/Badge';
@@ -10,6 +10,7 @@ import {
   ArrowRight,
   Compass,
 } from 'lucide-react';
+import { api } from '../services/api';
 
 import pashan2024 from '../assets/satellite/pashan-2024.svg';
 import sinhagad2024 from '../assets/satellite/sinhagad-2024.svg';
@@ -26,6 +27,25 @@ export default function RegionExplorerPage({
   setActiveTab,
 }) {
   const currentRegion = selectedRegion || regions[0];
+  const [satelliteScenes, setSatelliteScenes] = useState({});
+  const [satelliteMode, setSatelliteMode] = useState('loading');
+  const [satelliteFailed, setSatelliteFailed] = useState(false);
+
+  useEffect(() => {
+    let cancelled = false;
+    api.getSatelliteScenes().then((payload) => {
+      if (cancelled) return;
+      setSatelliteMode(payload?.mode || 'offline');
+      setSatelliteScenes(Object.fromEntries((payload?.scenes || []).map((scene) => [scene.id, scene])));
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  useEffect(() => {
+    setSatelliteFailed(false);
+  }, [currentRegion?.id]);
 
   const satelliteMap = {
     pashan: pashan2024,
@@ -38,8 +58,11 @@ export default function RegionExplorerPage({
     'mula-mutha': urban2024,
   };
 
-  const currentSatImg =
-    satelliteMap[currentRegion?.satelliteImageKey] || pashan2024;
+  const satelliteSceneKey = currentRegion?.satelliteImageKey === 'urban-pune' ? 'urban' : currentRegion?.satelliteImageKey;
+  const currentScene = satelliteScenes[satelliteSceneKey];
+  const currentSatImg = !satelliteFailed && currentScene?.afterImage
+    ? currentScene.afterImage
+    : satelliteMap[currentRegion?.satelliteImageKey] || pashan2024;
 
   // Species in this region
   const regionSpecies = currentRegion
@@ -61,7 +84,7 @@ export default function RegionExplorerPage({
             Pune District Ecological Zones & Habitats
           </h1>
           <p className="page-subtitle">
-            Select any sub-region on the map or the list to view microclimate stress, satellite observation, and resident indicator species.
+            Select any sub-region on the map or the list to view its curated habitat profile, a public satellite scene when available, and resident indicator species.
           </p>
         </div>
 
@@ -122,7 +145,7 @@ export default function RegionExplorerPage({
                         isSelected ? 'text-emerald-200' : 'text-slate-400'
                       }`}
                     >
-                      Score: {reg.metrics.vulnerabilityScore}/100
+                      Profile: {reg.metrics.vulnerabilityScore}/100
                     </div>
                   </button>
                 );
@@ -142,7 +165,7 @@ export default function RegionExplorerPage({
                     {currentRegion.habitatType}
                   </span>
                   <div className="flex items-center space-x-2 font-mono text-xs">
-                    <span className="text-slate-400">Vulnerability Score:</span>
+                    <span className="text-slate-400">Curated Profile:</span>
                     <span
                       className={`font-bold px-2 py-0.5 rounded ${
                         currentRegion.metrics.vulnerabilityScore >= 85
@@ -249,7 +272,7 @@ export default function RegionExplorerPage({
                     <div className="flex items-center space-x-2">
                       <Layers className="w-4 h-4 text-cyan-400" />
                       <span className="text-xs font-mono font-bold uppercase">
-                        Satellite Observation (2024 Sentinel-2 Simulation)
+                        {currentScene?.afterImage && satelliteMode === 'live-source' && !satelliteFailed ? 'NASA Worldview scene · MODIS Terra' : 'Illustrative offline scene'}
                       </span>
                     </div>
                     <button
@@ -264,11 +287,12 @@ export default function RegionExplorerPage({
                   <div className="w-full aspect-[16/8] rounded-lg overflow-hidden border border-slate-700 relative">
                     <img
                       src={currentSatImg}
-                      alt={currentRegion.name}
+                      alt={`${currentRegion.name} satellite scene`}
+                      onError={() => setSatelliteFailed(true)}
                       className="w-full h-full object-cover"
                     />
                     <div className="absolute bottom-2 left-2 bg-slate-950/80 px-2 py-1 rounded text-[10px] font-mono text-emerald-300">
-                      Decadal Tree Canopy Loss: {currentRegion.metrics.treeCanopyLossPercent}%
+                      {currentScene?.afterDate ? `NASA scene · ${currentScene.afterDate}` : 'Bundled illustrative fallback · not a live measurement'}
                     </div>
                   </div>
                 </div>

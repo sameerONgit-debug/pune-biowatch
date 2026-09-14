@@ -2,6 +2,7 @@ import express from 'express';
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import { getSpeciesObservations } from '../services/realData.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -54,6 +55,16 @@ router.get('/', (req, res) => {
     });
   } catch (error) {
     res.status(500).json({ success: false, error: 'Failed to fetch species' });
+  }
+});
+
+// GET real GBIF occurrence counts for the tracked species. This is intentionally separate so the initial UI can render immediately.
+router.get('/observations', async (req, res) => {
+  try {
+    const observations = await getSpeciesObservations(getSpecies());
+    res.json({ success: true, data: observations.observations, meta: observations });
+  } catch (error) {
+    res.status(502).json({ success: false, error: 'Failed to fetch GBIF observations', details: error.message });
   }
 });
 

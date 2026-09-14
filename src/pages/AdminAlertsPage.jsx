@@ -36,7 +36,7 @@ export default function AdminAlertsPage({ alerts = [], onUpdateStatus, regions =
             Ecological Threshold Directives & Incident Dispatch Desk
           </h1>
           <p className="mt-3 max-w-2xl text-sm leading-6 text-emerald-50/60">
-            Automated alerts synthesized from real-time meteorological sensor feeds, river flow monitors, and satellite vegetation reflectance thresholds across Pune district.
+            Curated monitoring directives for review by local teams. They are not automatically generated from live sensor feeds; weather, biodiversity and imagery providers are surfaced in their dedicated views when available.
           </p>
         </div>
 

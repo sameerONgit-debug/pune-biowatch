@@ -156,7 +156,7 @@ export default function SpeciesModal({ species, isOpen, onClose, onSelectRegion,
           <div className="bg-[#2b2117] border border-[#6b552e] rounded-2xl p-4">
             <div className="flex items-center space-x-2 text-[#ffd184] text-xs font-bold uppercase tracking-wider font-mono mb-1">
               <AlertCircle className="w-4 h-4 text-[#ffd184]" />
-              <span>Observed Regional Stress Indicators</span>
+              <span>Curated Regional Context</span>
             </div>
             <p className="text-xs text-[#f1d9a1] leading-relaxed font-medium">
               {species.keyThreatIndicators}
@@ -177,7 +177,7 @@ export default function SpeciesModal({ species, isOpen, onClose, onSelectRegion,
           {/* Pune Sub-Regions Distribution */}
           <div>
             <h4 className="text-xs font-mono uppercase tracking-wider text-slate-500 font-bold mb-2">
-              Documented Occurrence Across Pune Sub-Regions
+              Configured Habitat Regions · GBIF count shown below when available
             </h4>
             <div className="flex flex-wrap gap-2">
               {species.regions?.map((regId) => {
@@ -206,8 +206,8 @@ export default function SpeciesModal({ species, isOpen, onClose, onSelectRegion,
 
         {/* Modal Footer */}
         <div className="flex items-center justify-between border-t border-[#1b3a2e] bg-[#091a15] px-6 py-4 text-xs">
-          <span className="text-slate-400 font-mono">
-            Species ID: {species.id}
+          <span className="font-mono text-[#78988a]">
+            Species ID: {species.id}{species.gbifObservationCount != null ? ` · ${species.gbifObservationCount.toLocaleString()} GBIF records` : ''}
           </span>
           <button
             onClick={onClose}

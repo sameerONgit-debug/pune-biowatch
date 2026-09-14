@@ -24,8 +24,7 @@ export default function ClimateCharts({ climateData }) {
     return <div className="p-8 text-center text-slate-500">Loading climate records...</div>;
   }
 
-  const { annualTrends = [], monthlyClimatology = [], regionalComparisons = [], districtOverview = {} } =
-    climateData;
+  const { annualTrends = [], monthlyClimatology = [], regionalComparisons = [], districtOverview = {}, liveWeather = null, dataMeta = {}, periodLabel = '2015–2024' } = climateData;
 
   const CustomTooltip = ({ active, payload, label }) => {
     if (active && payload && payload.length) {
@@ -51,10 +50,10 @@ export default function ClimateCharts({ climateData }) {
         <div className="metric-card">
           <div className="flex items-center space-x-2 text-slate-500 text-xs font-mono mb-1">
             <Thermometer className="w-3.5 h-3.5 text-red-500" />
-            <span>10-Yr Mean Temp Rise</span>
+            <span>Period Mean Temp Delta</span>
           </div>
           <div className="text-2xl font-bold text-red-600">{districtOverview.decadeAvgTempRise}</div>
-          <div className="text-[11px] text-slate-500 mt-1">Over 1981-2010 normal</div>
+          <div className="text-[11px] text-slate-500 mt-1">{districtOverview.baselinePeriod || 'Bundled baseline'}</div>
         </div>
 
         <div className="metric-card">
@@ -78,10 +77,10 @@ export default function ClimateCharts({ climateData }) {
         <div className="metric-card">
           <div className="flex items-center space-x-2 text-slate-500 text-xs font-mono mb-1">
             <TrendingUp className="w-3.5 h-3.5 text-emerald-500" />
-            <span>Species Stress Trend</span>
+            <span>Current air temperature</span>
           </div>
-          <div className="text-2xl font-bold text-slate-900">+58.6%</div>
-          <div className="text-[11px] text-slate-500 mt-1">Index change since 2015</div>
+          <div className="text-2xl font-bold text-slate-900">{liveWeather?.current?.temperature != null ? `${liveWeather.current.temperature}°C` : '—'}</div>
+          <div className="text-[11px] text-slate-500 mt-1">{liveWeather ? 'Open-Meteo current reading' : 'Live reading unavailable'}</div>
         </div>
       </div>
 
@@ -106,7 +105,7 @@ export default function ClimateCharts({ climateData }) {
                 : 'text-[#83a396] hover:bg-[#102d22] hover:text-[#d9f99d]'
             }`}
           >
-            Heat ↔ stress
+            Pressure proxy
           </button>
           <button
             onClick={() => setActiveTab('monthly')}
@@ -130,9 +129,10 @@ export default function ClimateCharts({ climateData }) {
           </button>
         </div>
 
-        <div className="flex items-center space-x-1 text-[10px] font-bold uppercase tracking-[0.12em] text-[#809087]">
-          <Info className="w-3.5 h-3.5 text-slate-400" />
-          <span>IMD & Eco-Modeling Data</span>
+        <div className="flex items-center space-x-2 text-[10px] font-bold uppercase tracking-[0.12em] text-[#809087]">
+          <Info className="h-3.5 w-3.5 text-slate-400" />
+          <span title={dataMeta.note}>{dataMeta.mode === 'live' ? 'Open-Meteo live + archive' : 'Bundled baseline'}</span>
+          {dataMeta.sourceUrls?.[0] && <a href={dataMeta.sourceUrls[0]} target="_blank" rel="noreferrer" className="text-[#73e5cf] hover:text-[#d9f99d]">source ↗</a>}
         </div>
       </div>
 
@@ -141,16 +141,16 @@ export default function ClimateCharts({ climateData }) {
         <div className="surface space-y-4 p-6">
           <div>
             <h3 className="text-base font-bold text-slate-900">
-              Pune District Mean Temperature Anomaly & Extreme Heat Days (2015 – 2024)
+              Pune District Temperature Anomaly & Extreme Heat Days ({periodLabel})
             </h3>
             <p className="text-xs text-slate-500">
-              Demonstrates consistent positive thermal anomalies above the 25.1°C normal baseline, accompanied by tripling of extreme heat days (&gt;40°C).
+              Observed temperature, rainfall and heat-day signal against the selected historical baseline. The heat-day series counts daily maximum temperatures above 40°C.
             </p>
           </div>
 
           <div className="h-80 w-full">
             <ResponsiveContainer width="100%" height="100%">
-              <ComposedChart data={annualTrends} margin={{ top: 20, right: 20, bottom: 20, left: 10 }}>
+              <ComposedChart data={annualTrends.map((item) => ({ ...item, climatePressureProxy: item.climatePressureProxy ?? item.speciesStressIndex }))} margin={{ top: 20, right: 20, bottom: 20, left: 10 }}>
                 <CartesianGrid strokeDasharray="3 3" stroke="#1b3a2e" />
                 <XAxis dataKey="year" tick={{ fill: '#83a396', fontSize: 12 }} />
                 <YAxis
@@ -202,28 +202,28 @@ export default function ClimateCharts({ climateData }) {
         </div>
       )}
 
-      {/* CHART 2: Correlation with Species Stress */}
+      {/* CHART 2: Derived climate pressure proxy */}
       {activeTab === 'correlation' && (
         <div className="surface space-y-4 p-6">
           <div>
             <h3 className="text-base font-bold text-slate-900">
-              Correlation: Climatic Heat Pressure vs. Composite Species Stress Index
+              Climate pressure proxy across the selected period
             </h3>
             <p className="text-xs text-slate-500">
-              The Species Stress Index integrates mortality events, breeding failures, and range shifts recorded across 18 Pune indicator species. Strong positive correlation ($r = 0.91$) with extreme heat occurrences.
+              A transparent proxy derived from observed temperature anomalies, heat days and monsoon dry spells. It is not a measured species stress index.
             </p>
           </div>
 
           <div className="h-80 w-full">
             <ResponsiveContainer width="100%" height="100%">
-              <ComposedChart data={annualTrends} margin={{ top: 20, right: 20, bottom: 20, left: 10 }}>
+              <ComposedChart data={annualTrends.map((item) => ({ ...item, climatePressureProxy: item.climatePressureProxy ?? item.speciesStressIndex }))} margin={{ top: 20, right: 20, bottom: 20, left: 10 }}>
                 <CartesianGrid strokeDasharray="3 3" stroke="#1b3a2e" />
                 <XAxis dataKey="year" tick={{ fill: '#83a396', fontSize: 12 }} />
                 <YAxis
                   yAxisId="stress"
                   domain={[40, 100]}
                   tick={{ fill: '#83a396', fontSize: 12 }}
-                  label={{ value: 'Species Stress Index (0-100)', angle: -90, position: 'insideLeft', fill: '#638478', fontSize: 10 }}
+                  label={{ value: 'Climate Pressure Proxy (0-100)', angle: -90, position: 'insideLeft', fill: '#638478', fontSize: 10 }}
                 />
                 <YAxis
                   yAxisId="spells"
@@ -238,8 +238,8 @@ export default function ClimateCharts({ climateData }) {
                 <Area
                   yAxisId="stress"
                   type="monotone"
-                  dataKey="speciesStressIndex"
-                  name="Species Stress Index"
+                  dataKey="climatePressureProxy"
+                  name="Climate Pressure Proxy"
                   stroke="#10b981"
                   fill="#d1fae5"
                   strokeWidth={3}
@@ -274,10 +274,10 @@ export default function ClimateCharts({ climateData }) {
         <div className="surface space-y-4 p-6">
           <div>
             <h3 className="text-base font-bold text-slate-900">
-              Pune District Monthly Normal vs Current Year Precipitation & Temperature
+              Pune District Monthly Baseline vs Recent Period
             </h3>
             <p className="text-xs text-slate-500">
-              Pre-monsoon heat spikes in April-May trigger thermal stress in urban bat roosts, while irregular post-monsoon rain extends into October.
+              Compare the historical monthly baseline with the latest available observed period from the live archive.
             </p>
           </div>
 
@@ -345,10 +345,10 @@ export default function ClimateCharts({ climateData }) {
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
             <div>
               <h3 className="text-base font-bold text-slate-900">
-                Microclimate Variation Across Pune Sub-Regions
+                Regional climate profiles across Pune Sub-Regions
               </h3>
               <p className="text-xs text-slate-500">
-                Comparison of peak summer heat, total monsoon precipitation, and species stress rating.
+                Curated regional baselines, with current weather fields merged from Open-Meteo when available. Ratings are profiles, not live biodiversity measurements.
               </p>
             </div>
             <select
@@ -388,7 +388,7 @@ export default function ClimateCharts({ climateData }) {
                   orientation="right"
                   domain={[50, 100]}
                   tick={{ fill: '#83a396', fontSize: 12 }}
-                  label={{ value: 'Stress Rating (0-100)', angle: 90, position: 'insideRight', fill: '#638478', fontSize: 10 }}
+                  label={{ value: 'Curated Profile (0-100)', angle: 90, position: 'insideRight', fill: '#638478', fontSize: 10 }}
                 />
                 <Tooltip content={<CustomTooltip />} />
                 <Legend wrapperStyle={{ fontSize: '12px', paddingTop: '20px' }} />
@@ -404,7 +404,7 @@ export default function ClimateCharts({ climateData }) {
                   yAxisId="stress"
                   type="monotone"
                   dataKey="stressRating"
-                  name="Biodiversity Stress Rating"
+                  name="Curated Habitat Pressure Profile"
                   stroke="#ff9884"
                   strokeWidth={3}
                   dot={{ r: 5, fill: '#ff9884' }}
@@ -432,7 +432,7 @@ export default function ClimateCharts({ climateData }) {
                           : 'bg-[#102d22] text-[#9ee7b8] border border-[#285442]'
                       }`}
                     >
-                      Stress {reg.stressRating}
+                      Profile {reg.stressRating}
                     </span>
                   </div>
                   <div className="text-slate-500 text-[11px] mb-1.5">

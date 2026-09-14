@@ -6,6 +6,7 @@ import { Search, Filter, LayoutGrid, List, TreePine, Sparkles, MapPin, X } from 
 export default function SpeciesDatabasePage({
   species = [],
   regions = [],
+  observationMeta = {},
   onSelectSpecies,
   onSelectRegion,
   setActiveTab,
@@ -97,8 +98,13 @@ export default function SpeciesDatabasePage({
           <div className="eyebrow"><TreePine className="h-3.5 w-3.5" /> Taxonomic impact directory</div>
           <h1 className="page-title">Pune Regional Species Impact Database</h1>
           <p className="page-subtitle">
-            Cataloging 18+ indicator and endemic species across Western Ghats fringe zones, urban wetlands, and dry scrub habitats.
+            Cataloging indicator and endemic species across Western Ghats fringe zones, urban wetlands, and dry scrub habitats.
           </p>
+          <div className={`mt-3 inline-flex items-center gap-2 rounded-full border px-3 py-1.5 text-[10px] font-bold uppercase tracking-[0.1em] ${observationMeta.mode === 'live' ? 'border-[#285442] bg-[#102d22] text-[#9ee7b8]' : 'border-[#6b552e] bg-[#2b2117] text-[#ffd184]'}`} title={observationMeta.note || 'GBIF occurrence counts are requested for a transparent Pune monitoring bounding box.'}>
+            <span className={`h-1.5 w-1.5 rounded-full ${observationMeta.mode === 'live' ? 'bg-[#73e5cf]' : 'bg-[#ffd184]'}`} />
+            {observationMeta.mode === 'live' ? 'GBIF occurrence counts · live source' : observationMeta.mode === 'loading' ? 'Requesting GBIF occurrence counts' : 'GBIF unavailable · curated species profiles remain available'}
+            {observationMeta.sourceUrl && <a href={observationMeta.sourceUrl} target="_blank" rel="noreferrer" className="ml-1 underline decoration-[#73e5cf]/40 hover:text-white">source ↗</a>}
+          </div>
         </div>
 
         {/* View Toggle */}

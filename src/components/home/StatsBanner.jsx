@@ -1,18 +1,19 @@
 import React from 'react';
 import { AlertTriangle, ArrowUpRight, MapPin, TrendingUp, TreePine, Users } from 'lucide-react';
 
-export default function StatsBanner({ speciesCount = 18, regionsCount = 8, alertsCount = 10, criticalAlertsCount = 4, sightingsCount = 3, tempRise = '+1.42°C', setActiveTab }) {
+export default function StatsBanner({ speciesCount = 18, regionsCount = 8, alertsCount = 10, criticalAlertsCount = 4, sightingsCount = 3, tempRise = '+1.42°C', climateMeta = {}, periodLabel = 'bundled baseline', setActiveTab }) {
+  const sourceLabel = climateMeta.mode === 'live' ? `Open-Meteo archive · ${periodLabel}` : 'Bundled baseline · offline-safe';
   const stats = [
     { label: 'Indicator species', value: speciesCount, sub: 'Across 5 taxonomic classes', icon: TreePine, tone: 'text-[#d9f99d] bg-[#b8e37b]/10 border-[#b8e37b]/20', target: 'species' },
     { label: 'Monitored habitats', value: regionsCount, sub: 'Ghats edge to city wetlands', icon: MapPin, tone: 'text-[#73e5cf] bg-[#73e5cf]/10 border-[#73e5cf]/20', target: 'regions' },
     { label: 'Open directives', value: alertsCount, sub: `${criticalAlertsCount} critical thresholds`, icon: AlertTriangle, tone: 'text-[#ff9884] bg-[#ff9884]/10 border-[#ff9884]/20', target: 'alerts' },
-    { label: 'Temperature anomaly', value: tempRise, sub: 'vs 1981–2010 baseline', icon: TrendingUp, tone: 'text-[#ffd184] bg-[#ffd184]/10 border-[#ffd184]/20', target: 'climate' },
+    { label: 'Temperature anomaly', value: tempRise, sub: climateMeta.mode === 'live' ? 'vs historical archive baseline' : 'bundled historical baseline', icon: TrendingUp, tone: 'text-[#ffd184] bg-[#ffd184]/10 border-[#ffd184]/20', target: 'climate' },
     { label: 'Community reports', value: sightingsCount, sub: 'Field observations submitted', icon: Users, tone: 'text-[#b9b5ff] bg-[#b9b5ff]/10 border-[#b9b5ff]/20', target: 'about' },
   ];
 
   return (
     <section aria-label="Pune BioWatch at a glance">
-      <div className="mb-3 flex items-center justify-between gap-4"><div className="eyebrow"><span className="font-mono">01</span> District telemetry</div><span className="hidden font-mono text-[9px] uppercase tracking-[0.16em] text-[#78988a] sm:block">Regional model · 2015–2024 baseline</span></div>
+      <div className="mb-3 flex items-center justify-between gap-4"><div className="eyebrow"><span className="font-mono">01</span> District telemetry</div><span className="hidden font-mono text-[9px] uppercase tracking-[0.16em] text-[#78988a] sm:block">{sourceLabel}</span></div>
       <div className="grid grid-cols-2 gap-3 md:grid-cols-3 lg:grid-cols-5">
         {stats.map((stat) => {
           const Icon = stat.icon;

@@ -115,7 +115,7 @@ export default function AboutPage({
             <span>Academic & Community Engagement Project Notice</span>
           </div>
           <p>
-            This web application is developed strictly for educational, research demonstration, and community engagement purposes. The species vulnerability indices, satellite remote sensing metrics, and administrative alert algorithms reflect documented regional trends derived from public scientific literature (IMD Pune, Maharashtra Forest Department, IUCN Red List, and remote sensing repositories).
+            This web application is developed for educational, research demonstration, and community engagement purposes. Open-Meteo weather/archive records, GBIF occurrence counts, and NASA Worldview scenes are fetched where available. Species vulnerability profiles, regional scores, alert queue entries, and interpretation notes are curated context—not live sensor measurements or automated species-response conclusions.
           </p>
         </div>
       </div>
@@ -393,6 +393,12 @@ export default function AboutPage({
                 <ShieldCheck className="w-4 h-4 text-[#73e5cf] flex-shrink-0 mt-0.5" />
                 <span>
                   <b>IUCN Species Survival Commission:</b> Western Ghats Freshwater & Amphibian Assessments.
+                </span>
+              </div>
+              <div className="flex items-start space-x-2">
+                <ShieldCheck className="w-4 h-4 text-[#73e5cf] flex-shrink-0 mt-0.5" />
+                <span>
+                  <b>Live public feeds:</b> Open-Meteo weather/archive, GBIF occurrence search, and NASA Worldview/GIBS imagery; requests are keyless and retain an offline fallback.
                 </span>
               </div>
             </div>

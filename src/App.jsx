@@ -45,6 +45,7 @@ export default function App() {
   const [activeTab, setActiveTab] = useState(getTabFromHash);
   const [regions, setRegions] = useState([]);
   const [species, setSpecies] = useState([]);
+  const [speciesObservationMeta, setSpeciesObservationMeta] = useState({ mode: 'loading' });
   const [climateData, setClimateData] = useState(null);
   const [alerts, setAlerts] = useState([]);
   const [sightings, setSightings] = useState([]);
@@ -89,6 +90,22 @@ export default function App() {
         setClimateData(climRes || null);
         setAlerts(alrRes || []);
         setSightings(sgtRes || []);
+
+        // Occurrence counts load after the first paint so GBIF latency never blocks the core observatory UI.
+        api.getSpeciesObservations().then(({ observations = [], meta = null }) => {
+          const observationMeta = meta || { mode: observations.length ? 'live' : 'fallback' };
+          setSpeciesObservationMeta(observationMeta);
+          const byScientificName = new Map(observations.map((item) => [item.scientificName, item]));
+          setSpecies((current) => current.map((item) => {
+            const observation = byScientificName.get(item.scientificName);
+            return {
+              ...item,
+              gbifObservationMode: observationMeta.mode,
+              gbifObservationCount: observation?.occurrenceCount ?? item.gbifObservationCount,
+              gbifSource: observation?.source || item.gbifSource,
+            };
+          }));
+        });
 
         if (regRes?.length > 0) setSelectedRegion(regRes[0]);
       } catch (err) {
@@ -164,7 +181,7 @@ export default function App() {
         <Suspense fallback={<PageLoading />}>
           {activeTab === 'home' && <HomePage regions={regions} species={species} alerts={alerts} sightings={sightings} climateData={climateData} setActiveTab={handleSetActiveTab} onSelectRegion={(region) => { setSelectedRegion(region); handleSetActiveTab('regions'); }} onSelectSpecies={handleOpenSpeciesModal} />}
           {activeTab === 'regions' && <RegionExplorerPage regions={regions} species={species} alerts={alerts} selectedRegion={selectedRegion} setSelectedRegion={setSelectedRegion} onSelectSpecies={handleOpenSpeciesModal} setActiveTab={handleSetActiveTab} />}
-          {activeTab === 'species' && <SpeciesDatabasePage species={species} regions={regions} onSelectSpecies={handleOpenSpeciesModal} onSelectRegion={handleSelectRegionFromSpecies} setActiveTab={handleSetActiveTab} />}
+          {activeTab === 'species' && <SpeciesDatabasePage species={species} regions={regions} observationMeta={speciesObservationMeta} onSelectSpecies={handleOpenSpeciesModal} onSelectRegion={handleSelectRegionFromSpecies} setActiveTab={handleSetActiveTab} />}
           {activeTab === 'climate' && <ClimateDashboardPage climateData={climateData} />}
           {activeTab === 'satellite' && <SatelliteViewerPage />}
           {activeTab === 'alerts' && <AdminAlertsPage alerts={alerts} onUpdateStatus={handleUpdateAlertStatus} regions={regions} />}

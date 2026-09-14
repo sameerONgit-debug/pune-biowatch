@@ -45,10 +45,10 @@ export default function Footer({ setActiveTab }) {
           <div className="rounded-2xl border border-white/10 bg-white/[0.045] p-5">
             <div className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.17em] text-[#d5f36b]"><Sparkles className="h-3.5 w-3.5" /> Project note</div>
             <p className="mt-3 text-xs leading-6 text-emerald-50/60">
-              Built for academic research, planning simulation and public awareness. Data and satellite composites represent synthesized regional trends for demonstration.
+              Built for academic research, planning simulation and public awareness. Public weather, biodiversity and satellite providers are used where available; bundled regional profiles remain available as an offline fallback.
             </p>
             <div className="mt-4 border-t border-white/10 pt-4 text-[10px] leading-5 text-emerald-50/40">
-              Sources include IMD Pune, Maharashtra Forest Department, IUCN assessments, ESA Sentinel-2 and USGS Landsat archives.
+              Live integrations: Open-Meteo weather/archive, GBIF occurrence records and NASA Worldview/GIBS imagery. Curated context: IMD and regional conservation literature.
             </div>
           </div>
         </div>

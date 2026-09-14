@@ -1,6 +1,9 @@
-import React, { useState, useRef, useCallback, useEffect } from 'react';
-import { Layers, MoveHorizontal, AlertCircle, TrendingDown, Eye, Calendar } from 'lucide-react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
+import { Calendar, Eye, Layers, MoveHorizontal, Satellite, ShieldAlert } from 'lucide-react';
+import { api } from '../../services/api';
 
+// These are deliberately retained as an offline-safe visual fallback. They are never described as
+// satellite observations; the normal path is a dated NASA Worldview scene returned by the API.
 import pashan2014 from '../../assets/satellite/pashan-2014.svg';
 import pashan2024 from '../../assets/satellite/pashan-2024.svg';
 import sinhagad2014 from '../../assets/satellite/sinhagad-2014.svg';
@@ -10,114 +13,115 @@ import urban2024 from '../../assets/satellite/urban-2024.svg';
 import mulshi2014 from '../../assets/satellite/mulshi-2014.svg';
 import mulshi2024 from '../../assets/satellite/mulshi-2024.svg';
 
-const HOTSPOTS = [
+const FALLBACK_HOTSPOTS = [
   {
     id: 'pashan',
     title: 'Pashan Lake Wetland Basin',
-    subtitle: 'Siltation, Urban Encirclement & Invasive Hyacinth Spread',
-    beforeYear: 'OCT 2014',
-    afterYear: 'OCT 2024',
-    beforeImg: pashan2014,
-    afterImg: pashan2024,
-    metrics: [
-      { label: 'Open Water Area', value: '-48.4%', trend: 'down', color: 'text-red-600' },
-      { label: 'Water Hyacinth Bloom', value: '58.7%', trend: 'up', color: 'text-amber-600' },
-      { label: 'Buffer Tree Canopy', value: '-14.1%', trend: 'down', color: 'text-red-600' },
-      { label: 'Wintering Waterfowl Count', value: '-62%', trend: 'down', color: 'text-rose-600' },
-    ],
-    summary:
-      'Over the 10-year satellite baseline, Pashan Lake has lost nearly half its contiguous open water surface. Runoff from rapid upstream residential development in Baner-Sus along Ramnadi deposited thousands of tonnes of construction silt, while nutrient-rich wastewater catalyzed an explosive infestation of invasive Water Hyacinth (Eichhornia crassipes), suffocating migratory bird mudflats.',
+    subtitle: 'Wetland edge, urban encirclement and open-water context',
+    beforeDate: '2014-10-15',
+    afterDate: '2024-10-15',
+    bbox: [73.74, 18.49, 73.85, 18.58],
+    beforeImg: null,
+    afterImg: null,
+    fallbackBefore: pashan2014,
+    fallbackAfter: pashan2024,
+    context: 'Pashan Lake is a locally important urban wetland. Use the scene comparison to inspect shoreline, open-water and surrounding built-up context; this viewer does not calculate area change automatically.',
   },
   {
     id: 'sinhagad',
     title: 'Sinhagad Ridge & Montane Spur',
-    subtitle: 'Canopy Thinning, Ghat Road Widening & Micro-Refugium Desiccation',
-    beforeYear: 'NOV 2014',
-    afterYear: 'NOV 2024',
-    beforeImg: sinhagad2014,
-    afterImg: sinhagad2024,
-    metrics: [
-      { label: 'Forest Density (NDVI)', value: '-23.7%', trend: 'down', color: 'text-amber-600' },
-      { label: 'Road Cleared Width', value: '300%', trend: 'up', color: 'text-red-600' },
-      { label: 'Surface Soil Temp', value: '+3.4°C', trend: 'up', color: 'text-red-600' },
-      { label: 'Spring Seepage Duration', value: '-4 wks', trend: 'down', color: 'text-rose-600' },
-    ],
-    summary:
-      'The Sahyadri ridge spur at Sinhagad provides moisture-dependent habitats for rare endemic amphibians and reptiles. Satellite multispectral reflectance documents an 18-meter-wide road widening clearing scar, expanded summit concrete stalls, and severe slope desiccation on southwest-facing ravines where Ghate’s bush frog nests.',
+    subtitle: 'Western Ghats ridge and forest-cover context',
+    beforeDate: '2014-11-15',
+    afterDate: '2024-11-15',
+    bbox: [73.70, 18.31, 73.82, 18.42],
+    beforeImg: null,
+    afterImg: null,
+    fallbackBefore: sinhagad2014,
+    fallbackAfter: sinhagad2024,
+    context: 'Sinhagad sits within a moisture-sensitive Western Ghats landscape. Compare ridge texture, clearings and road corridors against the same public satellite product and date window.',
   },
   {
     id: 'urban',
     title: 'Pune Northwest Tech Corridor',
-    subtitle: 'Impervious Surface Expansion & Urban Heat Island Footprint',
-    beforeYear: 'MAR 2010',
-    afterYear: 'MAR 2024',
-    beforeImg: urban2010,
-    afterImg: urban2024,
-    metrics: [
-      { label: 'Impervious Built-Up', value: '+54.3%', trend: 'up', color: 'text-red-600' },
-      { label: 'Thermal Surface Anomaly', value: '+8.6°C', trend: 'up', color: 'text-red-600' },
-      { label: 'Tree Canopy Cover', value: '-16.2%', trend: 'down', color: 'text-amber-600' },
-      { label: 'Nocturnal Heat Retention', value: '+4.2°C', trend: 'up', color: 'text-rose-600' },
-    ],
-    summary:
-      'Between 2010 and 2024, the Baner-Balewadi-Hinjawadi corridor transitioned from rural agricultural holdings and scrub buffers into continuous asphalt and high-rise concrete. Thermal infrared satellite imagery reveals an intense Urban Heat Island (UHI) dome with ground temperatures reaching 42.8°C, threatening urban fruit bat roosts at SPPU and Empress Garden.',
+    subtitle: 'Baner–Balewadi–Hinjawadi urban expansion context',
+    beforeDate: '2010-03-15',
+    afterDate: '2024-03-15',
+    bbox: [73.67, 18.52, 73.86, 18.67],
+    beforeImg: null,
+    afterImg: null,
+    fallbackBefore: urban2010,
+    fallbackAfter: urban2024,
+    context: 'This scene pair frames the northwest growth corridor. Built-up expansion and vegetation patterns require image interpretation or a dedicated classification workflow; no static percentage is presented here as a live measurement.',
   },
   {
     id: 'mulshi',
     title: 'Mulshi Catchment & Sahyadri Crest',
-    subtitle: 'Orographic Forest Buffer Fragmentation & Reservoir Contraction',
-    beforeYear: 'OCT 2014',
-    afterYear: 'OCT 2024',
-    beforeImg: mulshi2014,
-    afterImg: mulshi2024,
-    metrics: [
-      { label: 'Water Surface Area', value: '-16.7%', trend: 'down', color: 'text-amber-600' },
-      { label: 'Eroded Shoreline Rim', value: '+31.4%', trend: 'up', color: 'text-red-600' },
-      { label: 'Riparian Forest Buffer', value: '-6.8%', trend: 'down', color: 'text-amber-600' },
-      { label: 'Slope Landslide Scars', value: '+12 sites', trend: 'up', color: 'text-rose-600' },
-    ],
-    summary:
-      'Nestled against the heavy-rainfall crest of the Western Ghats, Mulshi supplies essential hydroelectric and riparian buffer ecosystem services. Multi-year comparison shows severe shoreline drawdown lines exposed to dry winds, lakeside resort excavation cuts, and flash rainfall landslide strips across steep slopes.',
+    subtitle: 'Reservoir edge and forest-buffer context',
+    beforeDate: '2014-10-15',
+    afterDate: '2024-10-15',
+    bbox: [73.43, 18.43, 73.63, 18.61],
+    beforeImg: null,
+    afterImg: null,
+    fallbackBefore: mulshi2014,
+    fallbackAfter: mulshi2024,
+    context: 'Mulshi is a forested catchment at the Western Ghats crest. The public scenes provide visual context for reservoir edges and forest buffers, not an automated estimate of shoreline or canopy loss.',
   },
 ];
 
+function formatSceneDate(value) {
+  if (!value) return 'date unavailable';
+  return new Intl.DateTimeFormat('en-IN', { day: '2-digit', month: 'short', year: 'numeric', timeZone: 'UTC' }).format(new Date(`${value}T00:00:00Z`));
+}
+
 export default function SatelliteSlider() {
-  const [selectedHotspot, setSelectedHotspot] = useState(HOTSPOTS[0]);
+  const [hotspots, setHotspots] = useState(FALLBACK_HOTSPOTS);
+  const [selectedId, setSelectedId] = useState(FALLBACK_HOTSPOTS[0].id);
+  const [sourceMeta, setSourceMeta] = useState({ mode: 'loading', note: 'Requesting NASA scene metadata.' });
+  const [failedImages, setFailedImages] = useState({});
   const [sliderPos, setSliderPos] = useState(50);
   const [isDragging, setIsDragging] = useState(false);
   const containerRef = useRef(null);
 
-  const handleMove = useCallback(
-    (clientX) => {
-      if (!containerRef.current) return;
-      const rect = containerRef.current.getBoundingClientRect();
-      const x = clientX - rect.left;
-      const width = rect.width;
-      let percent = (x / width) * 100;
-      if (percent < 2) percent = 2;
-      if (percent > 98) percent = 98;
-      setSliderPos(percent);
-    },
-    []
-  );
+  const selectedHotspot = hotspots.find((hotspot) => hotspot.id === selectedId) || hotspots[0];
 
-  const handleMouseDown = () => setIsDragging(true);
-  const handleTouchStart = () => setIsDragging(true);
+  useEffect(() => {
+    let cancelled = false;
+    api.getSatelliteScenes().then((payload) => {
+      if (cancelled) return;
+      setSourceMeta(payload || { mode: 'offline', note: 'NASA scene metadata unavailable.' });
+      if (!payload?.scenes?.length) return;
+      const scenesById = new Map(payload.scenes.map((scene) => [scene.id, scene]));
+      setHotspots((current) => current.map((hotspot) => ({
+        ...hotspot,
+        ...(scenesById.get(hotspot.id) || {}),
+      })));
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  const handleMove = useCallback((clientX) => {
+    if (!containerRef.current) return;
+    const rect = containerRef.current.getBoundingClientRect();
+    const percent = Math.max(2, Math.min(98, ((clientX - rect.left) / rect.width) * 100));
+    setSliderPos(percent);
+  }, []);
 
   useEffect(() => {
     const handleMouseUp = () => setIsDragging(false);
-    const handleMouseMove = (e) => {
-      if (isDragging) handleMove(e.clientX);
+    const handleMouseMove = (event) => {
+      if (isDragging) handleMove(event.clientX);
     };
-    const handleTouchMove = (e) => {
-      if (isDragging && e.touches[0]) handleMove(e.touches[0].clientX);
+    const handleTouchMove = (event) => {
+      if (isDragging && event.touches[0]) handleMove(event.touches[0].clientX);
     };
 
     if (isDragging) {
       window.addEventListener('mouseup', handleMouseUp);
       window.addEventListener('mousemove', handleMouseMove);
       window.addEventListener('touchend', handleMouseUp);
-      window.addEventListener('touchmove', handleTouchMove);
+      window.addEventListener('touchmove', handleTouchMove, { passive: true });
     }
     return () => {
       window.removeEventListener('mouseup', handleMouseUp);
@@ -127,137 +131,145 @@ export default function SatelliteSlider() {
     };
   }, [isDragging, handleMove]);
 
+  const markImageFailed = (imageKey) => {
+    setFailedImages((current) => ({ ...current, [imageKey]: true }));
+  };
+
+  const getSceneImage = (hotspot, side) => {
+    const key = `${hotspot.id}-${side}`;
+    const liveImage = side === 'before' ? hotspot.beforeImage : hotspot.afterImage;
+    const fallbackImage = side === 'before' ? hotspot.fallbackBefore : hotspot.fallbackAfter;
+    return failedImages[key] || !liveImage ? fallbackImage : liveImage;
+  };
+
+  const liveScene = Boolean(selectedHotspot?.beforeImage && selectedHotspot?.afterImage);
+  const sourceLabel = sourceMeta.mode === 'live-source' && liveScene ? 'NASA SCENE' : sourceMeta.mode === 'loading' ? 'LOADING SOURCE' : 'OFFLINE FALLBACK';
+  const beforeImage = getSceneImage(selectedHotspot, 'before');
+  const afterImage = getSceneImage(selectedHotspot, 'after');
+  const beforeFailed = failedImages[`${selectedHotspot.id}-before`];
+  const afterFailed = failedImages[`${selectedHotspot.id}-after`];
+
   return (
     <div className="space-y-7">
-      {/* Hotspot Selector Pills */}
       <div className="flex flex-wrap gap-2">
-        {HOTSPOTS.map((hotspot) => {
+        {hotspots.map((hotspot) => {
           const isSelected = hotspot.id === selectedHotspot.id;
           return (
             <button
               key={hotspot.id}
               onClick={() => {
-                setSelectedHotspot(hotspot);
+                setSelectedId(hotspot.id);
                 setSliderPos(50);
               }}
-              className={`px-4 py-2.5 rounded-xl text-xs font-semibold flex items-center space-x-2 transition-all border ${
+              className={`flex items-center space-x-2 rounded-xl border px-4 py-2.5 text-xs font-semibold transition-all ${
                 isSelected
-                  ? 'bg-[#0e4d3b] text-white border-[#0e4d3b] shadow-md scale-[1.02]'
-                  : 'bg-[#0b2119] text-[#9db5a8] border-[#1c4032] hover:border-[#73e5cf]/45 hover:bg-[#102d22]'
+                  ? 'border-[#0e4d3b] bg-[#0e4d3b] text-white shadow-md scale-[1.02]'
+                  : 'border-[#1c4032] bg-[#0b2119] text-[#9db5a8] hover:border-[#73e5cf]/45 hover:bg-[#102d22]'
               }`}
             >
-              <Layers className={`w-3.5 h-3.5 ${isSelected ? 'text-emerald-400' : 'text-slate-400'}`} />
+              <Layers className={`h-3.5 w-3.5 ${isSelected ? 'text-emerald-400' : 'text-slate-400'}`} />
               <span>{hotspot.title}</span>
             </button>
           );
         })}
       </div>
 
-      {/* Main Interactive Comparison Stage */}
       <div className="surface overflow-hidden p-6 sm:p-7">
-        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-2 border-b border-slate-100 pb-4">
+        <div className="flex flex-col gap-3 border-b border-[#1c4032] pb-4 md:flex-row md:items-center md:justify-between">
           <div>
-            <div className="flex items-center space-x-2">
-              <span className="rounded border border-[#285442] bg-[#102d22] px-2 py-0.5 font-mono text-xs font-bold uppercase text-[#9ee7b8]">
-                Sentinel-2 & Landsat Decadal Observation
+            <div className="flex flex-wrap items-center gap-2">
+              <span className={`rounded border px-2 py-0.5 font-mono text-[10px] font-bold uppercase tracking-[0.12em] ${
+                liveScene && sourceMeta.mode === 'live-source' && !beforeFailed && !afterFailed
+                  ? 'border-[#73e5cf]/40 bg-[#102d22] text-[#9ee7b8]'
+                  : 'border-amber-400/40 bg-amber-400/10 text-amber-200'
+              }`}>
+                {sourceLabel}
               </span>
-              <span className="font-mono text-xs text-[#78988a]">10-Year Satellite Revisit</span>
+              <span className="font-mono text-[10px] uppercase tracking-[0.12em] text-[#78988a]">MODIS Terra · true color</span>
             </div>
-            <h2 className="text-xl font-extrabold text-slate-900 mt-1">
-              {selectedHotspot.title}
-            </h2>
-            <p className="text-xs text-slate-500 font-medium">
-              {selectedHotspot.subtitle}
-            </p>
+            <h2 className="mt-1 text-xl font-extrabold text-slate-100">{selectedHotspot.title}</h2>
+            <p className="text-xs font-medium text-[#8eaa9d]">{selectedHotspot.subtitle}</p>
           </div>
 
           <div className="flex items-center space-x-2 self-start rounded-lg border border-[#1c4032] bg-[#091a15] px-3 py-1.5 font-mono text-xs text-[#83a396] md:self-auto">
-            <MoveHorizontal className="w-4 h-4 text-emerald-600 animate-pulse" />
+            <MoveHorizontal className="h-4 w-4 animate-pulse text-emerald-400" />
             <span>Drag center divider to compare</span>
           </div>
         </div>
 
-        {/* Interactive Drag Stage */}
         <div
           ref={containerRef}
-          className="relative w-full aspect-[16/10] sm:aspect-[16/9] max-h-[500px] rounded-xl overflow-hidden select-none border border-slate-300 shadow-md cursor-ew-resize bg-slate-950"
-          onMouseDown={handleMouseDown}
-          onTouchStart={handleTouchStart}
+          className="relative mt-5 aspect-[16/10] max-h-[500px] w-full cursor-ew-resize select-none overflow-hidden rounded-xl border border-[#285442] bg-slate-950 shadow-[0_20px_60px_rgba(0,0,0,0.28)] sm:aspect-[16/9]"
+          onMouseDown={() => setIsDragging(true)}
+          onTouchStart={() => setIsDragging(true)}
         >
-          {/* Base Layer: AFTER Image (Right side revealed as slider moves left) */}
           <img
-            src={selectedHotspot.afterImg}
-            alt={`${selectedHotspot.title} ${selectedHotspot.afterYear}`}
-            className="absolute inset-0 w-full h-full object-cover pointer-events-none"
+            src={afterImage}
+            alt={`${selectedHotspot.title} scene from ${formatSceneDate(selectedHotspot.afterDate)}`}
+            onError={() => markImageFailed(`${selectedHotspot.id}-after`)}
+            className="pointer-events-none absolute inset-0 h-full w-full object-cover"
           />
-
-          {/* Top Layer: BEFORE Image (Clipped by slider position) */}
-          <div
-            className="absolute inset-0 overflow-hidden pointer-events-none"
-            style={{ width: `${sliderPos}%` }}
-          >
+          <div className="pointer-events-none absolute inset-0 overflow-hidden" style={{ width: `${sliderPos}%` }}>
             <img
-              src={selectedHotspot.beforeImg}
-              alt={`${selectedHotspot.title} ${selectedHotspot.beforeYear}`}
-              className="absolute top-0 left-0 h-full max-w-none pointer-events-none"
-              style={{
-                width: containerRef.current ? containerRef.current.clientWidth : '100%',
-              }}
+              src={beforeImage}
+              alt={`${selectedHotspot.title} scene from ${formatSceneDate(selectedHotspot.beforeDate)}`}
+              onError={() => markImageFailed(`${selectedHotspot.id}-before`)}
+              className="pointer-events-none absolute left-0 top-0 h-full max-w-none"
+              style={{ width: containerRef.current ? containerRef.current.clientWidth : '100%' }}
             />
           </div>
 
-          {/* Divider Line & Handle */}
-          <div
-            className="absolute top-0 bottom-0 w-1 bg-white shadow-2xl z-30 pointer-events-none"
-            style={{ left: `${sliderPos}%` }}
-          >
-            <div className="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-10 h-10 rounded-full bg-slate-900/90 text-white border-2 border-white shadow-2xl flex items-center justify-center pointer-events-auto cursor-ew-resize hover:scale-110 transition-transform">
-              <MoveHorizontal className="w-5 h-5 text-emerald-400" />
+          <div className="pointer-events-none absolute bottom-4 left-4 z-20">
+            <span className="flex items-center space-x-1.5 rounded-lg border border-emerald-400/40 bg-slate-950/85 px-3 py-1.5 font-mono text-xs font-bold text-emerald-300 shadow-lg backdrop-blur-md">
+              <Calendar className="h-3.5 w-3.5" />
+              <span>BEFORE · {formatSceneDate(selectedHotspot.beforeDate)}</span>
+            </span>
+          </div>
+          <div className="pointer-events-none absolute bottom-4 right-4 z-20">
+            <span className="flex items-center space-x-1.5 rounded-lg border border-rose-400/40 bg-slate-950/85 px-3 py-1.5 font-mono text-xs font-bold text-rose-300 shadow-lg backdrop-blur-md">
+              <Calendar className="h-3.5 w-3.5" />
+              <span>AFTER · {formatSceneDate(selectedHotspot.afterDate)}</span>
+            </span>
+          </div>
+
+          <div className="pointer-events-none absolute bottom-0 top-0 z-30 w-1 bg-white shadow-2xl" style={{ left: `${sliderPos}%` }}>
+            <div className="pointer-events-auto absolute left-1/2 top-1/2 flex h-10 w-10 -translate-x-1/2 -translate-y-1/2 cursor-ew-resize items-center justify-center rounded-full border-2 border-white bg-slate-900/90 text-white shadow-2xl transition-transform hover:scale-110">
+              <MoveHorizontal className="h-5 w-5 text-emerald-400" />
             </div>
           </div>
-
-          {/* Floating Timestamp Badges */}
-          <div className="absolute bottom-4 left-4 z-20 pointer-events-none">
-            <span className="bg-slate-950/85 backdrop-blur-md text-emerald-400 text-xs font-mono font-bold px-3 py-1.5 rounded-lg border border-emerald-500/50 shadow-lg flex items-center space-x-1.5">
-              <Calendar className="w-3.5 h-3.5" />
-              <span>BEFORE: {selectedHotspot.beforeYear}</span>
-            </span>
-          </div>
-
-          <div className="absolute bottom-4 right-4 z-20 pointer-events-none">
-            <span className="bg-slate-950/85 backdrop-blur-md text-rose-400 text-xs font-mono font-bold px-3 py-1.5 rounded-lg border border-rose-500/50 shadow-lg flex items-center space-x-1.5">
-              <Calendar className="w-3.5 h-3.5" />
-              <span>AFTER: {selectedHotspot.afterYear}</span>
-            </span>
-          </div>
         </div>
 
-        {/* Change Metrics Cards */}
-        <div>
-          <h4 className="text-xs font-mono uppercase tracking-wider text-slate-400 font-bold mb-3">
-            Decadal Remote Sensing Key Change Metrics
-          </h4>
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-            {selectedHotspot.metrics.map((metric, idx) => (
-              <div
-                key={idx}
-                className="metric-card flex flex-col justify-between"
-              >
-                <span className="text-[11px] text-slate-500 font-medium">{metric.label}</span>
-                <span className={`text-xl font-extrabold font-mono mt-1 ${metric.color}`}>
-                  {metric.value}
-                </span>
-              </div>
-            ))}
-          </div>
+        <div className="mt-5 grid grid-cols-2 gap-3 sm:grid-cols-4">
+          {[
+            { label: 'Provider', value: 'NASA GIBS' },
+            { label: 'Product', value: 'MODIS Terra' },
+            { label: 'Before scene', value: formatSceneDate(selectedHotspot.beforeDate) },
+            { label: 'After scene', value: formatSceneDate(selectedHotspot.afterDate) },
+          ].map((item) => (
+            <div key={item.label} className="rounded-xl border border-[#1c4032] bg-[#091a15] p-3">
+              <div className="font-mono text-[9px] font-bold uppercase tracking-[0.12em] text-[#78988a]">{item.label}</div>
+              <div className="mt-1 text-sm font-bold text-[#d9f99d]">{item.value}</div>
+            </div>
+          ))}
         </div>
 
-        {/* Narrative Description */}
-        <div className="surface-subtle p-4 text-xs leading-relaxed text-slate-700">
-          <span className="font-bold text-slate-900 block mb-1">
-            Remote Sensing & Environmental Impact Analysis:
-          </span>
-          {selectedHotspot.summary}
+        <div className="mt-4 rounded-xl border border-[#1c4032] bg-[#091a15] p-4 text-xs leading-relaxed text-[#9db5a8]">
+          <div className="mb-1 flex items-center gap-2 font-bold text-[#d9f99d]">
+            <Eye className="h-3.5 w-3.5" />
+            Interpretation context · not an automated measurement
+          </div>
+          {selectedHotspot.context}
+        </div>
+
+        <div className="mt-4 flex flex-col gap-2 border-t border-[#1c4032] pt-4 text-[10px] leading-relaxed text-[#78988a] sm:flex-row sm:items-start sm:justify-between">
+          <div className="flex items-start gap-2">
+            {liveScene && !beforeFailed && !afterFailed ? <Satellite className="mt-0.5 h-3.5 w-3.5 shrink-0 text-[#73e5cf]" /> : <ShieldAlert className="mt-0.5 h-3.5 w-3.5 shrink-0 text-amber-300" />}
+            <span>{liveScene && !beforeFailed && !afterFailed ? selectedHotspot.provenance || 'NASA Worldview Snapshot API · MODIS Terra Corrected Reflectance True Color' : sourceMeta.note || 'NASA imagery is unavailable; bundled illustrative scenes are shown instead.'}</span>
+          </div>
+          <div className="flex shrink-0 items-center gap-3 font-mono uppercase tracking-[0.1em]">
+            <span>Bounds (lon,lat): {selectedHotspot.bbox?.join(', ')}</span>
+            {sourceMeta.sourceUrl && <a href={sourceMeta.sourceUrl} target="_blank" rel="noreferrer" className="text-[#73e5cf] hover:text-[#d9f99d]">source ↗</a>}
+          </div>
         </div>
       </div>
     </div>

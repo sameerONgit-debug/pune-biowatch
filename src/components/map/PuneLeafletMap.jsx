@@ -112,7 +112,7 @@ export default function PuneLeafletMap({
       const popupHtml = `
         <div style="font-family: inherit; width: 230px; padding: 12px;">
           <div style="font-size: 10px; font-weight: 700; color: ${colorHex}; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 2px;">
-            Vulnerability: ${region.metrics.vulnerabilityScore}/100
+            Curated profile: ${region.metrics.vulnerabilityScore}/100
           </div>
           <div style="font-size: 14px; font-weight: 800; color: #eaf8ed; line-height: 1.2; margin-bottom: 4px;">
             ${region.name}
