@@ -1,5 +1,5 @@
 import React from 'react';
-import { TreePine, MapPin, AlertTriangle, TrendingUp, Users, Flame } from 'lucide-react';
+import { AlertTriangle, MapPin, TrendingUp, TreePine, Users } from 'lucide-react';
 
 export default function StatsBanner({
   speciesCount = 18,
@@ -11,68 +11,67 @@ export default function StatsBanner({
 }) {
   const stats = [
     {
-      label: 'Endemic & Indicator Species',
+      label: 'Indicator species',
       value: speciesCount,
-      sub: '5 taxonomic classes tracked',
+      sub: 'Across 5 taxonomic classes',
       icon: TreePine,
-      color: 'text-emerald-600 bg-emerald-50 border-emerald-200',
+      tone: 'text-[#237653] bg-[#e6f5e8]',
     },
     {
-      label: 'Pune Ecological Sub-Regions',
+      label: 'Monitored habitats',
       value: regionsCount,
-      sub: 'Sahyadri rim to urban floodplains',
+      sub: 'Ghats edge to city wetlands',
       icon: MapPin,
-      color: 'text-blue-600 bg-blue-50 border-blue-200',
+      tone: 'text-[#306d93] bg-[#e7f2f8]',
     },
     {
-      label: 'Active Actionable Alerts',
+      label: 'Open directives',
       value: alertsCount,
-      sub: `${criticalAlertsCount} critical thresholds breached`,
+      sub: `${criticalAlertsCount} critical thresholds`,
       icon: AlertTriangle,
-      color: 'text-rose-600 bg-rose-50 border-rose-200',
+      tone: 'text-[#b45143] bg-[#fce9e4]',
     },
     {
-      label: '10-Year Temp Anomaly',
+      label: 'Temperature anomaly',
       value: tempRise,
-      sub: 'Relative to 1981-2010 baseline',
+      sub: 'vs 1981–2010 baseline',
       icon: TrendingUp,
-      color: 'text-amber-600 bg-amber-50 border-amber-200',
+      tone: 'text-[#9d6b25] bg-[#fbf1dc]',
     },
     {
-      label: 'Citizen Science Sightings',
+      label: 'Community reports',
       value: sightingsCount,
-      sub: 'Community field reports',
+      sub: 'Field observations submitted',
       icon: Users,
-      color: 'text-teal-600 bg-teal-50 border-teal-200',
+      tone: 'text-[#6670a3] bg-[#ececfa]',
     },
   ];
 
   return (
-    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
-      {stats.map((stat, idx) => {
-        const Icon = stat.icon;
-        return (
-          <div
-            key={idx}
-            className="bg-white p-5 rounded-xl border border-slate-200/90 shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between"
-          >
-            <div className="flex items-center justify-between mb-3">
-              <span className="text-xs font-semibold text-slate-500 uppercase tracking-wider font-mono">
-                {stat.label}
-              </span>
-              <div className={`p-2 rounded-lg border ${stat.color}`}>
-                <Icon className="w-4 h-4" />
+    <section aria-label="Pune BioWatch at a glance">
+      <div className="mb-3 flex items-center justify-between gap-4">
+        <div className="eyebrow">District pulse</div>
+        <span className="hidden text-[10px] font-bold uppercase tracking-[0.16em] text-[#829286] sm:block">Updated from current observatory feed</span>
+      </div>
+      <div className="grid grid-cols-2 gap-3 md:grid-cols-3 lg:grid-cols-5">
+        {stats.map((stat) => {
+          const Icon = stat.icon;
+          return (
+            <div key={stat.label} className="stat-card min-h-[142px]">
+              <div className="relative z-[1] flex items-start justify-between gap-2">
+                <span className="max-w-[10rem] text-[10px] font-extrabold uppercase leading-4 tracking-[0.12em] text-[#718176]">{stat.label}</span>
+                <span className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-xl ${stat.tone}`}>
+                  <Icon className="h-4 w-4" />
+                </span>
+              </div>
+              <div className="relative z-[1] mt-5">
+                <div className="text-3xl font-extrabold tracking-[-0.06em] text-[#14231d]">{stat.value}</div>
+                <div className="mt-1 text-[10px] font-medium leading-4 text-[#85938a]">{stat.sub}</div>
               </div>
             </div>
-            <div>
-              <div className="text-2xl lg:text-3xl font-bold text-slate-900 tracking-tight">
-                {stat.value}
-              </div>
-              <div className="text-xs text-slate-500 mt-1 font-medium">{stat.sub}</div>
-            </div>
-          </div>
-        );
-      })}
-    </div>
+          );
+        })}
+      </div>
+    </section>
   );
 }

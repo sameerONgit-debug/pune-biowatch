@@ -99,15 +99,12 @@ export default function AboutPage({
   return (
     <div className="space-y-10">
       {/* Platform Mission & Academic Disclaimer Header */}
-      <div className="bg-white p-8 rounded-2xl border border-slate-200 shadow-sm space-y-4">
-        <div className="flex items-center space-x-2 text-xs font-mono uppercase text-emerald-700 font-bold">
-          <BookOpen className="w-4 h-4 text-emerald-600" />
-          <span>About Pune BioWatch Initiative</span>
-        </div>
-        <h1 className="text-3xl font-extrabold text-slate-900 tracking-tight">
+      <div className="surface space-y-5 p-6 sm:p-8">
+        <div className="eyebrow"><BookOpen className="h-3.5 w-3.5" /> About the Pune BioWatch initiative</div>
+        <h1 className="page-title max-w-4xl">
           Connecting Regional Climate Science with Local Biodiversity Action
         </h1>
-        <p className="text-sm text-slate-600 leading-relaxed max-w-4xl">
+        <p className="page-subtitle max-w-4xl">
           Pune BioWatch was created as a modern, data-driven environmental platform to bridge the gap between regional meteorological data and community biodiversity conservation. Pune district is home to unique ecological interfaces: the biodiversity-rich crests of the Western Ghats (a global biodiversity hotspot), freshwater lake systems along Ramnadi and Mula-Mutha, and rapidly expanding urban centers.
         </p>
 
@@ -126,7 +123,7 @@ export default function AboutPage({
       {/* Two Columns: Sighting Submission Form & Data Sources */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
         {/* Left Col: Citizen Science "Report a Sighting" Form (7 cols) */}
-        <div className="lg:col-span-7 bg-white p-6 sm:p-8 rounded-2xl border border-slate-200 shadow-sm space-y-6">
+        <div className="surface space-y-6 p-6 sm:p-8 lg:col-span-7">
           <div className="border-b border-slate-100 pb-4">
             <div className="flex items-center space-x-2 text-xs font-mono uppercase text-emerald-700 font-bold">
               <Users className="w-4 h-4 text-emerald-600" />
@@ -218,7 +215,7 @@ export default function AboutPage({
                 <select
                   value={formData.regionId}
                   onChange={(e) => setFormData({ ...formData, regionId: e.target.value })}
-                  className="w-full px-3 py-2 rounded-xl border border-slate-300 bg-slate-50 text-slate-900 focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                  className="input-control"
                 >
                   {regions.map((r) => (
                     <option key={r.id} value={r.id}>
@@ -235,7 +232,7 @@ export default function AboutPage({
                 <select
                   value={formData.speciesId}
                   onChange={(e) => setFormData({ ...formData, speciesId: e.target.value })}
-                  className="w-full px-3 py-2 rounded-xl border border-slate-300 bg-slate-50 text-slate-900 focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                  className="input-control"
                 >
                   {species.map((s) => (
                     <option key={s.id} value={s.id}>
@@ -256,7 +253,7 @@ export default function AboutPage({
                   type="date"
                   value={formData.date}
                   onChange={(e) => setFormData({ ...formData, date: e.target.value })}
-                  className="w-full px-3 py-2 rounded-xl border border-slate-300 bg-slate-50 text-slate-900 focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                  className="input-control"
                 />
               </div>
 
@@ -269,7 +266,7 @@ export default function AboutPage({
                   min="1"
                   value={formData.count}
                   onChange={(e) => setFormData({ ...formData, count: e.target.value })}
-                  className="w-full px-3 py-2 rounded-xl border border-slate-300 bg-slate-50 text-slate-900 focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                  className="input-control"
                 />
               </div>
 
@@ -280,7 +277,7 @@ export default function AboutPage({
                 <select
                   value={formData.stressLevel}
                   onChange={(e) => setFormData({ ...formData, stressLevel: e.target.value })}
-                  className="w-full px-3 py-2 rounded-xl border border-slate-300 bg-slate-50 text-slate-900 focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                  className="input-control"
                 >
                   <option value="Low">Low (Normal Feeding)</option>
                   <option value="Moderate">Moderate (Restless/Searching Water)</option>
@@ -300,7 +297,7 @@ export default function AboutPage({
                 placeholder="e.g. Vetal Tekdi ARAI trail near water trough #2"
                 value={formData.locationDescription}
                 onChange={(e) => setFormData({ ...formData, locationDescription: e.target.value })}
-                className="w-full px-3 py-2 rounded-xl border border-slate-300 bg-slate-50 text-slate-900 focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                className="input-control"
               />
             </div>
 
@@ -326,7 +323,7 @@ export default function AboutPage({
             <button
               type="submit"
               disabled={isSubmitting}
-              className="w-full py-3 px-4 rounded-xl bg-emerald-700 hover:bg-emerald-600 text-white font-bold text-xs flex items-center justify-center space-x-2 transition-all shadow-md shadow-emerald-900/20 disabled:opacity-60"
+              className="btn-primary w-full py-3 disabled:cursor-not-allowed disabled:opacity-60"
             >
               <Send className="w-4 h-4" />
               <span>{isSubmitting ? 'Recording Sighting...' : 'Submit Sighting for Scientific Verification'}</span>
@@ -335,9 +332,9 @@ export default function AboutPage({
         </div>
 
         {/* Right Col: Verified Community Sightings Feed & Citations (5 cols) */}
-        <div className="lg:col-span-5 space-y-6">
+        <div className="space-y-6 lg:col-span-5">
           {/* Community Sightings Feed */}
-          <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-4">
+          <div className="surface space-y-4 p-6">
             <div className="flex items-center justify-between">
               <div className="text-xs font-mono uppercase text-slate-500 font-bold">
                 Recent Citizen Observations ({sightings.length})
@@ -351,7 +348,7 @@ export default function AboutPage({
               {sightings.map((s) => (
                 <div
                   key={s.id}
-                  className="p-3 bg-slate-50 rounded-xl border border-slate-200 text-xs space-y-1.5"
+                  className="surface-subtle space-y-1.5 p-3 text-xs"
                 >
                   <div className="flex items-center justify-between">
                     <span className="font-bold text-slate-900">{s.speciesName}</span>
@@ -375,7 +372,7 @@ export default function AboutPage({
           </div>
 
           {/* Institutional Partners & Frameworks */}
-          <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-3">
+          <div className="surface space-y-3 p-6">
             <div className="text-xs font-mono uppercase text-slate-400 font-bold">
               Research & Institutional Affiliations
             </div>

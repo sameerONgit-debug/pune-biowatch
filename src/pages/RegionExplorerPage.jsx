@@ -1,19 +1,14 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PuneLeafletMap from '../components/map/PuneLeafletMap';
 import SpeciesCard from '../components/species/SpeciesCard';
-import { SeverityBadge, IUCNBadge } from '../components/common/Badge';
+import { SeverityBadge } from '../components/common/Badge';
 import {
   MapPin,
-  Thermometer,
-  CloudRain,
   Mountain,
   AlertTriangle,
   Layers,
   ArrowRight,
-  ShieldCheck,
   Compass,
-  TreePine,
-  ExternalLink,
 } from 'lucide-react';
 
 import pashan2024 from '../assets/satellite/pashan-2024.svg';
@@ -57,18 +52,15 @@ export default function RegionExplorerPage({
     : [];
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-10">
       {/* Page Header */}
-      <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+      <div className="surface flex flex-col gap-5 p-6 sm:p-8 md:flex-row md:items-center md:justify-between">
         <div>
-          <div className="flex items-center space-x-2 text-xs font-mono uppercase text-emerald-700 font-bold">
-            <Compass className="w-4 h-4" />
-            <span>Interactive Pune Spatial Explorer</span>
-          </div>
-          <h1 className="text-2xl font-extrabold text-slate-900 mt-1">
+          <div className="eyebrow"><Compass className="h-3.5 w-3.5" /> Interactive spatial explorer</div>
+          <h1 className="page-title">
             Pune District Ecological Zones & Habitats
           </h1>
-          <p className="text-xs text-slate-500">
+          <p className="page-subtitle">
             Select any sub-region on the map or the list to view microclimate stress, satellite observation, and resident indicator species.
           </p>
         </div>
@@ -82,7 +74,7 @@ export default function RegionExplorerPage({
               const target = regions.find((r) => r.id === e.target.value);
               if (target) setSelectedRegion(target);
             }}
-            className="text-xs font-bold px-3.5 py-2 rounded-xl border border-slate-300 bg-slate-50 text-slate-800 shadow-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+            className="select-control max-w-xs"
           >
             {regions.map((r) => (
               <option key={r.id} value={r.id}>
@@ -97,7 +89,7 @@ export default function RegionExplorerPage({
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
         {/* Left Col: Interactive Map & Zone List (5 cols) */}
         <div className="lg:col-span-5 space-y-4">
-          <div className="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm">
+          <div className="surface p-4">
             <PuneLeafletMap
               regions={regions}
               selectedRegionId={currentRegion?.id}
@@ -107,7 +99,7 @@ export default function RegionExplorerPage({
           </div>
 
           {/* Quick Sub-region Switcher Tiles */}
-          <div className="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm space-y-2">
+          <div className="surface space-y-3 p-4">
             <div className="text-[11px] font-mono font-bold text-slate-400 uppercase tracking-wider mb-2">
               All 8 Pune Sub-Regions
             </div>
@@ -120,8 +112,8 @@ export default function RegionExplorerPage({
                     onClick={() => setSelectedRegion(reg)}
                     className={`p-2.5 rounded-xl text-left border text-xs font-medium transition-all ${
                       isSelected
-                        ? 'bg-emerald-800 text-white border-emerald-800 shadow-md scale-[1.02]'
-                        : 'bg-slate-50 text-slate-700 border-slate-200 hover:bg-slate-100'
+                        ? 'bg-[#0e4d3b] text-white border-[#0e4d3b] shadow-md scale-[1.02]'
+                        : 'bg-[#f7faf6] text-[#506359] border-[#e2ebe1] hover:bg-[#eef7ed] hover:border-[#bcd7c2]'
                     }`}
                   >
                     <div className="font-bold truncate">{reg.name}</div>
@@ -142,9 +134,9 @@ export default function RegionExplorerPage({
         {/* Right Col: Comprehensive Region Dossier (7 cols) */}
         <div className="lg:col-span-7 space-y-6">
           {currentRegion && (
-            <div className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+            <div className="surface overflow-hidden">
               {/* Region Header Banner */}
-              <div className="bg-gradient-to-r from-slate-900 to-slate-800 text-white p-6">
+              <div className="bg-gradient-to-br from-[#0b3028] via-[#104b3d] to-[#143d54] p-6 text-white sm:p-7">
                 <div className="flex flex-wrap items-center justify-between gap-2 mb-2">
                   <span className="text-xs font-mono font-bold uppercase bg-emerald-900 text-emerald-300 px-2.5 py-0.5 rounded border border-emerald-700/60">
                     {currentRegion.habitatType}
@@ -191,7 +183,7 @@ export default function RegionExplorerPage({
               </div>
 
               {/* Region Dossier Body */}
-              <div className="p-6 space-y-6">
+              <div className="space-y-6 p-6 sm:p-7">
                 {/* Description */}
                 <div>
                   <h4 className="text-xs font-mono uppercase tracking-wider text-slate-400 font-bold mb-1.5">
@@ -208,25 +200,25 @@ export default function RegionExplorerPage({
                     Sub-Region Microclimate Profile
                   </h4>
                   <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-                    <div className="bg-slate-50 p-3 rounded-xl border border-slate-200">
+                    <div className="metric-card">
                       <div className="text-[10px] uppercase font-mono text-slate-400">Peak Summer Temp</div>
                       <div className="text-sm font-bold text-slate-900 mt-1">
                         {currentRegion.climateSummary.avgSummerTemp}
                       </div>
                     </div>
-                    <div className="bg-slate-50 p-3 rounded-xl border border-slate-200">
+                    <div className="metric-card">
                       <div className="text-[10px] uppercase font-mono text-slate-400">Annual Rainfall</div>
                       <div className="text-sm font-bold text-blue-700 mt-1">
                         {currentRegion.climateSummary.annualRainfall}
                       </div>
                     </div>
-                    <div className="bg-slate-50 p-3 rounded-xl border border-slate-200">
+                    <div className="metric-card">
                       <div className="text-[10px] uppercase font-mono text-slate-400">Rainfall Variance</div>
                       <div className="text-xs font-bold text-amber-700 mt-1">
                         {currentRegion.climateSummary.rainfallAnomaly}
                       </div>
                     </div>
-                    <div className="bg-slate-50 p-3 rounded-xl border border-slate-200">
+                    <div className="metric-card">
                       <div className="text-[10px] uppercase font-mono text-slate-400">Humidity Range</div>
                       <div className="text-sm font-bold text-slate-800 mt-1">
                         {currentRegion.climateSummary.humidityRange}
@@ -252,7 +244,7 @@ export default function RegionExplorerPage({
                 </div>
 
                 {/* Satellite Preview Card */}
-                <div className="bg-slate-900 rounded-xl overflow-hidden border border-slate-800 p-4 text-white">
+                <div className="overflow-hidden rounded-2xl border border-[#173f34] bg-[#0b3028] p-4 text-white">
                   <div className="flex items-center justify-between mb-3">
                     <div className="flex items-center space-x-2">
                       <Layers className="w-4 h-4 text-cyan-400" />

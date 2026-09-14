@@ -45,10 +45,10 @@ export default function ClimateCharts({ climateData }) {
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-7">
       {/* Overview Cards */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-        <div className="bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
+        <div className="metric-card">
           <div className="flex items-center space-x-2 text-slate-500 text-xs font-mono mb-1">
             <Thermometer className="w-3.5 h-3.5 text-red-500" />
             <span>10-Yr Mean Temp Rise</span>
@@ -57,7 +57,7 @@ export default function ClimateCharts({ climateData }) {
           <div className="text-[11px] text-slate-500 mt-1">Over 1981-2010 normal</div>
         </div>
 
-        <div className="bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
+        <div className="metric-card">
           <div className="flex items-center space-x-2 text-slate-500 text-xs font-mono mb-1">
             <CloudRain className="w-3.5 h-3.5 text-blue-500" />
             <span>Monsoon Onset Shift</span>
@@ -66,7 +66,7 @@ export default function ClimateCharts({ climateData }) {
           <div className="text-[11px] text-slate-500 mt-1">Delayed arrival window</div>
         </div>
 
-        <div className="bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
+        <div className="metric-card">
           <div className="flex items-center space-x-2 text-slate-500 text-xs font-mono mb-1">
             <AlertTriangle className="w-3.5 h-3.5 text-amber-500" />
             <span>Avg Dry Spell Duration</span>
@@ -75,7 +75,7 @@ export default function ClimateCharts({ climateData }) {
           <div className="text-[11px] text-slate-500 mt-1">Consecutive rainless days</div>
         </div>
 
-        <div className="bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
+        <div className="metric-card">
           <div className="flex items-center space-x-2 text-slate-500 text-xs font-mono mb-1">
             <TrendingUp className="w-3.5 h-3.5 text-emerald-500" />
             <span>Species Stress Trend</span>
@@ -86,14 +86,14 @@ export default function ClimateCharts({ climateData }) {
       </div>
 
       {/* Chart Selector Tabs */}
-      <div className="flex flex-wrap items-center justify-between gap-3 bg-white p-2.5 rounded-xl border border-slate-200">
+      <div className="surface flex flex-wrap items-center justify-between gap-3 p-2.5">
         <div className="flex space-x-1.5 overflow-x-auto">
           <button
             onClick={() => setActiveTab('trends')}
             className={`px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-all ${
               activeTab === 'trends'
-                ? 'bg-slate-900 text-white shadow-sm'
-                : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
+                ? 'bg-[#0e4d3b] text-white shadow-sm'
+                : 'text-[#607369] hover:bg-[#eef6ee] hover:text-[#0e4d3b]'
             }`}
           >
             Decadal Temperature & Precipitation (2015-2024)
@@ -102,8 +102,8 @@ export default function ClimateCharts({ climateData }) {
             onClick={() => setActiveTab('correlation')}
             className={`px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-all ${
               activeTab === 'correlation'
-                ? 'bg-slate-900 text-white shadow-sm'
-                : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
+                ? 'bg-[#0e4d3b] text-white shadow-sm'
+                : 'text-[#607369] hover:bg-[#eef6ee] hover:text-[#0e4d3b]'
             }`}
           >
             Climate Heat vs Species Stress Correlation
@@ -112,8 +112,8 @@ export default function ClimateCharts({ climateData }) {
             onClick={() => setActiveTab('monthly')}
             className={`px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-all ${
               activeTab === 'monthly'
-                ? 'bg-slate-900 text-white shadow-sm'
-                : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
+                ? 'bg-[#0e4d3b] text-white shadow-sm'
+                : 'text-[#607369] hover:bg-[#eef6ee] hover:text-[#0e4d3b]'
             }`}
           >
             Monthly Climatology & Humidity Cycle
@@ -122,8 +122,8 @@ export default function ClimateCharts({ climateData }) {
             onClick={() => setActiveTab('regions')}
             className={`px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-all ${
               activeTab === 'regions'
-                ? 'bg-slate-900 text-white shadow-sm'
-                : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
+                ? 'bg-[#0e4d3b] text-white shadow-sm'
+                : 'text-[#607369] hover:bg-[#eef6ee] hover:text-[#0e4d3b]'
             }`}
           >
             Microclimate Regional Comparison
@@ -138,7 +138,7 @@ export default function ClimateCharts({ climateData }) {
 
       {/* CHART 1: Decadal Trends */}
       {activeTab === 'trends' && (
-        <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-4">
+        <div className="surface space-y-4 p-6">
           <div>
             <h3 className="text-base font-bold text-slate-900">
               Pune District Mean Temperature Anomaly & Extreme Heat Days (2015 – 2024)
@@ -204,7 +204,7 @@ export default function ClimateCharts({ climateData }) {
 
       {/* CHART 2: Correlation with Species Stress */}
       {activeTab === 'correlation' && (
-        <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-4">
+        <div className="surface space-y-4 p-6">
           <div>
             <h3 className="text-base font-bold text-slate-900">
               Correlation: Climatic Heat Pressure vs. Composite Species Stress Index
@@ -271,7 +271,7 @@ export default function ClimateCharts({ climateData }) {
 
       {/* CHART 3: Monthly Climatology */}
       {activeTab === 'monthly' && (
-        <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-4">
+        <div className="surface space-y-4 p-6">
           <div>
             <h3 className="text-base font-bold text-slate-900">
               Pune District Monthly Normal vs Current Year Precipitation & Temperature
@@ -341,7 +341,7 @@ export default function ClimateCharts({ climateData }) {
 
       {/* CHART 4: Regional Comparison */}
       {activeTab === 'regions' && (
-        <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-4">
+        <div className="surface space-y-4 p-6">
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
             <div>
               <h3 className="text-base font-bold text-slate-900">

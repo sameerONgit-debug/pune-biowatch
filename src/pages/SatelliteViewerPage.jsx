@@ -1,20 +1,17 @@
 import React from 'react';
 import SatelliteSlider from '../components/satellite/SatelliteSlider';
-import { Layers, Eye, ShieldAlert, CheckCircle, Database } from 'lucide-react';
+import { Database, Layers } from 'lucide-react';
 
 export default function SatelliteViewerPage() {
   return (
-    <div className="space-y-8">
+    <div className="space-y-10">
       {/* Header */}
-      <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
-        <div className="flex items-center space-x-2 text-xs font-mono uppercase text-emerald-700 font-bold mb-1">
-          <Layers className="w-4 h-4 text-emerald-600" />
-          <span>Multispectral Land-Cover Analysis</span>
-        </div>
-        <h1 className="text-2xl font-extrabold text-slate-900">
+      <div className="surface p-6 sm:p-8">
+        <div className="eyebrow"><Layers className="h-3.5 w-3.5" /> Multispectral land-cover analysis</div>
+        <h1 className="page-title">
           Decadal Satellite Earth Observation Viewer
         </h1>
-        <p className="text-xs text-slate-500 mt-1 max-w-3xl">
+        <p className="page-subtitle max-w-3xl">
           Visualizing 10-year ecological transformations across critical Pune hotspots using calibrated Sentinel-2 and Landsat multispectral composites. Drag the interactive slider to examine wetland loss, urban encroachment, and ridge fragmentation.
         </p>
       </div>
@@ -23,7 +20,7 @@ export default function SatelliteViewerPage() {
       <SatelliteSlider />
 
       {/* Remote Sensing Methodology Card */}
-      <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-4">
+      <div className="surface space-y-5 p-6 sm:p-7">
         <div className="flex items-center space-x-2 text-xs font-mono uppercase text-slate-400 font-bold">
           <Database className="w-4 h-4 text-slate-600" />
           <span>Remote Sensing Methodology & Spectral Indices</span>

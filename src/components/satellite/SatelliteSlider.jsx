@@ -128,7 +128,7 @@ export default function SatelliteSlider() {
   }, [isDragging, handleMove]);
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-7">
       {/* Hotspot Selector Pills */}
       <div className="flex flex-wrap gap-2">
         {HOTSPOTS.map((hotspot) => {
@@ -142,8 +142,8 @@ export default function SatelliteSlider() {
               }}
               className={`px-4 py-2.5 rounded-xl text-xs font-semibold flex items-center space-x-2 transition-all border ${
                 isSelected
-                  ? 'bg-slate-900 text-white border-slate-900 shadow-md scale-[1.02]'
-                  : 'bg-white text-slate-700 border-slate-200 hover:border-slate-300 hover:bg-slate-50'
+                  ? 'bg-[#0e4d3b] text-white border-[#0e4d3b] shadow-md scale-[1.02]'
+                  : 'bg-white text-[#506359] border-[#dfe8df] hover:border-[#b7d5bc] hover:bg-[#f4faf3]'
               }`}
             >
               <Layers className={`w-3.5 h-3.5 ${isSelected ? 'text-emerald-400' : 'text-slate-400'}`} />
@@ -154,7 +154,7 @@ export default function SatelliteSlider() {
       </div>
 
       {/* Main Interactive Comparison Stage */}
-      <div className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden p-6 space-y-6">
+      <div className="surface overflow-hidden p-6 sm:p-7">
         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-2 border-b border-slate-100 pb-4">
           <div>
             <div className="flex items-center space-x-2">
@@ -241,7 +241,7 @@ export default function SatelliteSlider() {
             {selectedHotspot.metrics.map((metric, idx) => (
               <div
                 key={idx}
-                className="bg-slate-50 p-3.5 rounded-xl border border-slate-200/80 flex flex-col justify-between"
+                className="metric-card flex flex-col justify-between"
               >
                 <span className="text-[11px] text-slate-500 font-medium">{metric.label}</span>
                 <span className={`text-xl font-extrabold font-mono mt-1 ${metric.color}`}>
@@ -253,7 +253,7 @@ export default function SatelliteSlider() {
         </div>
 
         {/* Narrative Description */}
-        <div className="bg-slate-50 p-4 rounded-xl border border-slate-200 text-xs text-slate-700 leading-relaxed">
+        <div className="surface-subtle p-4 text-xs leading-relaxed text-slate-700">
           <span className="font-bold text-slate-900 block mb-1">
             Remote Sensing & Environmental Impact Analysis:
           </span>

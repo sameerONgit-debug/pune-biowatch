@@ -1,100 +1,126 @@
 import React from 'react';
-import { Compass, TreePine, AlertTriangle, ArrowRight, ShieldCheck, Waves, Mountain, Wind } from 'lucide-react';
+import pashan2024 from '../../assets/satellite/pashan-2024.svg';
+import {
+  ArrowRight,
+  Compass,
+  Layers,
+  Leaf,
+  Mountain,
+  ShieldAlert,
+  Waves,
+  Wind,
+} from 'lucide-react';
 
 export default function HeroSection({ setActiveTab, urgentAlert }) {
   return (
-    <div className="relative bg-gradient-to-b from-slate-900 via-slate-850 to-slate-900 text-white rounded-2xl overflow-hidden shadow-2xl border border-slate-800 mb-10">
-      {/* Decorative background grid pattern & ambient glow */}
-      <div className="absolute inset-0 bg-[radial-gradient(#10b981_1px,transparent_1px)] [background-size:24px_24px] opacity-15 pointer-events-none"></div>
-      <div className="absolute -top-24 -right-24 w-96 h-96 bg-emerald-500/15 rounded-full blur-3xl pointer-events-none"></div>
-      <div className="absolute -bottom-24 -left-24 w-96 h-96 bg-blue-500/15 rounded-full blur-3xl pointer-events-none"></div>
+    <section className="surface-dark relative overflow-hidden">
+      <div className="pointer-events-none absolute -right-28 -top-32 h-96 w-96 rounded-full bg-[#d5f36b]/10 blur-3xl" />
+      <div className="pointer-events-none absolute -bottom-44 left-1/3 h-96 w-96 rounded-full bg-cyan-400/10 blur-3xl" />
+      <div className="pointer-events-none absolute inset-0 opacity-[0.08] [background-image:linear-gradient(rgba(213,243,107,0.5)_1px,transparent_1px),linear-gradient(90deg,rgba(213,243,107,0.5)_1px,transparent_1px)] [background-size:34px_34px] [mask-image:linear-gradient(to_bottom,black,transparent_76%)]" />
 
-      <div className="relative max-w-5xl mx-auto px-6 py-14 sm:py-18 lg:py-20 text-center">
-        {/* Region Badge */}
-        <div className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-emerald-900/60 border border-emerald-500/40 text-emerald-300 text-xs font-mono mb-6 backdrop-blur-sm shadow-inner">
-          <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
-          <span>PUNE DISTRICT ECOLOGICAL MONITORING NETWORK</span>
-        </div>
-
-        {/* Main Headline */}
-        <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-tight mb-6">
-          Tracking Climate Pressures on{' '}
-          <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-teal-300 to-cyan-400">
-            Pune’s Biodiversity
-          </span>
-        </h1>
-
-        {/* Mission Statement */}
-        <p className="text-base sm:text-lg text-slate-300 max-w-3xl mx-auto mb-10 leading-relaxed font-normal">
-          From the mist-shrouded crests of the Western Ghats at Mulshi and Sinhagad to urban wetlands like Pashan Lake and remnant city green lungs, Pune BioWatch connects real-time climate stress data with species survival indicators to empower local administration and community conservation.
-        </p>
-
-        {/* Action Buttons */}
-        <div className="flex flex-wrap items-center justify-center gap-4 mb-12">
-          <button
-            onClick={() => setActiveTab('regions')}
-            className="flex items-center space-x-2 px-6 py-3.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-sm shadow-lg shadow-emerald-900/40 hover:shadow-emerald-700/50 hover:scale-105 transition-all"
-          >
-            <Compass className="w-4 h-4" />
-            <span>Interactive Region Explorer</span>
-            <ArrowRight className="w-4 h-4" />
-          </button>
-
-          <button
-            onClick={() => setActiveTab('species')}
-            className="flex items-center space-x-2 px-6 py-3.5 rounded-xl bg-slate-800/90 hover:bg-slate-700 text-slate-100 font-semibold text-sm border border-slate-700 hover:border-slate-600 transition-all"
-          >
-            <TreePine className="w-4 h-4 text-emerald-400" />
-            <span>Species Vulnerability Directory</span>
-          </button>
-
-          <button
-            onClick={() => setActiveTab('satellite')}
-            className="flex items-center space-x-2 px-6 py-3.5 rounded-xl bg-slate-800/90 hover:bg-slate-700 text-slate-100 font-semibold text-sm border border-slate-700 hover:border-slate-600 transition-all"
-          >
-            <Waves className="w-4 h-4 text-cyan-400" />
-            <span>Decadal Satellite Comparison</span>
-          </button>
-        </div>
-
-        {/* Urgent Live Alert Ticker if available */}
-        {urgentAlert && (
-          <div
-            onClick={() => setActiveTab('alerts')}
-            className="inline-flex items-center space-x-3 p-3 px-5 rounded-xl bg-rose-950/80 border border-rose-600/50 text-rose-200 text-xs text-left max-w-2xl cursor-pointer hover:bg-rose-900/80 transition-colors shadow-lg shadow-rose-950/50"
-          >
-            <div className="p-1.5 rounded-lg bg-rose-600/30 text-rose-400 flex-shrink-0 animate-pulse">
-              <AlertTriangle className="w-4 h-4" />
-            </div>
-            <div className="flex-1 truncate">
-              <span className="font-bold uppercase tracking-wider text-rose-300 mr-2">
-                Active Critical Alert:
-              </span>
-              <span className="text-rose-100">{urgentAlert.speciesName} in {urgentAlert.regionName}</span>
-              <span className="hidden sm:inline text-rose-300/80 ml-2">— {urgentAlert.category}</span>
-            </div>
-            <span className="text-[11px] font-semibold text-rose-400 underline underline-offset-2 flex-shrink-0">
-              View Action →
-            </span>
+      <div className="relative grid gap-10 px-6 py-8 sm:px-9 sm:py-10 lg:grid-cols-[1.02fr_0.98fr] lg:items-center lg:gap-14 lg:px-12 lg:py-12">
+        <div className="max-w-2xl">
+          <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-[#d5f36b]/25 bg-white/[0.07] px-3 py-1.5 text-[10px] font-bold uppercase tracking-[0.16em] text-[#d5f36b]">
+            <span className="h-1.5 w-1.5 rounded-full bg-[#d5f36b] shadow-[0_0_0_4px_rgba(213,243,107,0.14)]" />
+            Pune district ecological monitoring network
           </div>
-        )}
+
+          <h1 className="max-w-xl text-4xl font-extrabold leading-[1.05] tracking-[-0.055em] text-white sm:text-5xl lg:text-[4.25rem]">
+            A clearer view of
+            <span className="block text-[#d5f36b]">nature under pressure.</span>
+          </h1>
+
+          <p className="mt-6 max-w-xl text-sm leading-7 text-emerald-50/70 sm:text-base">
+            Pune BioWatch brings habitats, climate signals and field observations into one living picture — from the misty Sahyadri crest to the city&apos;s last urban wetlands.
+          </p>
+
+          <div className="mt-8 flex flex-wrap gap-3">
+            <button
+              onClick={() => setActiveTab('regions')}
+              className="inline-flex items-center gap-2 rounded-xl bg-[#d5f36b] px-4 py-3 text-xs font-extrabold text-[#0b3028] shadow-[0_12px_25px_rgba(213,243,107,0.18)] transition-all hover:-translate-y-0.5 hover:bg-[#e1fb83]"
+            >
+              <Compass className="h-4 w-4" />
+              Explore monitored regions
+              <ArrowRight className="h-4 w-4" />
+            </button>
+            <button
+              onClick={() => setActiveTab('satellite')}
+              className="inline-flex items-center gap-2 rounded-xl border border-white/15 bg-white/[0.07] px-4 py-3 text-xs font-bold text-white transition-colors hover:bg-white/[0.13]"
+            >
+              <Layers className="h-4 w-4 text-[#a8e6b8]" />
+              Compare landscape change
+            </button>
+          </div>
+
+          {urgentAlert && (
+            <button
+              onClick={() => setActiveTab('alerts')}
+              className="mt-8 flex w-full max-w-xl items-center gap-3 rounded-2xl border border-[#e99786]/35 bg-[#4a2426]/45 p-3 text-left transition-colors hover:bg-[#5a292b]/60"
+            >
+              <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-[#e99786]/15 text-[#ffb1a0]">
+                <ShieldAlert className="h-4 w-4" />
+              </span>
+              <span className="min-w-0 flex-1">
+                <span className="block text-[9px] font-bold uppercase tracking-[0.17em] text-[#ffb1a0]">Priority signal</span>
+                <span className="mt-0.5 block truncate text-xs font-bold text-white">{urgentAlert.speciesName}</span>
+                <span className="block truncate text-[10px] text-rose-100/60">{urgentAlert.regionName} · {urgentAlert.category}</span>
+              </span>
+              <ArrowRight className="h-4 w-4 shrink-0 text-[#ffb1a0]" />
+            </button>
+          )}
+        </div>
+
+        <div className="relative mx-auto w-full max-w-[560px] lg:ml-auto">
+          <div className="absolute -inset-3 rounded-[2rem] border border-[#a8e6b8]/15 bg-[#a8e6b8]/5 blur-sm" />
+          <div className="relative overflow-hidden rounded-[1.65rem] border border-white/15 bg-[#071d1e] p-2 shadow-2xl">
+            <div className="relative aspect-[1.12/1] overflow-hidden rounded-[1.25rem] bg-[#0b3028]">
+              <img
+                src={pashan2024}
+                alt="False-colour satellite view of Pashan Lake wetland"
+                className="h-full w-full object-cover opacity-90 transition-transform duration-700 hover:scale-[1.03]"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#071d1e]/80 via-transparent to-[#071d1e]/10" />
+              <div className="absolute left-4 top-4 flex items-center gap-2 rounded-full border border-white/15 bg-[#071d1e]/75 px-2.5 py-1.5 text-[9px] font-bold uppercase tracking-[0.14em] text-[#d5f36b] backdrop-blur-md">
+                <span className="h-1.5 w-1.5 rounded-full bg-[#d5f36b]" />
+                Observation layer · 2024
+              </div>
+              <div className="absolute bottom-4 left-4 right-4 grid grid-cols-2 gap-2 sm:grid-cols-3">
+                <div className="rounded-xl border border-white/10 bg-[#071d1e]/75 p-2.5 backdrop-blur-md">
+                  <div className="text-[9px] uppercase tracking-[0.13em] text-emerald-100/50">Open water</div>
+                  <div className="mt-1 text-lg font-extrabold text-[#ffb1a0]">−48.4%</div>
+                </div>
+                <div className="rounded-xl border border-white/10 bg-[#071d1e]/75 p-2.5 backdrop-blur-md">
+                  <div className="text-[9px] uppercase tracking-[0.13em] text-emerald-100/50">Zones live</div>
+                  <div className="mt-1 text-lg font-extrabold text-[#d5f36b]">08 / 08</div>
+                </div>
+                <div className="hidden rounded-xl border border-white/10 bg-[#071d1e]/75 p-2.5 backdrop-blur-md sm:block">
+                  <div className="text-[9px] uppercase tracking-[0.13em] text-emerald-100/50">Signal</div>
+                  <div className="mt-1 flex items-center gap-1.5 text-sm font-extrabold text-[#a8e6b8]"><span className="h-1.5 w-1.5 rounded-full bg-[#a8e6b8]" />Live</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="float-slow absolute -right-4 -top-5 hidden rounded-2xl border border-[#d5f36b]/25 bg-[#173e34]/95 px-3 py-2 shadow-xl sm:block">
+            <div className="flex items-center gap-2 text-[10px] font-bold text-[#d5f36b]"><Leaf className="h-3.5 w-3.5" /> 18 species tracked</div>
+            <div className="mt-1 text-[9px] text-emerald-100/50">Indicator biodiversity index</div>
+          </div>
+        </div>
       </div>
 
-      {/* Highlights Bar */}
-      <div className="border-t border-slate-800/80 bg-slate-950/70 px-6 py-3 flex flex-wrap items-center justify-around text-xs font-mono text-slate-400 gap-4">
-        <div className="flex items-center space-x-2">
-          <Mountain className="w-4 h-4 text-emerald-400" />
-          <span>Elevation Range: 540m – 1,312m</span>
+      <div className="relative grid gap-4 border-t border-white/10 bg-black/10 px-6 py-4 sm:grid-cols-3 sm:px-9 lg:px-12">
+        <div className="flex items-center gap-3 text-xs text-emerald-50/65">
+          <Mountain className="h-4 w-4 shrink-0 text-[#a8e6b8]" />
+          <span><strong className="text-white">1,312m</strong> highest monitored ridge</span>
         </div>
-        <div className="flex items-center space-x-2">
-          <Waves className="w-4 h-4 text-cyan-400" />
-          <span>Biomes: Western Ghats Edge, Riparian & Dry Scrub</span>
+        <div className="flex items-center gap-3 text-xs text-emerald-50/65">
+          <Waves className="h-4 w-4 shrink-0 text-cyan-300" />
+          <span><strong className="text-white">8 habitats</strong> across one district</span>
         </div>
-        <div className="flex items-center space-x-2">
-          <Wind className="w-4 h-4 text-amber-400" />
-          <span>Monsoon Shift: SW Monsoon variability indexed</span>
+        <div className="flex items-center gap-3 text-xs text-emerald-50/65">
+          <Wind className="h-4 w-4 shrink-0 text-[#d5f36b]" />
+          <span><strong className="text-white">10-year</strong> climate baseline</span>
         </div>
       </div>
-    </div>
+    </section>
   );
 }

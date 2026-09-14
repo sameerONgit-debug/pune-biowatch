@@ -98,15 +98,21 @@ export default function App() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-slate-900 flex flex-col items-center justify-center text-white font-mono space-y-4">
-        <div className="w-12 h-12 rounded-2xl bg-emerald-500/20 border border-emerald-500 flex items-center justify-center animate-pulse">
-          <span className="text-2xl">🌿</span>
-        </div>
-        <div className="text-sm tracking-wider text-emerald-400">
-          INITIALIZING PUNE BIOWATCH OBSERVATORY...
-        </div>
-        <div className="text-xs text-slate-500">
-          Loading Western Ghats ecological datasets & microclimates
+      <div className="min-h-screen bg-[#0b3028] flex items-center justify-center px-6 text-white">
+        <div className="w-full max-w-sm text-center">
+          <div className="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-2xl bg-[#d5f36b] text-3xl shadow-[0_0_0_8px_rgba(213,243,107,0.12)]">
+            <span aria-hidden="true">🌿</span>
+          </div>
+          <div className="mb-3 text-[11px] font-bold uppercase tracking-[0.22em] text-[#d5f36b]">
+            Pune BioWatch
+          </div>
+          <h1 className="text-2xl font-extrabold tracking-tight">Preparing your field view</h1>
+          <p className="mt-3 text-sm leading-6 text-emerald-100/65">
+            Loading Western Ghats habitats, microclimates and community observations.
+          </p>
+          <div className="mx-auto mt-7 h-1.5 w-48 overflow-hidden rounded-full bg-white/10">
+            <div className="h-full w-2/3 animate-pulse rounded-full bg-[#d5f36b]" />
+          </div>
         </div>
       </div>
     );
@@ -115,7 +121,7 @@ export default function App() {
   const activeAlertCount = alerts.filter((a) => a.status === 'Pending').length;
 
   return (
-    <div className="min-h-screen flex flex-col bg-slate-100 font-sans selection:bg-emerald-500 selection:text-white">
+    <div className="min-h-screen flex flex-col">
       {/* Official Government / Agency Header */}
       <Navbar
         activeTab={activeTab}
@@ -124,7 +130,7 @@ export default function App() {
       />
 
       {/* Main Content Area */}
-      <main className="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-16">
+      <main className="site-main flex-grow max-w-[1440px] w-full mx-auto px-4 sm:px-6 lg:px-10 pt-7 pb-20">
         {activeTab === 'home' && (
           <HomePage
             regions={regions}

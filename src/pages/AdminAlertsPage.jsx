@@ -1,6 +1,6 @@
 import React from 'react';
 import AlertTable from '../components/admin/AlertTable';
-import { ShieldAlert, Download, RefreshCw, CheckCircle2 } from 'lucide-react';
+import { Download, ShieldAlert } from 'lucide-react';
 
 export default function AdminAlertsPage({ alerts = [], onUpdateStatus, regions = [] }) {
   const handleExportCSV = () => {
@@ -27,18 +27,15 @@ export default function AdminAlertsPage({ alerts = [], onUpdateStatus, regions =
   };
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-10">
       {/* Internal Tool Header */}
-      <div className="bg-slate-900 text-white p-6 rounded-2xl border border-slate-800 shadow-md flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+      <div className="surface-dark flex flex-col gap-5 p-6 sm:p-8 md:flex-row md:items-center md:justify-between">
         <div>
-          <div className="flex items-center space-x-2 text-xs font-mono uppercase text-emerald-400 font-bold mb-1">
-            <ShieldAlert className="w-4 h-4 text-emerald-400" />
-            <span>Official Administrative Console • Pune Forest & Municipal Cell</span>
-          </div>
-          <h1 className="text-2xl font-extrabold tracking-tight">
+          <div className="eyebrow !text-[#d5f36b]"><ShieldAlert className="h-3.5 w-3.5" /> Official administrative console</div>
+          <h1 className="mt-2 text-2xl font-extrabold tracking-[-0.04em] text-white sm:text-3xl">
             Ecological Threshold Directives & Incident Dispatch Desk
           </h1>
-          <p className="text-xs text-slate-400 mt-1 max-w-2xl">
+          <p className="mt-3 max-w-2xl text-sm leading-6 text-emerald-50/60">
             Automated alerts synthesized from real-time meteorological sensor feeds, river flow monitors, and satellite vegetation reflectance thresholds across Pune district.
           </p>
         </div>
@@ -46,7 +43,7 @@ export default function AdminAlertsPage({ alerts = [], onUpdateStatus, regions =
         <div className="flex items-center space-x-3">
           <button
             onClick={handleExportCSV}
-            className="flex items-center space-x-2 px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold border border-slate-700 transition-colors shadow-sm"
+            className="inline-flex items-center gap-2 rounded-xl bg-[#d5f36b] px-4 py-2.5 text-xs font-extrabold text-[#0b3028] transition-colors hover:bg-[#e1fb83]"
           >
             <Download className="w-3.5 h-3.5" />
             <span>Export Directives (CSV)</span>

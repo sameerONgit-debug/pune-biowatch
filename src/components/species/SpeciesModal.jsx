@@ -64,14 +64,14 @@ export default function SpeciesModal({ species, isOpen, onClose, onSelectRegion,
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-slate-950/70 backdrop-blur-sm animate-in fade-in duration-200">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-[#092f27]/70 p-4 backdrop-blur-md animate-in fade-in duration-200 sm:p-6">
       <div
-        className="relative w-full max-w-2xl max-h-[90vh] bg-white rounded-2xl shadow-2xl border border-slate-200 overflow-hidden flex flex-col"
+        className="relative flex max-h-[90vh] w-full max-w-2xl flex-col overflow-hidden rounded-3xl border border-[#dfe8df] bg-white shadow-2xl"
         role="dialog"
         aria-modal="true"
       >
         {/* Modal Header */}
-        <div className="bg-slate-900 text-white p-6 pb-5 flex items-start justify-between border-b border-slate-800">
+        <div className="flex items-start justify-between border-b border-[#173f34] bg-gradient-to-br from-[#0b3028] to-[#143d54] p-6 pb-5 text-white">
           <div>
             <div className="flex items-center space-x-2 mb-2">
               <span className="text-xs font-mono font-semibold uppercase bg-emerald-900/80 text-emerald-300 px-2 py-0.5 rounded border border-emerald-700/60">
@@ -205,13 +205,13 @@ export default function SpeciesModal({ species, isOpen, onClose, onSelectRegion,
         </div>
 
         {/* Modal Footer */}
-        <div className="bg-slate-50 px-6 py-4 border-t border-slate-200 flex justify-between items-center text-xs">
+        <div className="flex items-center justify-between border-t border-[#e4ece3] bg-[#f7faf6] px-6 py-4 text-xs">
           <span className="text-slate-400 font-mono">
             Species ID: {species.id}
           </span>
           <button
             onClick={onClose}
-            className="px-4 py-2 bg-slate-800 hover:bg-slate-900 text-white font-semibold rounded-lg transition-colors"
+            className="btn-primary px-4 py-2"
           >
             Close Dossier
           </button>

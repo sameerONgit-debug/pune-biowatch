@@ -1,20 +1,17 @@
 import React from 'react';
 import ClimateCharts from '../components/climate/ClimateCharts';
-import { BarChart3, Thermometer, CloudRain, Sun, Flame, Wind, ShieldCheck } from 'lucide-react';
+import { BarChart3, CloudRain, Flame, Wind } from 'lucide-react';
 
 export default function ClimateDashboardPage({ climateData }) {
   return (
-    <div className="space-y-8">
+    <div className="space-y-10">
       {/* Header */}
-      <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
-        <div className="flex items-center space-x-2 text-xs font-mono uppercase text-emerald-700 font-bold mb-1">
-          <BarChart3 className="w-4 h-4 text-emerald-600" />
-          <span>Meteorological & Bio-Correlation Observatory</span>
-        </div>
-        <h1 className="text-2xl font-extrabold text-slate-900">
+      <div className="surface p-6 sm:p-8">
+        <div className="eyebrow"><BarChart3 className="h-3.5 w-3.5" /> Meteorological & bio-correlation observatory</div>
+        <h1 className="page-title">
           Pune District Climate Trends & Species Stress Analytics
         </h1>
-        <p className="text-xs text-slate-500 mt-1 max-w-3xl">
+        <p className="page-subtitle max-w-3xl">
           Empirical observation of shifting precipitation regimes, extreme pre-monsoon heatwave spikes, and their quantified correlation with biodiversity stress across Pune’s 8 micro-climatic zones.
         </p>
       </div>
@@ -24,7 +21,7 @@ export default function ClimateDashboardPage({ climateData }) {
 
       {/* Pune District Climatology Brief */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-2">
+        <div className="surface space-y-3 p-5">
           <div className="flex items-center space-x-2 text-rose-600 font-bold text-xs uppercase font-mono">
             <Flame className="w-4 h-4" />
             <span>Pre-Monsoon Thermal Spikes</span>
@@ -37,7 +34,7 @@ export default function ClimateDashboardPage({ climateData }) {
           </p>
         </div>
 
-        <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-2">
+        <div className="surface space-y-3 p-5">
           <div className="flex items-center space-x-2 text-blue-600 font-bold text-xs uppercase font-mono">
             <CloudRain className="w-4 h-4" />
             <span>Monsoon Precipitation Volatility</span>
@@ -50,7 +47,7 @@ export default function ClimateDashboardPage({ climateData }) {
           </p>
         </div>
 
-        <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-2">
+        <div className="surface space-y-3 p-5">
           <div className="flex items-center space-x-2 text-emerald-600 font-bold text-xs uppercase font-mono">
             <Wind className="w-4 h-4" />
             <span>Western Ghats Orographic Buffer</span>

@@ -50,10 +50,10 @@ export default function AlertTable({ alerts = [], onUpdateStatus, regions = [] }
   const actionTakenCount = alerts.filter((a) => a.status === 'Action Taken').length;
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-7">
       {/* Official Status Metrics Summary */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-        <div className="bg-white p-4 rounded-xl border border-slate-200 shadow-sm flex items-center justify-between">
+        <div className="metric-card flex items-center justify-between">
           <div>
             <div className="text-xs font-mono text-slate-500 uppercase">Total Active Directives</div>
             <div className="text-2xl font-bold text-slate-900 mt-1">{alerts.length}</div>
@@ -63,7 +63,7 @@ export default function AlertTable({ alerts = [], onUpdateStatus, regions = [] }
           </div>
         </div>
 
-        <div className="bg-white p-4 rounded-xl border border-slate-200 shadow-sm flex items-center justify-between">
+        <div className="metric-card flex items-center justify-between">
           <div>
             <div className="text-xs font-mono text-rose-600 uppercase font-semibold">Critical Thresholds</div>
             <div className="text-2xl font-bold text-rose-600 mt-1">{criticalCount}</div>
@@ -73,7 +73,7 @@ export default function AlertTable({ alerts = [], onUpdateStatus, regions = [] }
           </div>
         </div>
 
-        <div className="bg-white p-4 rounded-xl border border-slate-200 shadow-sm flex items-center justify-between">
+        <div className="metric-card flex items-center justify-between">
           <div>
             <div className="text-xs font-mono text-amber-600 uppercase font-semibold">Pending Review</div>
             <div className="text-2xl font-bold text-amber-600 mt-1">{pendingCount}</div>
@@ -83,7 +83,7 @@ export default function AlertTable({ alerts = [], onUpdateStatus, regions = [] }
           </div>
         </div>
 
-        <div className="bg-white p-4 rounded-xl border border-slate-200 shadow-sm flex items-center justify-between">
+        <div className="metric-card flex items-center justify-between">
           <div>
             <div className="text-xs font-mono text-emerald-600 uppercase font-semibold">Action Executed</div>
             <div className="text-2xl font-bold text-emerald-600 mt-1">{actionTakenCount}</div>
@@ -95,7 +95,7 @@ export default function AlertTable({ alerts = [], onUpdateStatus, regions = [] }
       </div>
 
       {/* Internal Tool Header & Filters */}
-      <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-5 space-y-4">
+      <div className="surface space-y-5 p-5 sm:p-6">
         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
           <div>
             <div className="flex items-center space-x-2">
@@ -119,7 +119,7 @@ export default function AlertTable({ alerts = [], onUpdateStatus, regions = [] }
               placeholder="Search alert by keyword..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full px-3.5 py-2 text-xs border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 bg-slate-50"
+              className="input-control"
             />
           </div>
         </div>
@@ -135,7 +135,7 @@ export default function AlertTable({ alerts = [], onUpdateStatus, regions = [] }
           <select
             value={selectedSeverity}
             onChange={(e) => setSelectedSeverity(e.target.value)}
-            className="px-3 py-1.5 rounded-lg border border-slate-200 bg-slate-50 text-slate-700 font-medium focus:outline-none"
+            className="select-control w-auto"
           >
             <option value="All">All Severities</option>
             <option value="Critical">Critical Only</option>
@@ -147,7 +147,7 @@ export default function AlertTable({ alerts = [], onUpdateStatus, regions = [] }
           <select
             value={selectedStatus}
             onChange={(e) => setSelectedStatus(e.target.value)}
-            className="px-3 py-1.5 rounded-lg border border-slate-200 bg-slate-50 text-slate-700 font-medium focus:outline-none"
+            className="select-control w-auto"
           >
             <option value="All">All Statuses</option>
             <option value="Pending">Pending Review</option>
@@ -159,7 +159,7 @@ export default function AlertTable({ alerts = [], onUpdateStatus, regions = [] }
           <select
             value={selectedRegion}
             onChange={(e) => setSelectedRegion(e.target.value)}
-            className="px-3 py-1.5 rounded-lg border border-slate-200 bg-slate-50 text-slate-700 font-medium focus:outline-none"
+            className="select-control w-auto"
           >
             <option value="All">All Pune Sub-Regions</option>
             {regions.map((r) => (
@@ -176,8 +176,8 @@ export default function AlertTable({ alerts = [], onUpdateStatus, regions = [] }
 
         {/* Table View */}
         <div className="overflow-x-auto rounded-xl border border-slate-200">
-          <table className="w-full text-left text-xs text-slate-600">
-            <thead className="bg-slate-900 text-slate-300 font-mono uppercase text-[11px] tracking-wider">
+          <table className="data-table w-full text-left text-xs text-slate-600">
+            <thead className="bg-[#103d32] text-emerald-50/75 font-mono uppercase text-[10px] tracking-wider">
               <tr>
                 <th className="px-4 py-3.5">Directive ID</th>
                 <th className="px-4 py-3.5">Severity</th>
