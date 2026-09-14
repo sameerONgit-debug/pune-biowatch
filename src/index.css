@@ -39,6 +39,15 @@
     font: inherit;
   }
 
+  :focus-visible {
+    outline: 3px solid rgba(213, 243, 107, 0.95);
+    outline-offset: 3px;
+  }
+
+  button:disabled {
+    cursor: not-allowed;
+  }
+
   ::selection {
     background: var(--forest);
     color: #fff;

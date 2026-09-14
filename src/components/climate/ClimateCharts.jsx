@@ -90,47 +90,47 @@ export default function ClimateCharts({ climateData }) {
         <div className="flex space-x-1.5 overflow-x-auto">
           <button
             onClick={() => setActiveTab('trends')}
-            className={`px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-all ${
+            className={`whitespace-nowrap rounded-lg px-3.5 py-2 text-xs font-bold transition-all ${
               activeTab === 'trends'
                 ? 'bg-[#0e4d3b] text-white shadow-sm'
                 : 'text-[#607369] hover:bg-[#eef6ee] hover:text-[#0e4d3b]'
             }`}
           >
-            Decadal Temperature & Precipitation (2015-2024)
+            Annual trend
           </button>
           <button
             onClick={() => setActiveTab('correlation')}
-            className={`px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-all ${
+            className={`whitespace-nowrap rounded-lg px-3.5 py-2 text-xs font-bold transition-all ${
               activeTab === 'correlation'
                 ? 'bg-[#0e4d3b] text-white shadow-sm'
                 : 'text-[#607369] hover:bg-[#eef6ee] hover:text-[#0e4d3b]'
             }`}
           >
-            Climate Heat vs Species Stress Correlation
+            Heat ↔ stress
           </button>
           <button
             onClick={() => setActiveTab('monthly')}
-            className={`px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-all ${
+            className={`whitespace-nowrap rounded-lg px-3.5 py-2 text-xs font-bold transition-all ${
               activeTab === 'monthly'
                 ? 'bg-[#0e4d3b] text-white shadow-sm'
                 : 'text-[#607369] hover:bg-[#eef6ee] hover:text-[#0e4d3b]'
             }`}
           >
-            Monthly Climatology & Humidity Cycle
+            Monthly cycle
           </button>
           <button
             onClick={() => setActiveTab('regions')}
-            className={`px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-all ${
+            className={`whitespace-nowrap rounded-lg px-3.5 py-2 text-xs font-bold transition-all ${
               activeTab === 'regions'
                 ? 'bg-[#0e4d3b] text-white shadow-sm'
                 : 'text-[#607369] hover:bg-[#eef6ee] hover:text-[#0e4d3b]'
             }`}
           >
-            Microclimate Regional Comparison
+            Regional view
           </button>
         </div>
 
-        <div className="text-xs text-slate-500 font-mono flex items-center space-x-1">
+        <div className="flex items-center space-x-1 text-[10px] font-bold uppercase tracking-[0.12em] text-[#809087]">
           <Info className="w-3.5 h-3.5 text-slate-400" />
           <span>IMD & Eco-Modeling Data</span>
         </div>

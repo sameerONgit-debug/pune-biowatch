@@ -59,6 +59,22 @@ export default function App() {
     loadData();
   }, []);
 
+  useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
+    setIsSpeciesModalOpen(false);
+
+    const pageTitles = {
+      home: 'Overview',
+      regions: 'Region Explorer',
+      species: 'Species Library',
+      climate: 'Climate Dashboard',
+      satellite: 'Satellite Viewer',
+      alerts: 'Alert Desk',
+      about: 'Community',
+    };
+    document.title = `${pageTitles[activeTab] || 'Overview'} · Pune BioWatch`;
+  }, [activeTab]);
+
   // Update alert status handler
   const handleUpdateAlertStatus = async (alertId, newStatus) => {
     try {
@@ -127,6 +143,7 @@ export default function App() {
         activeTab={activeTab}
         setActiveTab={setActiveTab}
         alertCount={activeAlertCount}
+        regionCount={regions.length}
       />
 
       {/* Main Content Area */}

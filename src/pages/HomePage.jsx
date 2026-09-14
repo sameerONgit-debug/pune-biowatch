@@ -24,8 +24,9 @@ export default function HomePage({
   onSelectRegion,
   onSelectSpecies,
 }) {
-  const urgentAlert = alerts.find((a) => a.severity === 'Critical') || alerts[0];
-  const criticalAlerts = alerts.filter((a) => a.severity === 'Critical').slice(0, 3);
+  const activeAlerts = alerts.filter((a) => a.status !== 'Action Taken');
+  const urgentAlert = activeAlerts.find((a) => a.severity === 'Critical') || activeAlerts[0] || alerts[0];
+  const criticalAlerts = activeAlerts.filter((a) => a.severity === 'Critical').slice(0, 3);
   const featuredSpecies = species
     .filter((s) => s.climateSeverity === 'Critical' || s.severityScore >= 85)
     .slice(0, 3);
@@ -42,10 +43,11 @@ export default function HomePage({
       <StatsBanner
         speciesCount={species.length}
         regionsCount={regions.length}
-        alertsCount={alerts.length}
+        alertsCount={activeAlerts.length}
         criticalAlertsCount={criticalAlerts.length}
         sightingsCount={sightings.length}
         tempRise={climateData?.districtOverview?.decadeAvgTempRise || '+1.42°C'}
+        setActiveTab={setActiveTab}
       />
 
       <section className="surface p-5 sm:p-7">

@@ -248,7 +248,7 @@ export default function SpeciesDatabasePage({
       {viewMode === 'grid' && (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {filteredSpecies.length === 0 ? (
-            <div className="col-span-full bg-white p-12 rounded-2xl border border-slate-200 text-center text-slate-500">
+            <div className="surface col-span-full p-12 text-center text-slate-500">
               <TreePine className="w-8 h-8 mx-auto text-slate-300 mb-2" />
               <p className="font-bold text-slate-700">No species match your active filters</p>
               <button
@@ -276,7 +276,7 @@ export default function SpeciesDatabasePage({
         <div className="surface overflow-hidden">
           <div className="overflow-x-auto">
             <table className="data-table w-full text-left text-xs text-slate-600">
-              <thead className="bg-slate-900 text-slate-300 font-mono uppercase text-[11px] tracking-wider">
+              <thead className="bg-[#103d32] text-emerald-50/75 font-mono uppercase text-[10px] tracking-wider">
                 <tr>
                   <th className="px-4 py-3.5">Taxa / Common Name</th>
                   <th className="px-4 py-3.5">Scientific Name</th>
@@ -321,7 +321,7 @@ export default function SpeciesDatabasePage({
                       <td className="px-4 py-3 text-right">
                         <button
                           onClick={() => onSelectSpecies(sp)}
-                          className="px-3 py-1 bg-slate-900 hover:bg-slate-800 text-white rounded-lg text-xs font-semibold transition-colors"
+                          className="rounded-lg bg-[#0e4d3b] px-3 py-1.5 text-xs font-bold text-white transition-colors hover:bg-[#092f27]"
                         >
                           Dossier
                         </button>

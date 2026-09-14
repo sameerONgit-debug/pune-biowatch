@@ -243,7 +243,7 @@ export default function AlertTable({ alerts = [], onUpdateStatus, regions = [] }
 
                       {/* Status Dropdown */}
                       <td className="px-4 py-3.5 whitespace-nowrap text-center">
-                        <div className="inline-flex flex-col items-center space-y-1.5">
+                        <div className="inline-flex flex-col items-center gap-1.5">
                           <select
                             disabled={isUpdating}
                             value={alert.status}

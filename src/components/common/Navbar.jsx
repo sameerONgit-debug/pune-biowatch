@@ -13,7 +13,7 @@ import {
   Leaf,
 } from 'lucide-react';
 
-export default function Navbar({ activeTab, setActiveTab, alertCount = 10 }) {
+export default function Navbar({ activeTab, setActiveTab, alertCount = 10, regionCount = 8 }) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const navItems = [
@@ -88,6 +88,7 @@ export default function Navbar({ activeTab, setActiveTab, alertCount = 10 }) {
                 <button
                   key={item.id}
                   onClick={() => navigate(item.id)}
+                  aria-current={isActive ? 'page' : undefined}
                   className={`relative flex items-center gap-1.5 rounded-xl px-3 py-2 text-[11px] font-bold transition-all duration-200 ${
                     isActive
                       ? 'bg-[#0e4d3b] text-white shadow-[0_5px_14px_rgba(14,77,59,0.2)]'
@@ -109,7 +110,7 @@ export default function Navbar({ activeTab, setActiveTab, alertCount = 10 }) {
           <div className="flex shrink-0 items-center gap-2">
             <div className="hidden items-center gap-2 rounded-xl border border-[#dfe8df] bg-white/65 px-3 py-2 text-[10px] font-bold text-[#5b7064] lg:flex">
               <Activity className="h-3.5 w-3.5 text-[#2f9c6c]" />
-              <span>8 zones online</span>
+              <span>{regionCount} zones online</span>
             </div>
             <button
               onClick={() => setMobileMenuOpen((open) => !open)}
