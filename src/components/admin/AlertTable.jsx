@@ -174,8 +174,24 @@ export default function AlertTable({ alerts = [], onUpdateStatus, regions = [] }
           </span>
         </div>
 
+        <div className="space-y-3 md:hidden">
+          <div className="flex items-center justify-between text-[10px] font-bold uppercase tracking-[0.14em] text-[#78988a]"><span>Mobile action queue</span><span>{filteredAlerts.length} shown</span></div>
+          {filteredAlerts.length === 0 ? (
+            <div className="metric-card text-center text-xs text-[#83a396]">No directives match the selected criteria.</div>
+          ) : filteredAlerts.map((alert) => {
+            const isUpdating = updatingId === alert.id;
+            return (
+              <article key={alert.id} className="surface-subtle space-y-3 p-4">
+                <div className="flex items-start justify-between gap-3"><div><div className="font-mono text-[10px] font-bold text-[#83a396]">{alert.id} · {alert.dateIssued}</div><h3 className="mt-1 text-sm font-extrabold text-[#edf9ef]">{alert.speciesName}</h3><div className="mt-1 text-[11px] font-bold text-[#73e5cf]">{alert.regionName}</div></div><SeverityBadge severity={alert.severity} /></div>
+                <div className="rounded-xl border border-[#1b3a2e] bg-[#091a15] p-3 text-[11px] leading-5 text-[#9db5a8]"><span className="mb-1 block text-[9px] font-bold uppercase tracking-[0.12em] text-[#78988a]">Trigger</span>{alert.thresholdExceeded}</div>
+                <div className="flex items-center justify-between gap-3"><span className="text-[10px] font-bold uppercase tracking-[0.12em] text-[#78988a]">Update status</span><select disabled={isUpdating} value={alert.status} onChange={(e) => handleStatusChange(alert.id, e.target.value)} className={`rounded-lg border px-2.5 py-1.5 text-xs font-bold ${alert.status === 'Action Taken' ? 'border-[#285442] bg-[#102d22] text-[#9ee7b8]' : alert.status === 'Reviewed' ? 'border-[#6b552e] bg-[#332b1d] text-[#ffd184]' : 'border-[#743e39] bg-[#351f20] text-[#ff9d8a]'}`}><option value="Pending">Pending</option><option value="Reviewed">Reviewed</option><option value="Action Taken">Action Taken</option></select></div>
+              </article>
+            );
+          })}
+        </div>
+
         {/* Table View */}
-        <div className="overflow-x-auto rounded-xl border border-slate-200">
+        <div className="hidden overflow-x-auto rounded-xl border border-slate-200 md:block">
           <table className="data-table w-full text-left text-xs text-slate-600">
             <thead className="bg-[#103d32] text-emerald-50/75 font-mono uppercase text-[10px] tracking-wider">
               <tr>

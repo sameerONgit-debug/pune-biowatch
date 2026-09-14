@@ -12,13 +12,13 @@ export default function StatsBanner({ speciesCount = 18, regionsCount = 8, alert
 
   return (
     <section aria-label="Pune BioWatch at a glance">
-      <div className="mb-3 flex items-center justify-between gap-4"><div className="eyebrow"><span className="font-mono">01</span> District telemetry</div><span className="hidden font-mono text-[9px] uppercase tracking-[0.16em] text-[#668579] sm:block">Live from observatory feed · 09:42 IST</span></div>
+      <div className="mb-3 flex items-center justify-between gap-4"><div className="eyebrow"><span className="font-mono">01</span> District telemetry</div><span className="hidden font-mono text-[9px] uppercase tracking-[0.16em] text-[#78988a] sm:block">Regional model · 2015–2024 baseline</span></div>
       <div className="grid grid-cols-2 gap-3 md:grid-cols-3 lg:grid-cols-5">
         {stats.map((stat) => {
           const Icon = stat.icon;
           return <button key={stat.label} type="button" onClick={() => setActiveTab?.(stat.target)} aria-label={`Open ${stat.label}`} className="stat-card group min-h-[142px] w-full">
             <div className="relative z-[1] flex items-start justify-between gap-2"><span className="max-w-[10rem] text-[10px] font-extrabold uppercase leading-4 tracking-[0.12em] text-[#78968a]">{stat.label}</span><span className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-xl border ${stat.tone}`}><Icon className="h-4 w-4" /></span></div>
-            <div className="relative z-[1] mt-5 flex items-end justify-between gap-2"><div><div className="text-3xl font-extrabold tracking-[-0.06em] text-[#f1faf4]">{stat.value}</div><div className="mt-1 text-[10px] font-medium leading-4 text-[#77978a]">{stat.sub}</div></div><ArrowUpRight className="mb-1 h-4 w-4 text-[#3b6753] transition-all group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-[#d9f99d]" /></div>
+            <div className="relative z-[1] mt-5 flex items-end justify-between gap-2"><div><div className="text-3xl font-extrabold tracking-[-0.06em] text-[#f1faf4]">{stat.value}</div><div className="mt-1 text-[10px] font-medium leading-4 text-[#88a79a]">{stat.sub}</div></div><ArrowUpRight className="mb-1 h-4 w-4 text-[#3b6753] transition-all group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-[#d9f99d]" /></div>
           </button>;
         })}
       </div>

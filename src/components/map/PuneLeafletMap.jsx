@@ -203,7 +203,7 @@ export default function PuneLeafletMap({
             <span className="text-[#b4cdbd]">Moderate (&lt;70)</span>
           </div>
         </div>
-        <div className="mt-2 border-t border-[#1b3a2e] pt-1.5 text-[10px] text-[#668579]">
+        <div className="mt-2 border-t border-[#1b3a2e] pt-1.5 text-[10px] text-[#78988a]">
           Click marker to open dossier
         </div>
       </div>

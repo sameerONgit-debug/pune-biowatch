@@ -161,7 +161,7 @@ export default function SatelliteSlider() {
               <span className="rounded border border-[#285442] bg-[#102d22] px-2 py-0.5 font-mono text-xs font-bold uppercase text-[#9ee7b8]">
                 Sentinel-2 & Landsat Decadal Observation
               </span>
-              <span className="font-mono text-xs text-[#668579]">10-Year Satellite Revisit</span>
+              <span className="font-mono text-xs text-[#78988a]">10-Year Satellite Revisit</span>
             </div>
             <h2 className="text-xl font-extrabold text-slate-900 mt-1">
               {selectedHotspot.title}

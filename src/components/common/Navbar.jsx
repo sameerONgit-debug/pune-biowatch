@@ -41,9 +41,9 @@ export default function Navbar({ activeTab, setActiveTab, alertCount = 10, regio
             <span className="truncate">Pune ecological mission control</span>
           </div>
           <div className="hidden shrink-0 items-center gap-4 font-mono text-[9px] tracking-[0.1em] text-[#678b7a] sm:flex">
-            <span>LIVE FEED / 18.5204° N</span>
+            <span>REGIONAL FEED / 18.5204° N</span>
             <span>73.8567° E</span>
-            <span className="rounded-full border border-[#2c6b51] bg-[#103426] px-2 py-1 text-[#d9f99d]">{regionCount} zones online</span>
+            <span className="rounded-full border border-[#2c6b51] bg-[#103426] px-2 py-1 text-[#d9f99d]">{regionCount} zones indexed</span>
           </div>
         </div>
       </div>
@@ -54,7 +54,7 @@ export default function Navbar({ activeTab, setActiveTab, alertCount = 10, regio
             <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-[#b2d67b]/30 bg-[#d9f99d] text-[#06110f] shadow-[0_7px_20px_rgba(173,224,101,0.2)] transition-transform duration-200 group-hover:-rotate-6 group-hover:scale-105"><Leaf className="h-5 w-5" strokeWidth={2.5} /></span>
             <span className="min-w-0">
               <span className="flex items-center gap-2"><span className="truncate text-[15px] font-extrabold tracking-[-0.035em] text-white sm:text-[17px]">Pune BioWatch</span><span className="hidden rounded border border-[#285442] bg-[#0d251d] px-1.5 py-0.5 text-[8px] font-bold uppercase tracking-[0.12em] text-[#73e5cf] sm:inline-block">Mission OS</span></span>
-              <span className="hidden text-[10px] font-medium text-[#719487] sm:block">Biodiversity intelligence for Pune</span>
+              <span className="hidden text-[10px] font-medium text-[#83a396] sm:block">Biodiversity intelligence for Pune</span>
             </span>
           </button>
 
@@ -78,7 +78,7 @@ export default function Navbar({ activeTab, setActiveTab, alertCount = 10, regio
           </nav>
 
           <div className="flex shrink-0 items-center gap-2">
-            <div className="hidden items-center gap-2 rounded-xl border border-[#183b2e] bg-[#0a1d17] px-3 py-2 text-[10px] font-bold text-[#7e9e91] lg:flex"><Activity className="h-3.5 w-3.5 text-[#73e5cf]" /><span>Telemetry nominal</span></div>
+            <div className="hidden items-center gap-2 rounded-xl border border-[#183b2e] bg-[#0a1d17] px-3 py-2 text-[10px] font-bold text-[#7e9e91] lg:flex"><Activity className="h-3.5 w-3.5 text-[#73e5cf]" /><span>Model feed nominal</span></div>
             <button onClick={() => setMobileMenuOpen((open) => !open)} className="rounded-xl border border-[#21483a] bg-[#0a1d17] p-2.5 text-[#9cc0af] transition-colors hover:border-[#73e5cf]/50 hover:bg-[#102d22] xl:hidden" aria-label="Toggle navigation menu" aria-expanded={mobileMenuOpen}>{mobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}</button>
           </div>
         </div>

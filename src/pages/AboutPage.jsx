@@ -340,7 +340,7 @@ export default function AboutPage({
                 Recent Citizen Observations ({sightings.length})
               </div>
               <span className="text-[10px] bg-emerald-100 text-[#9ee7b8] font-bold px-2 py-0.5 rounded">
-                Live Feed
+                Recent submissions
               </span>
             </div>
 
