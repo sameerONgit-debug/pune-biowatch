@@ -137,7 +137,7 @@ export default function App() {
   const activeAlertCount = alerts.filter((a) => a.status === 'Pending').length;
 
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="dark-app min-h-screen flex flex-col">
       {/* Official Government / Agency Header */}
       <Navbar
         activeTab={activeTab}

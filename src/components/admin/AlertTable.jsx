@@ -58,7 +58,7 @@ export default function AlertTable({ alerts = [], onUpdateStatus, regions = [] }
             <div className="text-xs font-mono text-slate-500 uppercase">Total Active Directives</div>
             <div className="text-2xl font-bold text-slate-900 mt-1">{alerts.length}</div>
           </div>
-          <div className="p-2 rounded-lg bg-slate-100 text-slate-600">
+          <div className="p-2 rounded-lg bg-[#102d22] text-[#73e5cf]">
             <ShieldAlert className="w-5 h-5" />
           </div>
         </div>
@@ -68,7 +68,7 @@ export default function AlertTable({ alerts = [], onUpdateStatus, regions = [] }
             <div className="text-xs font-mono text-rose-600 uppercase font-semibold">Critical Thresholds</div>
             <div className="text-2xl font-bold text-rose-600 mt-1">{criticalCount}</div>
           </div>
-          <div className="p-2 rounded-lg bg-rose-50 text-rose-600">
+          <div className="p-2 rounded-lg bg-[#351f20] text-[#ff9d8a]">
             <AlertTriangle className="w-5 h-5" />
           </div>
         </div>
@@ -78,7 +78,7 @@ export default function AlertTable({ alerts = [], onUpdateStatus, regions = [] }
             <div className="text-xs font-mono text-amber-600 uppercase font-semibold">Pending Review</div>
             <div className="text-2xl font-bold text-amber-600 mt-1">{pendingCount}</div>
           </div>
-          <div className="p-2 rounded-lg bg-amber-50 text-amber-600">
+          <div className="p-2 rounded-lg bg-[#332b1d] text-[#ffd184]">
             <Clock className="w-5 h-5" />
           </div>
         </div>
@@ -88,7 +88,7 @@ export default function AlertTable({ alerts = [], onUpdateStatus, regions = [] }
             <div className="text-xs font-mono text-emerald-600 uppercase font-semibold">Action Executed</div>
             <div className="text-2xl font-bold text-emerald-600 mt-1">{actionTakenCount}</div>
           </div>
-          <div className="p-2 rounded-lg bg-emerald-50 text-emerald-600">
+          <div className="p-2 rounded-lg bg-[#102d22] text-[#9ee7b8]">
             <CheckCircle2 className="w-5 h-5" />
           </div>
         </div>
@@ -200,7 +200,7 @@ export default function AlertTable({ alerts = [], onUpdateStatus, regions = [] }
                   return (
                     <tr
                       key={alert.id}
-                      className="hover:bg-slate-50/80 transition-colors"
+                      className="transition-colors hover:bg-[#102d22]"
                     >
                       {/* ID & Date */}
                       <td className="px-4 py-3.5 whitespace-nowrap font-mono">
@@ -231,7 +231,7 @@ export default function AlertTable({ alerts = [], onUpdateStatus, regions = [] }
 
                       {/* Recommendation */}
                       <td className="px-4 py-3.5 max-w-sm">
-                        <p className="text-slate-800 font-medium leading-snug bg-slate-50 p-2 rounded border border-slate-100">
+                        <p className="text-slate-800 font-medium leading-snug bg-[#091a15] p-2 rounded border border-[#1b3a2e]">
                           {alert.recommendedAction}
                         </p>
                         {alert.adminNotes && (
@@ -250,10 +250,10 @@ export default function AlertTable({ alerts = [], onUpdateStatus, regions = [] }
                             onChange={(e) => handleStatusChange(alert.id, e.target.value)}
                             className={`px-2.5 py-1 rounded-md text-xs font-bold border transition-colors focus:outline-none cursor-pointer ${
                               alert.status === 'Action Taken'
-                                ? 'bg-emerald-50 text-emerald-800 border-emerald-300'
+                                ? 'bg-[#102d22] text-[#9ee7b8] border-[#285442]'
                                 : alert.status === 'Reviewed'
-                                ? 'bg-amber-50 text-amber-800 border-amber-300'
-                                : 'bg-rose-50 text-rose-800 border-rose-300'
+                                ? 'bg-[#332b1d] text-[#ffd184] border-[#6b552e]'
+                                : 'bg-[#351f20] text-[#ff9d8a] border-[#743e39]'
                             }`}
                           >
                             <option value="Pending">Pending</option>

@@ -102,12 +102,12 @@ export default function SpeciesDatabasePage({
         </div>
 
         {/* View Toggle */}
-        <div className="flex items-center self-start rounded-xl border border-[#dfe8df] bg-[#eff6ee] p-1 md:self-auto">
+        <div className="flex items-center self-start rounded-xl border border-[#1b3a2e] bg-[#091a15] p-1 md:self-auto">
           <button
             onClick={() => setViewMode('grid')}
             className={`flex items-center gap-1.5 rounded-lg px-2.5 py-2 text-xs font-bold transition-all ${
               viewMode === 'grid'
-                ? 'bg-[#0e4d3b] text-white shadow-sm'
+                ? 'bg-[#d9f99d] text-[#06110f] shadow-sm'
                 : 'text-[#607369] hover:text-[#0e4d3b]'
             }`}
           >
@@ -118,7 +118,7 @@ export default function SpeciesDatabasePage({
             onClick={() => setViewMode('table')}
             className={`flex items-center gap-1.5 rounded-lg px-2.5 py-2 text-xs font-bold transition-all ${
               viewMode === 'table'
-                ? 'bg-[#0e4d3b] text-white shadow-sm'
+                ? 'bg-[#d9f99d] text-[#06110f] shadow-sm'
                 : 'text-[#607369] hover:text-[#0e4d3b]'
             }`}
           >
@@ -154,7 +154,7 @@ export default function SpeciesDatabasePage({
           {hasActiveFilters && (
             <button
               onClick={clearFilters}
-              className="px-3 py-2 text-xs text-rose-600 hover:text-rose-700 font-semibold border border-rose-200 hover:bg-rose-50 rounded-xl transition-colors flex items-center space-x-1 self-start md:self-auto"
+              className="flex items-center space-x-1 self-start rounded-xl border border-[#743e39] px-3 py-2 text-xs font-bold text-[#ff9d8a] transition-colors hover:bg-[#351f20] md:self-auto"
             >
               <X className="w-3.5 h-3.5" />
               <span>Clear Filters</span>

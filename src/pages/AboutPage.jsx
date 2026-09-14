@@ -109,9 +109,9 @@ export default function AboutPage({
         </p>
 
         {/* Academic Project Disclaimer Banner */}
-        <div className="p-4 rounded-xl bg-amber-50 border border-amber-200 text-xs text-amber-900 leading-relaxed space-y-1">
-          <div className="font-bold flex items-center space-x-1.5 text-amber-800">
-            <Info className="w-4 h-4 text-amber-600" />
+        <div className="space-y-1 rounded-2xl border border-[#6b552e] bg-[#2b2117] p-4 text-xs leading-relaxed text-[#f1d9a1]">
+          <div className="font-bold flex items-center space-x-1.5 text-[#ffd184]">
+            <Info className="w-4 h-4 text-[#ffd184]" />
             <span>Academic & Community Engagement Project Notice</span>
           </div>
           <p>
@@ -124,24 +124,24 @@ export default function AboutPage({
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
         {/* Left Col: Citizen Science "Report a Sighting" Form (7 cols) */}
         <div className="surface space-y-6 p-6 sm:p-8 lg:col-span-7">
-          <div className="border-b border-slate-100 pb-4">
-            <div className="flex items-center space-x-2 text-xs font-mono uppercase text-emerald-700 font-bold">
-              <Users className="w-4 h-4 text-emerald-600" />
+          <div className="border-b border-[#193d2f] pb-4">
+            <div className="flex items-center space-x-2 text-xs font-mono uppercase text-[#73e5cf] font-bold">
+              <Users className="w-4 h-4 text-[#73e5cf]" />
               <span>Citizen Science Participation</span>
             </div>
             <h2 className="text-xl font-bold text-slate-900 mt-1">
               Report a Regional Biodiversity Sighting
             </h2>
-            <p className="text-xs text-slate-500">
+            <p className="text-xs text-[#82a094]">
               Contribute your field observations from Pune’s hills, lakes, or university groves. Help researchers track species response to heat, drought, and habitat changes.
             </p>
           </div>
 
           {/* Success receipt */}
           {submissionSuccess && (
-            <div className="p-4 rounded-xl bg-emerald-50 border border-emerald-300 text-emerald-950 text-xs space-y-2 animate-in fade-in">
-              <div className="flex items-center space-x-2 font-bold text-emerald-800 text-sm">
-                <CheckCircle2 className="w-5 h-5 text-emerald-600" />
+            <div className="p-4 rounded-xl bg-[#102d22] border border-[#285442] text-[#ccebd7] text-xs space-y-2 animate-in fade-in">
+              <div className="flex items-center space-x-2 font-bold text-[#9ee7b8] text-sm">
+                <CheckCircle2 className="w-5 h-5 text-[#73e5cf]" />
                 <span>Field Observation Successfully Logged!</span>
               </div>
               <p>
@@ -151,7 +151,7 @@ export default function AboutPage({
               </p>
               <button
                 onClick={() => setSubmissionSuccess(null)}
-                className="text-[11px] font-bold text-emerald-700 underline"
+                className="text-[11px] font-bold text-[#73e5cf] underline"
               >
                 Log another observation
               </button>
@@ -159,7 +159,7 @@ export default function AboutPage({
           )}
 
           {errors.form && (
-            <div className="p-3 bg-red-50 border border-red-200 rounded-lg text-xs text-red-700 flex items-center space-x-2">
+            <div className="p-3 bg-[#351f20] border border-[#743e39] rounded-xl text-xs text-[#ffb0a0] flex items-center space-x-2">
               <AlertCircle className="w-4 h-4 flex-shrink-0" />
               <span>{errors.form}</span>
             </div>
@@ -170,7 +170,7 @@ export default function AboutPage({
             {/* Row 1: Name & Email */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
-                <label className="block text-slate-700 font-semibold mb-1">
+                <label className="block text-[#c8ddd0] font-semibold mb-1">
                   Observer Name <span className="text-red-500">*</span>
                 </label>
                 <input
@@ -179,16 +179,16 @@ export default function AboutPage({
                   value={formData.observerName}
                   onChange={(e) => setFormData({ ...formData, observerName: e.target.value })}
                   className={`w-full px-3 py-2 rounded-xl border bg-slate-50 text-slate-900 focus:outline-none focus:ring-2 focus:ring-emerald-500 ${
-                    errors.observerName ? 'border-red-400 bg-red-50/30' : 'border-slate-300'
+                    errors.observerName ? 'border-[#ff9884] bg-[#351f20]' : 'border-slate-300'
                   }`}
                 />
                 {errors.observerName && (
-                  <p className="text-[11px] text-red-600 mt-1">{errors.observerName}</p>
+                  <p className="text-[11px] text-[#ff9d8a] mt-1">{errors.observerName}</p>
                 )}
               </div>
 
               <div>
-                <label className="block text-slate-700 font-semibold mb-1">
+                <label className="block text-[#c8ddd0] font-semibold mb-1">
                   Observer Email <span className="text-red-500">*</span>
                 </label>
                 <input
@@ -197,11 +197,11 @@ export default function AboutPage({
                   value={formData.observerEmail}
                   onChange={(e) => setFormData({ ...formData, observerEmail: e.target.value })}
                   className={`w-full px-3 py-2 rounded-xl border bg-slate-50 text-slate-900 focus:outline-none focus:ring-2 focus:ring-emerald-500 ${
-                    errors.observerEmail ? 'border-red-400 bg-red-50/30' : 'border-slate-300'
+                    errors.observerEmail ? 'border-[#ff9884] bg-[#351f20]' : 'border-slate-300'
                   }`}
                 />
                 {errors.observerEmail && (
-                  <p className="text-[11px] text-red-600 mt-1">{errors.observerEmail}</p>
+                  <p className="text-[11px] text-[#ff9d8a] mt-1">{errors.observerEmail}</p>
                 )}
               </div>
             </div>
@@ -209,7 +209,7 @@ export default function AboutPage({
             {/* Row 2: Region & Species */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
-                <label className="block text-slate-700 font-semibold mb-1">
+                <label className="block text-[#c8ddd0] font-semibold mb-1">
                   Pune Sub-Region <span className="text-red-500">*</span>
                 </label>
                 <select
@@ -226,7 +226,7 @@ export default function AboutPage({
               </div>
 
               <div>
-                <label className="block text-slate-700 font-semibold mb-1">
+                <label className="block text-[#c8ddd0] font-semibold mb-1">
                   Observed Species
                 </label>
                 <select
@@ -246,7 +246,7 @@ export default function AboutPage({
             {/* Row 3: Date, Count & Stress Level */}
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
               <div>
-                <label className="block text-slate-700 font-semibold mb-1">
+                <label className="block text-[#c8ddd0] font-semibold mb-1">
                   Date of Sighting <span className="text-red-500">*</span>
                 </label>
                 <input
@@ -258,7 +258,7 @@ export default function AboutPage({
               </div>
 
               <div>
-                <label className="block text-slate-700 font-semibold mb-1">
+                <label className="block text-[#c8ddd0] font-semibold mb-1">
                   Estimated Count
                 </label>
                 <input
@@ -271,7 +271,7 @@ export default function AboutPage({
               </div>
 
               <div>
-                <label className="block text-slate-700 font-semibold mb-1">
+                <label className="block text-[#c8ddd0] font-semibold mb-1">
                   Observed Stress Level
                 </label>
                 <select
@@ -289,7 +289,7 @@ export default function AboutPage({
 
             {/* Row 4: Exact Location Notes */}
             <div>
-              <label className="block text-slate-700 font-semibold mb-1">
+              <label className="block text-[#c8ddd0] font-semibold mb-1">
                 Specific Location Details (Landmark, Trail, or GPS)
               </label>
               <input
@@ -303,7 +303,7 @@ export default function AboutPage({
 
             {/* Row 5: Observed Behavior / Climate Stress */}
             <div>
-              <label className="block text-slate-700 font-semibold mb-1">
+              <label className="block text-[#c8ddd0] font-semibold mb-1">
                 Field Observation Notes & Stress Description <span className="text-red-500">*</span>
               </label>
               <textarea
@@ -312,11 +312,11 @@ export default function AboutPage({
                 value={formData.observedBehavior}
                 onChange={(e) => setFormData({ ...formData, observedBehavior: e.target.value })}
                 className={`w-full px-3 py-2 rounded-xl border bg-slate-50 text-slate-900 focus:outline-none focus:ring-2 focus:ring-emerald-500 ${
-                  errors.observedBehavior ? 'border-red-400 bg-red-50/30' : 'border-slate-300'
+                  errors.observedBehavior ? 'border-[#ff9884] bg-[#351f20]' : 'border-slate-300'
                 }`}
               />
               {errors.observedBehavior && (
-                <p className="text-[11px] text-red-600 mt-1">{errors.observedBehavior}</p>
+                <p className="text-[11px] text-[#ff9d8a] mt-1">{errors.observedBehavior}</p>
               )}
             </div>
 
@@ -336,10 +336,10 @@ export default function AboutPage({
           {/* Community Sightings Feed */}
           <div className="surface space-y-4 p-6">
             <div className="flex items-center justify-between">
-              <div className="text-xs font-mono uppercase text-slate-500 font-bold">
+              <div className="text-xs font-mono uppercase text-[#82a094] font-bold">
                 Recent Citizen Observations ({sightings.length})
               </div>
-              <span className="text-[10px] bg-emerald-100 text-emerald-800 font-bold px-2 py-0.5 rounded">
+              <span className="text-[10px] bg-emerald-100 text-[#9ee7b8] font-bold px-2 py-0.5 rounded">
                 Live Feed
               </span>
             </div>
@@ -354,7 +354,7 @@ export default function AboutPage({
                     <span className="font-bold text-slate-900">{s.speciesName}</span>
                     <StatusBadge status={s.status} />
                   </div>
-                  <div className="text-[11px] text-emerald-700 flex items-center space-x-1 font-medium">
+                  <div className="text-[11px] text-[#73e5cf] flex items-center space-x-1 font-medium">
                     <MapPin className="w-3 h-3" />
                     <span>{s.regionName}</span>
                     <span className="text-slate-400 font-mono text-[10px]">({s.date})</span>
@@ -378,19 +378,19 @@ export default function AboutPage({
             </div>
             <div className="space-y-2 text-xs text-slate-600">
               <div className="flex items-start space-x-2">
-                <ShieldCheck className="w-4 h-4 text-emerald-600 flex-shrink-0 mt-0.5" />
+                <ShieldCheck className="w-4 h-4 text-[#73e5cf] flex-shrink-0 mt-0.5" />
                 <span>
                   <b>Maharashtra Forest Department:</b> Wildlife Conservation Strategy (2021–2030) Guidelines.
                 </span>
               </div>
               <div className="flex items-start space-x-2">
-                <ShieldCheck className="w-4 h-4 text-emerald-600 flex-shrink-0 mt-0.5" />
+                <ShieldCheck className="w-4 h-4 text-[#73e5cf] flex-shrink-0 mt-0.5" />
                 <span>
                   <b>India Meteorological Department (IMD):</b> Regional Meteorological Centre Pune Climatological Normals.
                 </span>
               </div>
               <div className="flex items-start space-x-2">
-                <ShieldCheck className="w-4 h-4 text-emerald-600 flex-shrink-0 mt-0.5" />
+                <ShieldCheck className="w-4 h-4 text-[#73e5cf] flex-shrink-0 mt-0.5" />
                 <span>
                   <b>IUCN Species Survival Commission:</b> Western Ghats Freshwater & Amphibian Assessments.
                 </span>

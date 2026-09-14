@@ -114,21 +114,21 @@ export default function PuneLeafletMap({
           <div style="font-size: 10px; font-weight: 700; color: ${colorHex}; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 2px;">
             Vulnerability: ${region.metrics.vulnerabilityScore}/100
           </div>
-          <div style="font-size: 14px; font-weight: 800; color: #0f172a; line-height: 1.2; margin-bottom: 4px;">
+          <div style="font-size: 14px; font-weight: 800; color: #eaf8ed; line-height: 1.2; margin-bottom: 4px;">
             ${region.name}
           </div>
-          <div style="font-size: 11px; color: #475569; margin-bottom: 8px;">
+          <div style="font-size: 11px; color: #9db5a8; margin-bottom: 8px;">
             ${region.habitatType}
           </div>
-          <div style="display: flex; justify-content: space-between; font-size: 11px; color: #64748b; background: #f8fafc; padding: 6px 8px; border-radius: 6px; margin-bottom: 10px;">
+          <div style="display: flex; justify-content: space-between; font-size: 11px; color: #83a396; background: #091a15; padding: 6px 8px; border-radius: 6px; margin-bottom: 10px;">
             <span>Species: <b>${region.metrics.speciesCount}</b></span>
             <span>Alerts: <b style="color: #e11d48;">${region.metrics.activeAlertCount}</b></span>
             <span>Temp: <b style="color: #d97706;">${region.metrics.temperatureRise10Yr}</b></span>
           </div>
           <button id="popup-btn-${region.id}" style="
             width: 100%;
-            background: #0f172a;
-            color: #ffffff;
+            background: #d9f99d;
+            color: #06110f;
             font-size: 11px;
             font-weight: 600;
             padding: 6px 10px;
@@ -185,25 +185,25 @@ export default function PuneLeafletMap({
       <div ref={mapContainerRef} style={{ height, width: '100%' }} />
 
       {/* Map Legend Overlay */}
-      <div className="absolute bottom-4 left-4 z-20 bg-white/95 backdrop-blur-md p-3 rounded-lg border border-slate-200 shadow-md text-xs font-mono">
-        <div className="font-bold text-slate-800 uppercase tracking-wider mb-2 text-[10px]">
+      <div className="absolute bottom-4 left-4 z-20 rounded-xl border border-[#1b3a2e] bg-[#0b1c17]/95 p-3 text-xs font-mono shadow-xl backdrop-blur-md">
+        <div className="mb-2 text-[10px] font-bold uppercase tracking-wider text-[#d9f99d]">
           Climate Vulnerability Index
         </div>
         <div className="space-y-1.5">
           <div className="flex items-center space-x-2">
             <span className="w-3 h-3 rounded-full bg-red-500 border border-white shadow-sm"></span>
-            <span className="text-slate-700">Critical (&gt;85)</span>
+            <span className="text-[#b4cdbd]">Critical (&gt;85)</span>
           </div>
           <div className="flex items-center space-x-2">
             <span className="w-3 h-3 rounded-full bg-amber-500 border border-white shadow-sm"></span>
-            <span className="text-slate-700">High Stress (70-84)</span>
+            <span className="text-[#b4cdbd]">High Stress (70-84)</span>
           </div>
           <div className="flex items-center space-x-2">
             <span className="w-3 h-3 rounded-full bg-emerald-500 border border-white shadow-sm"></span>
-            <span className="text-slate-700">Moderate (&lt;70)</span>
+            <span className="text-[#b4cdbd]">Moderate (&lt;70)</span>
           </div>
         </div>
-        <div className="text-[10px] text-slate-400 mt-2 pt-1.5 border-t border-slate-200">
+        <div className="mt-2 border-t border-[#1b3a2e] pt-1.5 text-[10px] text-[#668579]">
           Click marker to open dossier
         </div>
       </div>

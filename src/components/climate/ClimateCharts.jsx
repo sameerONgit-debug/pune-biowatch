@@ -93,7 +93,7 @@ export default function ClimateCharts({ climateData }) {
             className={`whitespace-nowrap rounded-lg px-3.5 py-2 text-xs font-bold transition-all ${
               activeTab === 'trends'
                 ? 'bg-[#0e4d3b] text-white shadow-sm'
-                : 'text-[#607369] hover:bg-[#eef6ee] hover:text-[#0e4d3b]'
+                : 'text-[#83a396] hover:bg-[#102d22] hover:text-[#d9f99d]'
             }`}
           >
             Annual trend
@@ -103,7 +103,7 @@ export default function ClimateCharts({ climateData }) {
             className={`whitespace-nowrap rounded-lg px-3.5 py-2 text-xs font-bold transition-all ${
               activeTab === 'correlation'
                 ? 'bg-[#0e4d3b] text-white shadow-sm'
-                : 'text-[#607369] hover:bg-[#eef6ee] hover:text-[#0e4d3b]'
+                : 'text-[#83a396] hover:bg-[#102d22] hover:text-[#d9f99d]'
             }`}
           >
             Heat ↔ stress
@@ -113,7 +113,7 @@ export default function ClimateCharts({ climateData }) {
             className={`whitespace-nowrap rounded-lg px-3.5 py-2 text-xs font-bold transition-all ${
               activeTab === 'monthly'
                 ? 'bg-[#0e4d3b] text-white shadow-sm'
-                : 'text-[#607369] hover:bg-[#eef6ee] hover:text-[#0e4d3b]'
+                : 'text-[#83a396] hover:bg-[#102d22] hover:text-[#d9f99d]'
             }`}
           >
             Monthly cycle
@@ -123,7 +123,7 @@ export default function ClimateCharts({ climateData }) {
             className={`whitespace-nowrap rounded-lg px-3.5 py-2 text-xs font-bold transition-all ${
               activeTab === 'regions'
                 ? 'bg-[#0e4d3b] text-white shadow-sm'
-                : 'text-[#607369] hover:bg-[#eef6ee] hover:text-[#0e4d3b]'
+                : 'text-[#83a396] hover:bg-[#102d22] hover:text-[#d9f99d]'
             }`}
           >
             Regional view
@@ -151,21 +151,21 @@ export default function ClimateCharts({ climateData }) {
           <div className="h-80 w-full">
             <ResponsiveContainer width="100%" height="100%">
               <ComposedChart data={annualTrends} margin={{ top: 20, right: 20, bottom: 20, left: 10 }}>
-                <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
-                <XAxis dataKey="year" tick={{ fill: '#64748b', fontSize: 12 }} />
+                <CartesianGrid strokeDasharray="3 3" stroke="#1b3a2e" />
+                <XAxis dataKey="year" tick={{ fill: '#83a396', fontSize: 12 }} />
                 <YAxis
                   yAxisId="left"
                   orientation="left"
-                  tick={{ fill: '#64748b', fontSize: 12 }}
+                  tick={{ fill: '#83a396', fontSize: 12 }}
                   domain={[0, 45]}
-                  label={{ value: 'Days / Anomaly (°C * 10)', angle: -90, position: 'insideLeft', fill: '#94a3b8', fontSize: 10 }}
+                  label={{ value: 'Days / Anomaly (°C * 10)', angle: -90, position: 'insideLeft', fill: '#638478', fontSize: 10 }}
                 />
                 <YAxis
                   yAxisId="right"
                   orientation="right"
-                  tick={{ fill: '#64748b', fontSize: 12 }}
+                  tick={{ fill: '#83a396', fontSize: 12 }}
                   domain={[400, 1400]}
-                  label={{ value: 'Rainfall (mm)', angle: 90, position: 'insideRight', fill: '#94a3b8', fontSize: 10 }}
+                  label={{ value: 'Rainfall (mm)', angle: 90, position: 'insideRight', fill: '#638478', fontSize: 10 }}
                 />
                 <Tooltip content={<CustomTooltip />} />
                 <Legend wrapperStyle={{ fontSize: '12px', paddingTop: '10px' }} />
@@ -174,7 +174,7 @@ export default function ClimateCharts({ climateData }) {
                   yAxisId="right"
                   dataKey="annualRainfall"
                   name="Annual Rainfall (mm)"
-                  fill="#93c5fd"
+                  fill="#2e7b8b"
                   opacity={0.65}
                   radius={[4, 4, 0, 0]}
                 />
@@ -183,18 +183,18 @@ export default function ClimateCharts({ climateData }) {
                   type="monotone"
                   dataKey="extremeHeatDays"
                   name="Extreme Heat Days (>40°C)"
-                  stroke="#ef4444"
+                  stroke="#ff9884"
                   strokeWidth={2.5}
-                  dot={{ r: 4, fill: '#ef4444' }}
+                  dot={{ r: 4, fill: '#ff9884' }}
                 />
                 <Line
                   yAxisId="left"
                   type="monotone"
                   dataKey="tempAnomaly"
                   name="Temp Anomaly (°C)"
-                  stroke="#f59e0b"
+                  stroke="#ffd184"
                   strokeWidth={2.5}
-                  dot={{ r: 4, fill: '#f59e0b' }}
+                  dot={{ r: 4, fill: '#ffd184' }}
                 />
               </ComposedChart>
             </ResponsiveContainer>
@@ -217,20 +217,20 @@ export default function ClimateCharts({ climateData }) {
           <div className="h-80 w-full">
             <ResponsiveContainer width="100%" height="100%">
               <ComposedChart data={annualTrends} margin={{ top: 20, right: 20, bottom: 20, left: 10 }}>
-                <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
-                <XAxis dataKey="year" tick={{ fill: '#64748b', fontSize: 12 }} />
+                <CartesianGrid strokeDasharray="3 3" stroke="#1b3a2e" />
+                <XAxis dataKey="year" tick={{ fill: '#83a396', fontSize: 12 }} />
                 <YAxis
                   yAxisId="stress"
                   domain={[40, 100]}
-                  tick={{ fill: '#64748b', fontSize: 12 }}
-                  label={{ value: 'Species Stress Index (0-100)', angle: -90, position: 'insideLeft', fill: '#94a3b8', fontSize: 10 }}
+                  tick={{ fill: '#83a396', fontSize: 12 }}
+                  label={{ value: 'Species Stress Index (0-100)', angle: -90, position: 'insideLeft', fill: '#638478', fontSize: 10 }}
                 />
                 <YAxis
                   yAxisId="spells"
                   orientation="right"
                   domain={[0, 40]}
-                  tick={{ fill: '#64748b', fontSize: 12 }}
-                  label={{ value: 'Monsoon Dry Spells (Days)', angle: 90, position: 'insideRight', fill: '#94a3b8', fontSize: 10 }}
+                  tick={{ fill: '#83a396', fontSize: 12 }}
+                  label={{ value: 'Monsoon Dry Spells (Days)', angle: 90, position: 'insideRight', fill: '#638478', fontSize: 10 }}
                 />
                 <Tooltip content={<CustomTooltip />} />
                 <Legend wrapperStyle={{ fontSize: '12px', paddingTop: '10px' }} />
@@ -284,20 +284,20 @@ export default function ClimateCharts({ climateData }) {
           <div className="h-80 w-full">
             <ResponsiveContainer width="100%" height="100%">
               <ComposedChart data={monthlyClimatology} margin={{ top: 20, right: 20, bottom: 20, left: 10 }}>
-                <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
-                <XAxis dataKey="month" tick={{ fill: '#64748b', fontSize: 12 }} />
+                <CartesianGrid strokeDasharray="3 3" stroke="#1b3a2e" />
+                <XAxis dataKey="month" tick={{ fill: '#83a396', fontSize: 12 }} />
                 <YAxis
                   yAxisId="temp"
                   domain={[15, 38]}
-                  tick={{ fill: '#64748b', fontSize: 12 }}
-                  label={{ value: 'Temperature (°C)', angle: -90, position: 'insideLeft', fill: '#94a3b8', fontSize: 10 }}
+                  tick={{ fill: '#83a396', fontSize: 12 }}
+                  label={{ value: 'Temperature (°C)', angle: -90, position: 'insideLeft', fill: '#638478', fontSize: 10 }}
                 />
                 <YAxis
                   yAxisId="rain"
                   orientation="right"
                   domain={[0, 300]}
-                  tick={{ fill: '#64748b', fontSize: 12 }}
-                  label={{ value: 'Rainfall (mm)', angle: 90, position: 'insideRight', fill: '#94a3b8', fontSize: 10 }}
+                  tick={{ fill: '#83a396', fontSize: 12 }}
+                  label={{ value: 'Rainfall (mm)', angle: 90, position: 'insideRight', fill: '#638478', fontSize: 10 }}
                 />
                 <Tooltip content={<CustomTooltip />} />
                 <Legend wrapperStyle={{ fontSize: '12px', paddingTop: '10px' }} />
@@ -321,7 +321,7 @@ export default function ClimateCharts({ climateData }) {
                   type="monotone"
                   dataKey="normalTemp"
                   name="Normal Temp (°C)"
-                  stroke="#94a3b8"
+                  stroke="#638478"
                   strokeWidth={2}
                   strokeDasharray="4 4"
                 />
@@ -330,7 +330,7 @@ export default function ClimateCharts({ climateData }) {
                   type="monotone"
                   dataKey="currentTemp"
                   name="Recorded Temp (°C)"
-                  stroke="#ef4444"
+                  stroke="#ff9884"
                   strokeWidth={2.5}
                 />
               </ComposedChart>
@@ -354,7 +354,7 @@ export default function ClimateCharts({ climateData }) {
             <select
               value={selectedRegionId}
               onChange={(e) => setSelectedRegionId(e.target.value)}
-              className="text-xs font-semibold px-3 py-1.5 rounded-lg border border-slate-300 bg-slate-50 text-slate-700"
+              className="select-control w-auto"
             >
               <option value="all">Compare All 8 Sub-Regions</option>
               {regionalComparisons.map((r) => (
@@ -375,20 +375,20 @@ export default function ClimateCharts({ climateData }) {
                 }
                 margin={{ top: 20, right: 20, bottom: 40, left: 10 }}
               >
-                <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
-                <XAxis dataKey="regionName" tick={{ fill: '#475569', fontSize: 11 }} interval={0} angle={-20} textAnchor="end" />
+                <CartesianGrid strokeDasharray="3 3" stroke="#1b3a2e" />
+                <XAxis dataKey="regionName" tick={{ fill: '#83a396', fontSize: 11 }} interval={0} angle={-20} textAnchor="end" />
                 <YAxis
                   yAxisId="temp"
                   domain={[25, 45]}
-                  tick={{ fill: '#64748b', fontSize: 12 }}
-                  label={{ value: 'Peak Summer Temp (°C)', angle: -90, position: 'insideLeft', fill: '#94a3b8', fontSize: 10 }}
+                  tick={{ fill: '#83a396', fontSize: 12 }}
+                  label={{ value: 'Peak Summer Temp (°C)', angle: -90, position: 'insideLeft', fill: '#638478', fontSize: 10 }}
                 />
                 <YAxis
                   yAxisId="stress"
                   orientation="right"
                   domain={[50, 100]}
-                  tick={{ fill: '#64748b', fontSize: 12 }}
-                  label={{ value: 'Stress Rating (0-100)', angle: 90, position: 'insideRight', fill: '#94a3b8', fontSize: 10 }}
+                  tick={{ fill: '#83a396', fontSize: 12 }}
+                  label={{ value: 'Stress Rating (0-100)', angle: 90, position: 'insideRight', fill: '#638478', fontSize: 10 }}
                 />
                 <Tooltip content={<CustomTooltip />} />
                 <Legend wrapperStyle={{ fontSize: '12px', paddingTop: '20px' }} />
@@ -397,7 +397,7 @@ export default function ClimateCharts({ climateData }) {
                   yAxisId="temp"
                   dataKey="maxSummerTemp"
                   name="Max Summer Temp (°C)"
-                  fill="#f97316"
+                  fill="#ff9f67"
                   radius={[4, 4, 0, 0]}
                 />
                 <Line
@@ -405,20 +405,20 @@ export default function ClimateCharts({ climateData }) {
                   type="monotone"
                   dataKey="stressRating"
                   name="Biodiversity Stress Rating"
-                  stroke="#dc2626"
+                  stroke="#ff9884"
                   strokeWidth={3}
-                  dot={{ r: 5, fill: '#dc2626' }}
+                  dot={{ r: 5, fill: '#ff9884' }}
                 />
               </ComposedChart>
             </ResponsiveContainer>
           </div>
 
           {/* Detailed Region Breakdown Cards */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 pt-4 border-t border-slate-100">
+          <div className="grid grid-cols-1 gap-3 border-t border-[#1b3a2e] pt-4 sm:grid-cols-2 lg:grid-cols-4">
             {regionalComparisons.map((reg) => (
               <div
                 key={reg.regionId}
-                className="p-3 bg-slate-50 rounded-xl border border-slate-200 text-xs flex flex-col justify-between"
+                className="metric-card flex flex-col justify-between text-xs"
               >
                 <div>
                   <div className="flex justify-between items-center mb-1">
@@ -426,10 +426,10 @@ export default function ClimateCharts({ climateData }) {
                     <span
                       className={`font-mono text-[10px] font-bold px-1.5 py-0.5 rounded ${
                         reg.stressRating >= 85
-                          ? 'bg-red-100 text-red-700'
+                          ? 'bg-[#351f20] text-[#ff9d8a] border border-[#743e39]'
                           : reg.stressRating >= 75
-                          ? 'bg-amber-100 text-amber-700'
-                          : 'bg-emerald-100 text-emerald-700'
+                          ? 'bg-[#332b1d] text-[#ffd184] border border-[#6b552e]'
+                          : 'bg-[#102d22] text-[#9ee7b8] border border-[#285442]'
                       }`}
                     >
                       Stress {reg.stressRating}

@@ -143,7 +143,7 @@ export default function SatelliteSlider() {
               className={`px-4 py-2.5 rounded-xl text-xs font-semibold flex items-center space-x-2 transition-all border ${
                 isSelected
                   ? 'bg-[#0e4d3b] text-white border-[#0e4d3b] shadow-md scale-[1.02]'
-                  : 'bg-white text-[#506359] border-[#dfe8df] hover:border-[#b7d5bc] hover:bg-[#f4faf3]'
+                  : 'bg-[#0b2119] text-[#9db5a8] border-[#1c4032] hover:border-[#73e5cf]/45 hover:bg-[#102d22]'
               }`}
             >
               <Layers className={`w-3.5 h-3.5 ${isSelected ? 'text-emerald-400' : 'text-slate-400'}`} />
@@ -158,10 +158,10 @@ export default function SatelliteSlider() {
         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-2 border-b border-slate-100 pb-4">
           <div>
             <div className="flex items-center space-x-2">
-              <span className="text-xs font-mono uppercase bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded font-bold">
+              <span className="rounded border border-[#285442] bg-[#102d22] px-2 py-0.5 font-mono text-xs font-bold uppercase text-[#9ee7b8]">
                 Sentinel-2 & Landsat Decadal Observation
               </span>
-              <span className="text-xs text-slate-400 font-mono">10-Year Satellite Revisit</span>
+              <span className="font-mono text-xs text-[#668579]">10-Year Satellite Revisit</span>
             </div>
             <h2 className="text-xl font-extrabold text-slate-900 mt-1">
               {selectedHotspot.title}
@@ -171,7 +171,7 @@ export default function SatelliteSlider() {
             </p>
           </div>
 
-          <div className="text-xs font-mono text-slate-500 bg-slate-50 px-3 py-1.5 rounded-lg border border-slate-200 self-start md:self-auto flex items-center space-x-2">
+          <div className="flex items-center space-x-2 self-start rounded-lg border border-[#1c4032] bg-[#091a15] px-3 py-1.5 font-mono text-xs text-[#83a396] md:self-auto">
             <MoveHorizontal className="w-4 h-4 text-emerald-600 animate-pulse" />
             <span>Drag center divider to compare</span>
           </div>

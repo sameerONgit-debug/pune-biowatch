@@ -113,7 +113,7 @@ export default function RegionExplorerPage({
                     className={`p-2.5 rounded-xl text-left border text-xs font-medium transition-all ${
                       isSelected
                         ? 'bg-[#0e4d3b] text-white border-[#0e4d3b] shadow-md scale-[1.02]'
-                        : 'bg-[#f7faf6] text-[#506359] border-[#e2ebe1] hover:bg-[#eef7ed] hover:border-[#bcd7c2]'
+                        : 'bg-[#0b2119] text-[#9db5a8] border-[#1c4032] hover:bg-[#102d22] hover:border-[#73e5cf]/40'
                     }`}
                   >
                     <div className="font-bold truncate">{reg.name}</div>
@@ -228,12 +228,12 @@ export default function RegionExplorerPage({
                 </div>
 
                 {/* Primary Threats Callout */}
-                <div className="bg-amber-50/70 border border-amber-200 rounded-xl p-4">
-                  <div className="text-xs font-mono uppercase tracking-wider text-amber-800 font-bold mb-2 flex items-center space-x-1.5">
-                    <AlertTriangle className="w-4 h-4 text-amber-600" />
+                <div className="bg-[#2b2117] border border-[#6b552e] rounded-2xl p-4">
+                  <div className="text-xs font-mono uppercase tracking-wider text-[#ffd184] font-bold mb-2 flex items-center space-x-1.5">
+                    <AlertTriangle className="w-4 h-4 text-[#ffd184]" />
                     <span>Key Climatic & Anthropogenic Stress Factors</span>
                   </div>
-                  <ul className="space-y-1 text-xs text-amber-950">
+                  <ul className="space-y-1 text-xs text-[#f1d9a1]">
                     {currentRegion.climateSummary.primaryThreats.map((threat, idx) => (
                       <li key={idx} className="flex items-start space-x-2">
                         <span className="text-amber-500 font-bold">•</span>
@@ -292,7 +292,7 @@ export default function RegionExplorerPage({
                       <div
                         key={sp.id}
                         onClick={() => onSelectSpecies(sp)}
-                        className="p-3 bg-slate-50 hover:bg-emerald-50/70 rounded-xl border border-slate-200 transition-all cursor-pointer flex items-center justify-between"
+                        className="flex cursor-pointer items-center justify-between rounded-xl border border-[#1b3c2f] bg-[#0b2119] p-3 transition-all hover:border-[#73e5cf]/40 hover:bg-[#102d22]"
                       >
                         <div>
                           <div className="font-bold text-xs text-slate-900">
@@ -320,13 +320,13 @@ export default function RegionExplorerPage({
                 {regionAlerts.length > 0 && (
                   <div className="pt-2 border-t border-slate-200">
                     <div className="flex items-center justify-between mb-2">
-                      <h4 className="text-xs font-mono uppercase tracking-wider text-rose-700 font-bold flex items-center space-x-1">
-                        <AlertTriangle className="w-3.5 h-3.5 text-rose-600" />
+                      <h4 className="text-xs font-mono uppercase tracking-wider text-[#ff9d8a] font-bold flex items-center space-x-1">
+                        <AlertTriangle className="w-3.5 h-3.5 text-[#ff9884]" />
                         <span>Active Administrative Directives ({regionAlerts.length})</span>
                       </h4>
                       <button
                         onClick={() => setActiveTab('alerts')}
-                        className="text-xs text-rose-700 font-semibold hover:underline"
+                        className="text-xs text-[#ff9d8a] font-semibold hover:underline"
                       >
                         Manage in Admin Panel →
                       </button>
@@ -336,10 +336,10 @@ export default function RegionExplorerPage({
                       {regionAlerts.map((alert) => (
                         <div
                           key={alert.id}
-                          className="p-3 bg-rose-50/60 border border-rose-200/80 rounded-xl text-xs flex items-center justify-between"
+                          className="p-3 bg-[#2b1b1c] border border-[#743e39] rounded-2xl text-xs flex items-center justify-between"
                         >
                           <div>
-                            <div className="font-bold text-rose-950">{alert.speciesName}</div>
+                            <div className="font-bold text-[#ffe0da]">{alert.speciesName}</div>
                             <div className="text-[11px] text-slate-600">{alert.recommendedAction}</div>
                           </div>
                           <div className="ml-2 flex-shrink-0">
